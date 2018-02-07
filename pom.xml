@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lvtong</groupId>
-	<artifactId>ysg</artifactId>
+	<artifactId>ysg-system</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ysg Maven Webapp</name>
+	<name>ysg-system Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<!-- junit -->
@@ -228,6 +228,6 @@
 		<!-- shiro -->
 	</dependencies>
 	<build>
-		<finalName>ysg</finalName>
+		<finalName>ysg-system</finalName>
 	</build>
 </project>
