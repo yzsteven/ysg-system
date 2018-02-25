@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,12 +47,14 @@ public class UserController {
 	private PositionService positionService;
 	
 	@RequestMapping("/search")
+	@RequiresPermissions("user:view")
 	public ModelAndView index(){
 		ModelAndView mav =  new ModelAndView("/users_search");
 		return mav;
 	}
 	
 	@RequestMapping("/add")
+	@RequiresPermissions("user:create")
 	public ModelAndView add(){
 		ModelAndView mav =  new ModelAndView("/users_add");
 		List<Company> companyList = companyService.getCompanyList();
@@ -88,6 +91,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/searchUsers",method=RequestMethod.GET)
 	@ResponseBody
+	@RequiresPermissions("user:view")
 	public HashMap<String, Object> searchUsers(@ModelAttribute PageHelper pageHelper){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		List<User> userList = userService.queryUsersAll(pageHelper);
@@ -108,6 +112,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/doAddUser",method=RequestMethod.POST)
 	@ResponseBody
+	@RequiresPermissions("user:create")
 	public String  addUsers(@ModelAttribute User user){
 		return userService.doAddUser(user);
 	}
@@ -121,6 +126,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/delUser",method=RequestMethod.POST)
 	@ResponseBody
+	@RequiresPermissions("user:delete")
 	public String delUser(@RequestParam String username){
 		return userService.delUser(username);
 	}
@@ -133,6 +139,7 @@ public class UserController {
 	 * TODO
 	 */
 	@RequestMapping("toModify")
+	@RequiresPermissions("user:update")
 	public ModelAndView toModify(@RequestParam String username){
 		User user  = userService.queryUserByUserName(username);
 		List<Company> companyList = companyService.getCompanyList();
@@ -148,6 +155,7 @@ public class UserController {
 	 */
 	@RequestMapping("doModify")
 	@ResponseBody
+	@RequiresPermissions("user:update")
 	public String doModify(@ModelAttribute User user){
 		return userService.doModify(user);
 	}

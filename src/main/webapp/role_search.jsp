@@ -42,7 +42,7 @@
 					<!-- Example Pagination -->
 					<div class="example-wrap">
 						<div class="example">
-							<table id="tb_departments"></table>
+							<table id="roletable"></table>
 						</div>
 					</div>
 					<!-- End Example Pagination -->
@@ -75,8 +75,8 @@
 			var oTableInit = new Object();
 			//初始化Table
 			oTableInit.Init = function() {
-				$('#tb_departments').bootstrapTable({
-					url : '${contextPath}/user/searchUsers', //请求后台的URL（*）
+				$('#roletable').bootstrapTable({
+					url : '${contextPath}/role/searchRoles', //请求后台的URL（*）
 					method : 'get', //请求方式（*）
 					toolbar : '#toolbar', //工具按钮用哪个容器
 					striped : true, //是否显示行间隔色
@@ -101,38 +101,22 @@
 					showToggle : false, //是否显示详细视图和列表视图的切换按钮
 					cardView : false, //是否显示详细视图
 					detailView : false, //是否显示父子表
-					columns : [/*  {
-						checkbox : true
-					},  */{
-						field : 'realname',
-						title : '姓名'
+					columns : [{
+						field : 'id',
+                        title : '编号',
+                        visible : false
 					},{
-						field : 'username',
-						title : '账号'
+						field : 'role',
+						title : '角色名称'
+					},{
+						field : 'description',
+						title : '角色描述'
 					}, {
-						field : 'age',
-						title : '年龄'
+						field : 'company',
+						title : '所属公司'
 					}, {
-						field : 'cardid',
-						title : '身份证号'
-					}, {
-						field : 'phone',
-						title : '手机号'
-					}, {
-						field : 'roleIds',
-						title : '用户角色'
-					}, {
-						field : 'department',
-						title : '部门'
-					}, {
-						field : 'position',
-						title : '职位'
-					}, {
-						field : 'contactname',
-						title : '紧急联系人'
-					}, {
-						field : 'contactphone',
-						title : '紧急联系人号码'
+						field : 'resourceIds',
+						title : '权限'
 					}, {
 						field : 'Button',
 						title : '操作',
@@ -156,7 +140,6 @@
 
 		var ButtonInit = function() {
 			var oInit = new Object();
-			var postdata = {};
 
 			oInit.Init = function() {
 				//初始化页面上面的按钮事件
@@ -167,21 +150,21 @@
 		
 		function operateFormatter(value, row, index) {
 		      return [
-		        '<shiro:hasPermission name="user:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
-		        '<shiro:hasPermission name="user:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
+		        '<shiro:hasPermission name="role:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
+		        '<shiro:hasPermission name="role:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
 		      ].join('');
 		}
 		      
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/user/toModify?username="+row.username;
+		    	    	  window.location.href = "${contextPath}/role/toedit?id="+row.id;
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({
-		    	        		url:"${contextPath}/user/delUser",
+		    	        		url:"${contextPath}/role/delRole",
 		    	        		data:{
-		    	        			username:row.username
+		    	        			id:row.id
 		    	        		},
 		    	        		type:"POST",
 		    	        		success:function(data){
@@ -189,7 +172,7 @@
 		    	        				alert("删除失败!");
 		    	        			}else{
 		    	        				alert("删除成功!");
-		    	        				$("#tb_departments").bootstrapTable('refresh',{url:"${contextPath}/user/searchUsers"});
+		    	        				$("#roletable").bootstrapTable('refresh',{url:"${contextPath}/role/searchRoles"});
 		    	        			}
 		    	        			
 		    	        		}

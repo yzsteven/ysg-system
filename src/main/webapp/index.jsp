@@ -98,7 +98,8 @@
 						</li>
 					</ul>
 				</li> -->
-				
+
+				<shiro:hasPermission name="role:view">
 				<li>
 					<a href="index.html#">
 						<i class="fa fa-globe"></i>
@@ -106,16 +107,18 @@
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
+						<shiro:hasPermission name="role:create">
 						<li>
-						<a class="J_menuItem" href="employee.jsp" data-index="0">角色新增</a>
+						<a class="J_menuItem" href="${contextPath}/role/toadd" data-index="0">角色新增</a>
 						</li>
+						</shiro:hasPermission>
 						<li>
-						<a class="J_menuItem" href="employee.jsp" data-index="0">角色查询</a>
+						<a class="J_menuItem" href="${contextPath}/role/tosearch" data-index="0">角色查询</a>
 						</li>
 					</ul>
 				</li>
-				
-				<li>
+				</shiro:hasPermission>
+				<%--<li>
 					<a href="index.html#">
 						<i class="fa fa-gear"></i>
 						<span class="nav-label">权限管理</span>
@@ -129,7 +132,7 @@
 						<a class="J_menuItem" href="employee.jsp" data-index="0">权限查询</a>
 						</li>
 					</ul>
-				</li>
+				</li>--%>
 				
 				
 				<!--  <li>

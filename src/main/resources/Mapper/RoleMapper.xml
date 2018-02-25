@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.model.Role" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="BIGINT" />
+    <result column="resource_ids" property="resourceIds" jdbcType="VARCHAR" />
+    <result column="available" property="available" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role, description,company, resource_ids, available ,create_time , create_by , update_time , update_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=BIGINT} AND available = 0
+  </select>
+  
+  <select id="selectRolesAll" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where  available = 0 and company = #{companyId,jdbcType=BIGINT}
+  </select>
+  
+   <select id="selectUserRolesAll" resultType="java.lang.String" parameterType="java.lang.String" >
+    select 
+    role
+    from sys_role
+    where id in (#{ids,jdbcType=VARCHAR}) AND available = 0
+  </select>
+
+  <select id="selectRoles" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select
+    r.id as id ,role,description,resource_ids,c.`name` as company
+    from sys_role r
+    inner join sys_company c on r.company = c.id
+    <where>
+      r.available = 0
+      <if test="search!=null and search != ''">
+        AND r.realname like CONCAT(CONCAT('%', #{search}), '%')
+      </if>
+      <if test="company!=null and company != ''">
+        AND r.company = #{company}
+      </if>
+    </where>
+    limit #{start},#{end}
+  </select>
+
+  <select id="selectCountRoleAll" resultType="java.lang.Integer"
+          parameterType="java.util.HashMap">
+    select
+    count(1)
+    from sys_role
+    <where>
+      available = 0
+      <if test="search!=null and search != ''">
+        AND company like CONCAT(CONCAT('%', #{search}), '%')
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.model.Role" >
+    insert into sys_role (id, role, description, 
+      resource_ids, available)
+    values (#{id,jdbcType=BIGINT}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{resourceIds,jdbcType=VARCHAR}, #{available,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Role" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="resourceIds != null" >
+        resource_ids,
+      </if>
+      <if test="available != null" >
+        available,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceIds != null" >
+        #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=BIT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Role" >
+    update sys_role
+    <set >
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceIds != null" >
+        resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        available = #{available,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Role" >
+    update sys_role
+    set role = #{role,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      resource_ids = #{resourceIds,jdbcType=VARCHAR},
+      available = #{available,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

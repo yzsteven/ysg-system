@@ -277,7 +277,8 @@
 
 			$('#role').multiselect({
 				nonSelectedText : "请选择用户权限",
-				allSelectedText : "全部"
+				allSelectedText : "全部",
+                maxHeight:200
 			});
 			
 			reflush();
@@ -294,7 +295,6 @@
 		
 		
 		function reflush(){
-			var jsondata;
 			var companyId = $("#company").val();
 			$.ajax({
 				url : "${contextPath}/user/searchInfoByCompanyId",
@@ -311,7 +311,8 @@
 					$("#position").html(html3);
 					$("#role").multiselect("destroy").multiselect({
 						nonSelectedText : "请选择用户权限",
-						allSelectedText : "全部"
+						allSelectedText : "全部",
+                        maxHeight:200
 					})
 					return;
 				},
@@ -335,6 +336,7 @@
 			var phone = $("#phone").val();
 			var contactname = $("#contactname").val();
 			var contactphone = $("#contactphone").val();
+			var type = 1;// 1 sys 2 app
 			$.ajax({
 				url : "${contextPath}/user/doAddUser",
 				data : {
@@ -351,6 +353,7 @@
 					phone : phone,
 					contactname : contactname,
 					contactphone : contactphone,
+					type : type
 				},
 				type : "POST",
 				success : function(data) {

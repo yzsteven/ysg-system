@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50614
-Source Host           : 127.0.0.1:3306
+Source Server         : demo
+Source Server Version : 50611
+Source Host           : localhost:3306
 Source Database       : ysg
 
 Target Server Type    : MYSQL
-Target Server Version : 50614
+Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2018-02-07 00:22:24
+Date: 2018-02-13 15:50:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -98,23 +98,23 @@ CREATE TABLE `sys_resource` (
   `name` varchar(100) DEFAULT NULL,
   `discription` varchar(100) DEFAULT NULL,
   `permission` varchar(100) DEFAULT NULL,
-  `available` tinyint(1) DEFAULT '0',
+  `available` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_resource
 -- ----------------------------
-INSERT INTO `sys_resource` VALUES ('11', '用户管理', null, 'user:*', '1');
-INSERT INTO `sys_resource` VALUES ('12', '用户新增', null, 'user:create', '1');
-INSERT INTO `sys_resource` VALUES ('13', '用户修改', null, 'user:update', '1');
-INSERT INTO `sys_resource` VALUES ('14', '用户删除', null, 'user:delete', '1');
-INSERT INTO `sys_resource` VALUES ('15', '用户查看', null, 'user:view', '1');
-INSERT INTO `sys_resource` VALUES ('21', '角色管理', null, 'role:*', '1');
-INSERT INTO `sys_resource` VALUES ('22', '角色新增', null, 'role:create', '1');
-INSERT INTO `sys_resource` VALUES ('23', '角色修改', null, 'role:update', '1');
-INSERT INTO `sys_resource` VALUES ('24', '角色删除', null, 'role:delete', '1');
-INSERT INTO `sys_resource` VALUES ('25', '角色查看', null, 'role:view', '1');
+INSERT INTO `sys_resource` VALUES ('11', '用户管理', null, 'user:*', '0');
+INSERT INTO `sys_resource` VALUES ('12', '用户新增', null, 'user:create', '0');
+INSERT INTO `sys_resource` VALUES ('13', '用户修改', null, 'user:update', '0');
+INSERT INTO `sys_resource` VALUES ('14', '用户删除', null, 'user:delete', '0');
+INSERT INTO `sys_resource` VALUES ('15', '用户查看', null, 'user:view', '0');
+INSERT INTO `sys_resource` VALUES ('21', '角色管理', null, 'role:*', '0');
+INSERT INTO `sys_resource` VALUES ('22', '角色新增', null, 'role:create', '0');
+INSERT INTO `sys_resource` VALUES ('23', '角色修改', null, 'role:update', '0');
+INSERT INTO `sys_resource` VALUES ('24', '角色删除', null, 'role:delete', '0');
+INSERT INTO `sys_resource` VALUES ('25', '角色查看', null, 'role:view', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -127,17 +127,18 @@ CREATE TABLE `sys_role` (
   `company` int(10) DEFAULT NULL,
   `resource_ids` varchar(100) DEFAULT NULL,
   `available` tinyint(1) DEFAULT '0',
+  `create_by` varchar(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_by` varchar(20) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_sys_role_resource_ids` (`resource_ids`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', 'admin', '超级管理员', '1', '11,21', '0');
-INSERT INTO `sys_role` VALUES ('2', 'admin2', '超级管理员2', '1', '11,21', '0');
-INSERT INTO `sys_role` VALUES ('3', 'admin3', '超级管理员3', '1', '11,21', '0');
-INSERT INTO `sys_role` VALUES ('4', 'admin4', '超级管理员4', '1', '11,21', '0');
+INSERT INTO `sys_role` VALUES ('1', 'admin', '超级管理员', '1', '11,21', '0', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -161,15 +162,17 @@ CREATE TABLE `sys_user` (
   `locked` tinyint(1) DEFAULT '0',
   `contactname` varchar(30) DEFAULT NULL,
   `contactphone` varchar(11) DEFAULT NULL,
+  `type` int(1) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '默认系统当前时间\r\n',
+  `create_by` varchar(32) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_by` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_sys_user_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3257 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '', '1', '天天', null, '系统管理员', null, null, null, null, null, null, '0', null, null);
-INSERT INTO `sys_user` VALUES ('3253', 'seven', null, null, '2,3', '周洋', '320482199210020512', '1', '1', '1', '风格化', '26', '2', '15151955305', '1', '方大国1', '1514894872');
-INSERT INTO `sys_user` VALUES ('3254', '范德萨个', null, null, '1,2,3', 'fda噶1', '111111111111111111', '1', '1', '1', '嘎哥让1', '26', '1', '1111111', '0', '法国1', '51515481');
-INSERT INTO `sys_user` VALUES ('3255', 'sdsfsa', null, null, '1', 'fdsaga', '431513531461', '1', '1', '1', 'fsadg', '12', '2', '431151', '0', 'fasg', '14321412');
-INSERT INTO `sys_user` VALUES ('3256', 'fsdagag', null, null, '1', '12312', '12313', '1', '1', '1', '13141', '12', '1', '1231', '0', '123124', '1231412');
+INSERT INTO `sys_user` VALUES ('1', 'admin', '582bb853bf3cd0447ba4945bd51521a5', '867fe6308aed551c6e1321f529fa9e07', '1', '哈哈', null, '1', '1', '1', null, null, null, null, '0', null, null, null, '2018-02-09 14:00:52', null, '2018-02-09 14:00:52', null);
+INSERT INTO `sys_user` VALUES ('13', 'zy', 'b03df910354cb041af53a0cee1636f7a', '1f64d5d8b0ec5c4a6df138dae52a26af', '5', '', '', '1', '1', '1', '', '11', '1', '', '0', '', '', '1', '2018-02-13 15:49:14', 'admin', '2018-02-13 15:49:14', null);

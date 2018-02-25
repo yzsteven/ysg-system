@@ -5,15 +5,9 @@ public class Resource {
 
     private String name;
 
-    private String type;
-
-    private String url;
-
-    private Long parentId;
-
     private String permission;
 
-    private Boolean available;
+    private int available;
 
     public Long getId() {
         return id;
@@ -31,30 +25,6 @@ public class Resource {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
     public String getPermission() {
         return permission;
     }
@@ -63,11 +33,11 @@ public class Resource {
         this.permission = permission == null ? null : permission.trim();
     }
 
-    public Boolean getAvailable() {
+    public int getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(int available) {
         this.available = available;
     }
 }

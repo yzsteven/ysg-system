@@ -19,4 +19,7 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyMapper.selectCompanyList();
 	}
 
+	public Company searchCompanyInfo(long id){
+		return companyMapper.selectByPrimaryKey(id);
+	}
 }

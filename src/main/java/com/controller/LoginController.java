@@ -16,6 +16,7 @@ import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
+import org.jsoup.helper.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,11 +49,27 @@ public class LoginController {
 	@RequestMapping(value = "/dologin",method=RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> doLogin(@ModelAttribute User user) {  
-	    String msg = "";  
-	    String userName = user.getUsername();  
-	    String password = user.getPassword();  
 	    HashMap<String, Object> result = new HashMap<String, Object>();
-	    UsernamePasswordToken token = new UsernamePasswordToken(userName, password);  
+	    String msg = "";
+	    String userName = user.getUsername();
+	    String password = user.getPassword();
+
+	    if(StringUtil.isBlank(user.getUsername())){
+			msg = "用户名不能为空";
+			result.put("result", "fail");
+			result.put("msg", msg);
+			return result;
+		}
+
+		if(StringUtil.isBlank(user.getPassword())){
+			msg = "密码不能为空";
+			result.put("result", "fail");
+			result.put("msg", msg);
+			return result;
+		}
+
+
+	    UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
 	    Subject subject = SecurityUtils.getSubject();  
 	    try {  
 	        subject.login(token);  

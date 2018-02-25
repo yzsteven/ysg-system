@@ -277,16 +277,32 @@
 
 			$('#role').multiselect({
 				nonSelectedText : "请选择用户权限",
-				allSelectedText : "全部"
+				allSelectedText : "全部",
+                maxHeight:200
 			});
 			
 			reflush();
-			/*  var selected = [];
-			 $(‘#Items option:selected’).each(function () {
-			 selected.push($(this).val());
-			 }); */
 
+            initdefault();
 		});
+
+		function initdefault(){
+
+            var roleIds = "${user.roleIds}";
+
+            var roleId = roleIds.split(",");
+
+            $('#role option').each(function(i,content){
+                //alert(i+"***"+content.value);
+                if($.inArray($.trim(content.value),roleId)>=0){
+                    this.selected=true;
+                }
+            });
+
+            //设置选中值后，需要刷新select控件
+            $("#role").multiselect('refresh');
+
+		}
 
 		$("#company").change(function() {//选中公司
 			reflush();
@@ -301,6 +317,7 @@
 				data : {
 					companyId : companyId
 				},
+				async : false,
 				type : "GET",
 				success : function(data) {
 					var html = template('urole', data);
@@ -311,7 +328,8 @@
 					$("#position").html(html3);
 					$("#role").multiselect("destroy").multiselect({
 						nonSelectedText : "请选择用户权限",
-						allSelectedText : "全部"
+						allSelectedText : "全部",
+                        maxHeight:200
 					})
 					return;
 				},

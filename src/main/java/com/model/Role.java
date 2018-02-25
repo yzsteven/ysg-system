@@ -1,5 +1,7 @@
 package com.model;
 
+import java.util.Date;
+
 public class Role {
     private Long id;
 
@@ -7,11 +9,19 @@ public class Role {
 
     private String description;
     
-    private long company;
+    private String company;
 
     private String resourceIds;
 
-    private Boolean available;
+    private int available;
+
+    private Date createTime;
+
+    private String createBy;
+
+    private Date updateTime;
+
+    private String updateBy;
 
     public Long getId() {
         return id;
@@ -37,11 +47,11 @@ public class Role {
         this.description = description == null ? null : description.trim();
     }
 
-    public long getCompany() {
+    public String getCompany() {
 		return company;
 	}
 
-	public void setCompany(long company) {
+	public void setCompany(String company) {
 		this.company = company;
 	}
 
@@ -53,11 +63,43 @@ public class Role {
         this.resourceIds = resourceIds == null ? null : resourceIds.trim();
     }
 
-    public Boolean getAvailable() {
+    public int getAvailable() {
         return available;
     }
 
-    public void setAvailable(Boolean available) {
+    public void setAvailable(int available) {
         this.available = available;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
     }
 }
