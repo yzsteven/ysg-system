@@ -13,7 +13,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		/> -->
 
 	<!-- 自动扫描(自动注入) -->
-	<context:component-scan base-package="com.serviceImpl" />
+	<context:component-scan base-package="com" />
 
 	<import resource="classpath:spring-mybatis.xml" />
 
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	<!-- 缓存管理 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
 
-	<bean id="myRealm" class="com.realm.MyRealm">
+	<bean id="myRealm" class="com.system.realm.MyRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
 	</bean>
 

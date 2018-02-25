@@ -74,13 +74,13 @@
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
         <property name="dataSource" ref="dataSource" />  
         <!-- 自动扫描mapping.xml文件 -->  
-        <property name="mapperLocations" value="classpath:/Mapper/*.xml"></property>
+        <property name="mapperLocations" value="classpath:/Mapper/*/*.xml"></property>
     </bean>  
   
         
    <!-- spring与mybatis整合配置，扫描所有dao -->
  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-        p:basePackage="com.dao"
+        p:basePackage="com.system.dao"
         p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
   
    <!-- 对数据源进行事务管理 -->
