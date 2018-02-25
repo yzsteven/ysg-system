@@ -1,0 +1,5 @@
+
+dsquid:UselessImportCheck"BRemove this unused import 'javax.servlet.http.HttpServletRequest'.(ø©¹…
+tsquid:UselessImportCheck"RRemove this unused import 'org.apache.shiro.authz.annotation.RequiresPermissions'.(ëÇ«º
+bsquid:S1192"HDefine a constant instead of duplicating this literal "result" 10 times.(øî…žþÿÿÿÿ
+‡squid:S1319"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(“úŽ×þÿÿÿÿ

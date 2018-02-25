@@ -1,0 +1,11 @@
+
+Isquid:S1481"4Remove this unused "encodedPassword" local variable.(åëÚ
+[squid:S1854"FRemove this useless assignment to local variable "authenticationInfo".(€¨¶£
+msquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ë’–i8òìÉð˜,
+Ssquid:S1135"2Complete the task associated to this TODO comment.(öË…æùÿÿÿÿ8°÷ôð˜,
+Xsquid:S1854"CRemove this useless assignment to local variable "encodedPassword".(åëÚ
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(“Þü¤ûÿÿÿÿ
+Ssquid:S1155">Use isEmpty() to check whether the collection is empty or not.(ýýÔÚ
+Lsquid:S1481"7Remove this unused "authenticationInfo" local variable.(€¨¶£
+tsquid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+\squid:S1192"HDefine a constant instead of duplicating this literal "success" 3 times.(ÇµÝ

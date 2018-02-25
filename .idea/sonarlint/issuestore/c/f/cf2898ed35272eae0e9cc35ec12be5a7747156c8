@@ -1,0 +1,10 @@
+
+]javascript:S1854"7Remove this useless assignment to local variable "that"(×ÂÿÚúÿÿÿÿ8°¢Îí˜,
+^javascript:S1854"8Remove this useless assignment to local variable "order"(ÇÌ¬üÿÿÿÿ8éêÎí˜,
+Xjavascript:S1854"7Remove this useless assignment to local variable "data"(´Ùñí8°¢Îí˜,
+d'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(İ¶—ÿÿÿÿÿÿ8°¢Îí˜,
+_'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(¡ü…¨8éêÎí˜,
+djavascript:UnusedVariable"5Remove the declaration of the unused 'that' variable.(×ÂÿÚúÿÿÿÿ8°¢Îí˜,
+ejavascript:UnusedVariable"6Remove the declaration of the unused 'order' variable.(ÇÌ¬üÿÿÿÿ8éêÎí˜,
+_'javascript:FunctionDefinitionInsideLoop"'Define this function outside of a loop.(é§˜ê8éêÎí˜,
+kjavascript:S3403"KRemove this "===" check; it will always be false. Did you mean to use "=="?(¢ŒÔ8°¢Îí˜,
