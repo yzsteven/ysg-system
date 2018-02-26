@@ -1,4 +1,4 @@
-package com.api.dao;
+package com.api.model;
 
 import java.util.Date;
 

@@ -1,6 +1,7 @@
-package com.dao;
+package com.api.dao;
 
-import com.model.Good;
+
+import com.api.model.Good;
 
 public interface GoodMapper {
     int deleteByPrimaryKey(Long id);

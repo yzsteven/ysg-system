@@ -1,6 +1,7 @@
-package com.dao;
+package com.api.dao;
 
-import com.model.Category;
+
+import com.api.model.Category;
 
 public interface CategoryMapper {
     int deleteByPrimaryKey(Long id);

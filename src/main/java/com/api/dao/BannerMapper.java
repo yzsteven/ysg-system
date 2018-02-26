@@ -1,6 +1,6 @@
-package com.dao;
+package com.api.dao;
 
-import com.model.Banner;
+import com.api.model.Banner;
 
 public interface BannerMapper {
     int deleteByPrimaryKey(Long id);

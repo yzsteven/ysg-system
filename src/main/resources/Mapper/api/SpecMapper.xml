@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.SpecMapper" >
-  <resultMap id="BaseResultMap" type="com.model.Spec" >
+<mapper namespace="com.api.dao.SpecMapper" >
+  <resultMap id="BaseResultMap" type="com.api.model.Spec" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="order" property="order" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     delete from sys_spec
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.model.Spec" >
+  <insert id="insert" parameterType="com.api.model.Spec" >
     insert into sys_spec (id, name, order, 
       gid, price, isdel, create_by, 
       create_time, update_by, update_time
@@ -36,7 +36,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.model.Spec" >
+  <insert id="insertSelective" parameterType="com.api.model.Spec" >
     insert into sys_spec
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -103,7 +103,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.Spec" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Spec" >
     update sys_spec
     <set >
       <if test="name != null" >
@@ -136,7 +136,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.Spec" >
+  <update id="updateByPrimaryKey" parameterType="com.api.model.Spec" >
     update sys_spec
     set name = #{name,jdbcType=VARCHAR},
       order = #{order,jdbcType=VARCHAR},

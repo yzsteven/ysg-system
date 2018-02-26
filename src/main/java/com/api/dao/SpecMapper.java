@@ -1,6 +1,7 @@
-package com.dao;
+package com.api.dao;
 
-import com.model.Spec;
+
+import com.api.model.Spec;
 
 public interface SpecMapper {
     int deleteByPrimaryKey(Long id);

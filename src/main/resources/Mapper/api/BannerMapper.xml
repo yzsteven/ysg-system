@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dao.BannerMapper" >
-  <resultMap id="BaseResultMap" type="com.model.Banner" >
+<mapper namespace="com.api.dao.BannerMapper" >
+  <resultMap id="BaseResultMap" type="com.api.model.Banner" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     delete from sys_banner
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.model.Banner" >
+  <insert id="insert" parameterType="com.api.model.Banner" >
     insert into sys_banner (id, name, description, 
       imgurl, linkurl, type, 
       isdel, create_time, create_by, 
@@ -38,7 +38,7 @@
       #{isdel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.model.Banner" >
+  <insert id="insertSelective" parameterType="com.api.model.Banner" >
     insert into sys_banner
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.model.Banner" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Banner" >
     update sys_banner
     <set >
       <if test="name != null" >
@@ -147,7 +147,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.Banner" >
+  <update id="updateByPrimaryKey" parameterType="com.api.model.Banner" >
     update sys_banner
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
