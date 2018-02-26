@@ -1,7 +1,0 @@
-
-Zsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(ãþõÂ8“§…¿˜,
-ksquid:UselessImportCheck"=Remove this unused import 'org.apache.shiro.subject.Subject'.(ÿ­ëêøÿÿÿÿ8ÐÉ”¿˜,
-dsquid:UselessImportCheck";Remove this unused import 'org.apache.shiro.SecurityUtils'.(ý™žß8ÐÉ”¿˜,
-rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(“Þü¤ûÿÿÿÿ
-{squid:S1149"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰8ªÚ„¿˜,
-csquid:S1192"HDefine a constant instead of duplicating this literal "success" 3 times.(ÇµÝ8ÃãÇ¿˜,
