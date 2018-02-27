@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : demo
-Source Server Version : 50611
-Source Host           : localhost:3306
+Source Server         : localhost
+Source Server Version : 50614
+Source Host           : 127.0.0.1:3306
 Source Database       : ysg
 
 Target Server Type    : MYSQL
-Target Server Version : 50611
+Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2018-02-27 21:06:41
+Date: 2018-02-28 00:31:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `sys_banner`
+-- Table structure for sys_banner
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_banner`;
 CREATE TABLE `sys_banner` (
@@ -44,7 +44,7 @@ INSERT INTO `sys_banner` VALUES ('2', 'test2', 'fdsag', 'fdsafga', 'fdasgf', '1'
 INSERT INTO `sys_banner` VALUES ('3', 'test3', 'fdsage', 'fdsqgq', 'fdswqg', '1', '3', '1', '0', '2018-02-27 13:28:20', 'zy', '2018-02-27 13:28:20', null);
 
 -- ----------------------------
--- Table structure for `sys_category`
+-- Table structure for sys_category
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_category`;
 CREATE TABLE `sys_category` (
@@ -65,7 +65,7 @@ CREATE TABLE `sys_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `sys_company`
+-- Table structure for sys_company
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_company`;
 CREATE TABLE `sys_company` (
@@ -89,7 +89,7 @@ CREATE TABLE `sys_company` (
 INSERT INTO `sys_company` VALUES ('1', 'ysg', 'ysg', 'rtetreq', 'tret', '1', '0', '2018-01-27 15:57:36', 'zy', '2018-01-27 15:57:40', 'dasgag');
 
 -- ----------------------------
--- Table structure for `sys_department`
+-- Table structure for sys_department
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
@@ -115,7 +115,7 @@ INSERT INTO `sys_department` VALUES ('5', 'FAGEG5', '2', '0', '2018-01-27 16:05:
 INSERT INTO `sys_department` VALUES ('6', 'FAGEG6', '2', '0', '2018-01-27 16:05:04', 'FDSAG', '2018-01-27 16:05:39', 'FDAGA');
 
 -- ----------------------------
--- Table structure for `sys_good`
+-- Table structure for sys_good
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_good`;
 CREATE TABLE `sys_good` (
@@ -143,11 +143,11 @@ CREATE TABLE `sys_good` (
 -- ----------------------------
 -- Records of sys_good
 -- ----------------------------
-INSERT INTO `sys_good` VALUES ('1', '大米', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null);
-INSERT INTO `sys_good` VALUES ('2', '油', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('1', '大米', null, null, null, null, null, null, null, '1', null, null, '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('2', '油', null, null, null, null, null, null, null, '1', null, null, '0', '1', null, null, null, null);
 
 -- ----------------------------
--- Table structure for `sys_position`
+-- Table structure for sys_position
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
 CREATE TABLE `sys_position` (
@@ -169,7 +169,7 @@ INSERT INTO `sys_position` VALUES ('1', 'test1', '1', '0', '2018-01-28 14:47:49'
 INSERT INTO `sys_position` VALUES ('2', 'test2', '1', '0', '2018-01-28 14:47:49', 'fdsag', '2018-01-28 14:47:46', 'fdagag');
 
 -- ----------------------------
--- Table structure for `sys_resource`
+-- Table structure for sys_resource
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_resource`;
 CREATE TABLE `sys_resource` (
@@ -196,7 +196,7 @@ INSERT INTO `sys_resource` VALUES ('24', '角色删除', null, 'role:delete', '0
 INSERT INTO `sys_resource` VALUES ('25', '角色查看', null, 'role:view', '0');
 
 -- ----------------------------
--- Table structure for `sys_role`
+-- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
@@ -218,10 +218,10 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', 'admin', '超级管理员', '1', '11,21', '0', null, null, null, null);
-INSERT INTO `sys_role` VALUES ('2', '哈哈', null, null, '11,21', '0', null, null, null, null);
+INSERT INTO `sys_role` VALUES ('2', '哈哈', '小管理', '1', '11,21', '0', null, null, null, null);
 
 -- ----------------------------
--- Table structure for `sys_spec`
+-- Table structure for sys_spec
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_spec`;
 CREATE TABLE `sys_spec` (
@@ -236,16 +236,18 @@ CREATE TABLE `sys_spec` (
   `update_by` varchar(25) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_spec
 -- ----------------------------
 INSERT INTO `sys_spec` VALUES ('1', '小', '1', '1', '10.00', '0', null, null, null, null);
 INSERT INTO `sys_spec` VALUES ('2', '大', '2', '1', '20.00', '0', null, null, null, null);
+INSERT INTO `sys_spec` VALUES ('3', '100', '1', '2', '10.00', '0', '', '2018-02-28 00:26:59', '', '2018-02-28 00:27:04');
+INSERT INTO `sys_spec` VALUES ('4', '200', '2', '2', '20.00', '0', '', '2018-02-28 00:27:01', '', '2018-02-28 00:27:06');
 
 -- ----------------------------
--- Table structure for `sys_user`
+-- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
