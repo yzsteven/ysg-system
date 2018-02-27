@@ -2,6 +2,9 @@ package com.api.dao;
 
 import com.api.model.Banner;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface BannerMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +17,6 @@ public interface BannerMapper {
     int updateByPrimaryKeySelective(Banner record);
 
     int updateByPrimaryKey(Banner record);
+
+    List<Banner> selectBannerList(HashMap<String,Object> param);
 }

@@ -50,24 +50,4 @@ http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 			<value>4096</value>
 		</property>
 	</bean>
-
-	<!-- 开启Shiro的注解(如@RequiresRoles，@RequiresPermissions)，需借助SpringAOP扫描使用Shiro注解的类， 
-		并在必要时进行安全逻辑验证 -->
-	<!-- Support Shiro Annotation -->
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="org.apache.shiro.authz.UnauthorizedException">shiro-test/refuse</prop>
-			</props>
-		</property>
-	</bean>
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor" />
-	<bean
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
-
 </beans>

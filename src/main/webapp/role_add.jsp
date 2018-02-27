@@ -206,7 +206,6 @@
 			var role = $("#role").val();
 			var description = $("#description").val();
 			var resourceIds = $("#resourceIds").val();
-			alert(resourceIds);
 			var company = $("#company").val();
 
 			$.ajax({

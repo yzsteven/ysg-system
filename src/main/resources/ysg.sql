@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50614
-Source Host           : 127.0.0.1:3306
+Source Server         : demo
+Source Server Version : 50611
+Source Host           : localhost:3306
 Source Database       : ysg
 
 Target Server Type    : MYSQL
-Target Server Version : 50614
+Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2018-02-27 00:04:18
+Date: 2018-02-27 21:06:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for sys_banner
+-- Table structure for `sys_banner`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_banner`;
 CREATE TABLE `sys_banner` (
@@ -26,20 +26,25 @@ CREATE TABLE `sys_banner` (
   `imgurl` varchar(100) DEFAULT NULL,
   `linkurl` varchar(100) DEFAULT NULL,
   `type` varchar(1) DEFAULT NULL COMMENT '1，主页 2，新品 3，推荐 4，精选',
+  `order` int(3) DEFAULT NULL,
+  `cid` bigint(25) DEFAULT NULL COMMENT '店铺id',
   `isdel` int(1) DEFAULT '0',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `create_by` varchar(25) DEFAULT NULL,
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_by` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_banner
 -- ----------------------------
+INSERT INTO `sys_banner` VALUES ('1', 'test1', 'fsdagf', '123ewrq', 'rewqt', '1', '1', '1', '0', '2018-02-27 13:26:51', 'zy', '2018-02-27 13:26:51', null);
+INSERT INTO `sys_banner` VALUES ('2', 'test2', 'fdsag', 'fdsafga', 'fdasgf', '1', '2', '1', '0', '2018-02-27 13:27:50', 'zy', '2018-02-27 13:27:50', null);
+INSERT INTO `sys_banner` VALUES ('3', 'test3', 'fdsage', 'fdsqgq', 'fdswqg', '1', '3', '1', '0', '2018-02-27 13:28:20', 'zy', '2018-02-27 13:28:20', null);
 
 -- ----------------------------
--- Table structure for sys_category
+-- Table structure for `sys_category`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_category`;
 CREATE TABLE `sys_category` (
@@ -60,7 +65,7 @@ CREATE TABLE `sys_category` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_company
+-- Table structure for `sys_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_company`;
 CREATE TABLE `sys_company` (
@@ -84,7 +89,7 @@ CREATE TABLE `sys_company` (
 INSERT INTO `sys_company` VALUES ('1', 'ysg', 'ysg', 'rtetreq', 'tret', '1', '0', '2018-01-27 15:57:36', 'zy', '2018-01-27 15:57:40', 'dasgag');
 
 -- ----------------------------
--- Table structure for sys_department
+-- Table structure for `sys_department`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
@@ -110,7 +115,7 @@ INSERT INTO `sys_department` VALUES ('5', 'FAGEG5', '2', '0', '2018-01-27 16:05:
 INSERT INTO `sys_department` VALUES ('6', 'FAGEG6', '2', '0', '2018-01-27 16:05:04', 'FDSAG', '2018-01-27 16:05:39', 'FDAGA');
 
 -- ----------------------------
--- Table structure for sys_good
+-- Table structure for `sys_good`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_good`;
 CREATE TABLE `sys_good` (
@@ -127,20 +132,22 @@ CREATE TABLE `sys_good` (
   `isRecommend` int(1) DEFAULT NULL,
   `isSelected` int(1) DEFAULT NULL,
   `isdel` int(1) DEFAULT NULL,
-  `cid` bigint(20) DEFAULT NULL COMMENT '分类编号',
+  `cid` bigint(20) DEFAULT NULL COMMENT '商铺编号',
   `create_by` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` varchar(50) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_good
 -- ----------------------------
+INSERT INTO `sys_good` VALUES ('1', '大米', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('2', '油', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null);
 
 -- ----------------------------
--- Table structure for sys_position
+-- Table structure for `sys_position`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_position`;
 CREATE TABLE `sys_position` (
@@ -162,7 +169,7 @@ INSERT INTO `sys_position` VALUES ('1', 'test1', '1', '0', '2018-01-28 14:47:49'
 INSERT INTO `sys_position` VALUES ('2', 'test2', '1', '0', '2018-01-28 14:47:49', 'fdsag', '2018-01-28 14:47:46', 'fdagag');
 
 -- ----------------------------
--- Table structure for sys_resource
+-- Table structure for `sys_resource`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_resource`;
 CREATE TABLE `sys_resource` (
@@ -189,7 +196,7 @@ INSERT INTO `sys_resource` VALUES ('24', '角色删除', null, 'role:delete', '0
 INSERT INTO `sys_resource` VALUES ('25', '角色查看', null, 'role:view', '0');
 
 -- ----------------------------
--- Table structure for sys_role
+-- Table structure for `sys_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
@@ -205,15 +212,16 @@ CREATE TABLE `sys_role` (
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_sys_role_resource_ids` (`resource_ids`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('1', 'admin', '超级管理员', '1', '11,21', '0', null, null, null, null);
+INSERT INTO `sys_role` VALUES ('2', '哈哈', null, null, '11,21', '0', null, null, null, null);
 
 -- ----------------------------
--- Table structure for sys_spec
+-- Table structure for `sys_spec`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_spec`;
 CREATE TABLE `sys_spec` (
@@ -228,14 +236,16 @@ CREATE TABLE `sys_spec` (
   `update_by` varchar(25) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_spec
 -- ----------------------------
+INSERT INTO `sys_spec` VALUES ('1', '小', '1', '1', '10.00', '0', null, null, null, null);
+INSERT INTO `sys_spec` VALUES ('2', '大', '2', '1', '20.00', '0', null, null, null, null);
 
 -- ----------------------------
--- Table structure for sys_user
+-- Table structure for `sys_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (

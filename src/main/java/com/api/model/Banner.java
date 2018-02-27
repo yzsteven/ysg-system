@@ -15,6 +15,10 @@ public class Banner {
 
     private String type;
 
+    private int order;
+
+    private Long cid;
+
     private Integer isdel;
 
     private Date createTime;
@@ -71,6 +75,22 @@ public class Banner {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public Long getCid() {
+        return cid;
+    }
+
+    public void setCid(Long cid) {
+        this.cid = cid;
     }
 
     public Integer getIsdel() {

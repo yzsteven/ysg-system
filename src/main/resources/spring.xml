@@ -1,64 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.0.xsd
 ">
 
-	<!-- 引入属性文件 -->
-	<!-- <context:property-placeholder location="classpath:config.properties" 
-		/> -->
+    <!-- 引入属性文件 -->
+    <!-- <context:property-placeholder location="classpath:config.properties"
+        /> -->
 
-	<!-- 自动扫描(自动注入) -->
-	<context:component-scan base-package="com" />
+    <!-- 自动扫描(自动注入) -->
+    <context:component-scan base-package="com"/>
 
-	<import resource="classpath:spring-mybatis.xml" />
+    <import resource="classpath:spring-mybatis.xml"/>
 
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
 
-	<!-- 缓存管理 -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
+    <!-- 缓存管理 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
 
-	<bean id="myRealm" class="com.system.realm.MyRealm">
-		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
-	</bean>
+    <bean id="myRealm" class="com.system.realm.MyRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
 
-	<bean id="credentialsMatcher"
-		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-		<property name="hashAlgorithmName" value="MD5" />
-		<property name="hashIterations" value="2" />
-	</bean>
+    <bean id="credentialsMatcher"
+          class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="MD5"/>
+        <property name="hashIterations" value="2"/>
+    </bean>
 
-	<!-- Shiro安全管理器 -->
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="myRealm"></property>
-		<property name="cacheManager" ref="cacheManager"></property>
-	</bean>
+    <!-- Shiro安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myRealm"></property>
+        <property name="cacheManager" ref="cacheManager"></property>
+    </bean>
 
 
-	<!-- Shiro主过滤器本身功能十分强大，其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 Web应用中，Shiro可控制的Web请求必须经过Shiro主过滤器的拦截，Shiro对基于Spring的Web应用提供了完美的支持 -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<property name="securityManager" ref="securityManager"></property>
-		<!-- 要求登录时的链接(登录页面地址)，非必须的属性，默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
-		<!-- <property name="loginUrl" value="/security/login"></property> -->
-		<!-- 登录成功后要跳转的连接(本例中此属性用不到，因为登录成功后的处理逻辑在LoginController里硬编码) -->
-		<!-- <property name="successUrl" value="/" ></property> -->
-		<!-- 用户访问未对其授权的资源时，所显示的连接 -->
-		<property name="unauthorizedUrl" value="/500.html"></property>
-		<property name="filterChainDefinitions">
-			<value>
-				/css/**= anon
-				/img/**= anon
-				/js/**= anon
-				/fonts/**= anon
-				/plugins/**= anon
-				/500.html= anon
-				/dologin/**= anon
-				/**=authc
-			</value>
-		</property>
-	</bean>
+    <!-- Shiro主过滤器本身功能十分强大，其强大之处就在于它支持任何基于URL路径表达式的、自定义的过滤器的执行 Web应用中，Shiro可控制的Web请求必须经过Shiro主过滤器的拦截，Shiro对基于Spring的Web应用提供了完美的支持 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"></property>
+        <!-- 要求登录时的链接(登录页面地址)，非必须的属性，默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
+        <!-- <property name="loginUrl" value="/security/login"></property> -->
+        <!-- 登录成功后要跳转的连接(本例中此属性用不到，因为登录成功后的处理逻辑在LoginController里硬编码) -->
+        <!-- <property name="successUrl" value="/" ></property> -->
+        <!-- 用户访问未对其授权的资源时，所显示的连接 -->
+        <property name="unauthorizedUrl" value="/500.html"></property>
+        <property name="filterChainDefinitions">
+            <value>
+                /shop/**= anon
+                /css/**= anon
+                /img/**= anon
+                /js/**= anon
+                /fonts/**= anon
+                /plugins/**= anon
+                /500.html= anon
+                /dologin/**= anon
+                /**=authc
+            </value>
+        </property>
+    </bean>
+
+    <bean   class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor"/>
+    <bean
+            class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 开启Shiro的注解(如@RequiresRoles，@RequiresPermissions)，需借助SpringAOP扫描使用Shiro注解的类，
+        并在必要时进行安全逻辑验证 -->
+    <!-- Support Shiro Annotation -->
+    <bean
+            class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">shiro-test/refuse</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
