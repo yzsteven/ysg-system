@@ -22,6 +22,12 @@
     from sys_spec
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectPriceByGid"  resultType="java.util.HashMap" parameterType="java.lang.Long">
+    select `name` as spec,price from sys_spec where gid = #{id,jdbcType=BIGINT} and isdel = 0
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_spec
     where id = #{id,jdbcType=BIGINT}

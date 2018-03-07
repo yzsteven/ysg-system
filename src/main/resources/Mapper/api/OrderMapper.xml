@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.api.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.api.model.Order" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="orderNo" property="orderno" jdbcType="VARCHAR" />
+    <result column="goodsInfo" property="goodsinfo" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="totalPrice" property="totalprice" jdbcType="DECIMAL" />
+    <result column="payPrice" property="payprice" jdbcType="DECIMAL" />
+    <result column="payNo" property="payno" jdbcType="VARCHAR" />
+    <result column="paytime" property="paytime" jdbcType="TIMESTAMP" />
+    <result column="paytype" property="paytype" jdbcType="INTEGER" />
+    <result column="expressFee" property="expressfee" jdbcType="DECIMAL" />
+    <result column="contactName" property="contactname" jdbcType="VARCHAR" />
+    <result column="contactPhone" property="contactphone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, orderNo, goodsInfo, cid, totalPrice, payPrice, payNo, paytime, paytype, expressFee, 
+    contactName, contactPhone, address, isdel, create_by, create_time, update_by, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.api.model.Order" >
+    insert into sys_order (id, orderNo, goodsInfo, 
+      cid, totalPrice, payPrice, 
+      payNo, paytime, paytype, 
+      expressFee, contactName, contactPhone, 
+      address, isdel, create_by, 
+      create_time, update_by, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderno,jdbcType=VARCHAR}, #{goodsinfo,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=BIGINT}, #{totalprice,jdbcType=DECIMAL}, #{payprice,jdbcType=DECIMAL}, 
+      #{payno,jdbcType=VARCHAR}, #{paytime,jdbcType=TIMESTAMP}, #{paytype,jdbcType=INTEGER}, 
+      #{expressfee,jdbcType=DECIMAL}, #{contactname,jdbcType=VARCHAR}, #{contactphone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{isdel,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.api.model.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into sys_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderno != null" >
+        orderNo,
+      </if>
+      <if test="goodsinfo != null" >
+        goodsInfo,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="totalprice != null" >
+        totalPrice,
+      </if>
+      <if test="payprice != null" >
+        payPrice,
+      </if>
+      <if test="payno != null" >
+        payNo,
+      </if>
+      <if test="paytime != null" >
+        paytime,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+      <if test="expressfee != null" >
+        expressFee,
+      </if>
+      <if test="contactname != null" >
+        contactName,
+      </if>
+      <if test="contactphone != null" >
+        contactPhone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="isdel != null" >
+        isdel,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsinfo != null" >
+        #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="totalprice != null" >
+        #{totalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="payprice != null" >
+        #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="payno != null" >
+        #{payno,jdbcType=VARCHAR},
+      </if>
+      <if test="paytime != null" >
+        #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="expressfee != null" >
+        #{expressfee,jdbcType=DECIMAL},
+      </if>
+      <if test="contactname != null" >
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null" >
+        #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Order" >
+    update sys_order
+    <set >
+      <if test="orderno != null" >
+        orderNo = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsinfo != null" >
+        goodsInfo = #{goodsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="totalprice != null" >
+        totalPrice = #{totalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="payprice != null" >
+        payPrice = #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="payno != null" >
+        payNo = #{payno,jdbcType=VARCHAR},
+      </if>
+      <if test="paytime != null" >
+        paytime = #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=INTEGER},
+      </if>
+      <if test="expressfee != null" >
+        expressFee = #{expressfee,jdbcType=DECIMAL},
+      </if>
+      <if test="contactname != null" >
+        contactName = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null" >
+        contactPhone = #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null" >
+        isdel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.api.model.Order" >
+    update sys_order
+    set orderNo = #{orderno,jdbcType=VARCHAR},
+      goodsInfo = #{goodsinfo,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=BIGINT},
+      totalPrice = #{totalprice,jdbcType=DECIMAL},
+      payPrice = #{payprice,jdbcType=DECIMAL},
+      payNo = #{payno,jdbcType=VARCHAR},
+      paytime = #{paytime,jdbcType=TIMESTAMP},
+      paytype = #{paytype,jdbcType=INTEGER},
+      expressFee = #{expressfee,jdbcType=DECIMAL},
+      contactName = #{contactname,jdbcType=VARCHAR},
+      contactPhone = #{contactphone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -3,6 +3,9 @@ package com.api.dao;
 
 import com.api.model.Category;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface CategoryMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -15,4 +18,6 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    List<HashMap<String,Object>> selectCategoryList(Long cid);
 }

@@ -32,6 +32,17 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="selectGoodListByCategory" resultType="java.util.HashMap" parameterType="java.lang.Long">
+    SELECT
+	`name`,
+	IFNULL(coverImg,"") AS thumb
+    FROM
+        sys_good
+    WHERE
+        isdel = 0
+    AND categoryId = #{categoryid,jdbcType=BIGINT}
+  </select>
+
   <select id="selectGoodsList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
     SELECT IFNULL(g.id,"") as id,IFNULL(g.name,"") as name,IFNULL(g.coverImg,"") as coverImg,IFNULL(g.coverImg,"") as coverImg,IFNULL(s.`name`,"") as spec,IFNULL(s.price,"") as price
     FROM sys_good g LEFT JOIN sys_spec s on g.id = s.gid WHERE g.cid = 1 and g.isdel = 0 and s.isdel = 0 and s.`order` = 1
@@ -44,6 +55,24 @@
     <if test="isselected != null" >
       AND isSelected = #{isselected,jdbcType=INTEGER}
     </if>
+  </select>
+
+  <select id="selectGoodInfo" resultType="java.util.HashMap" parameterType="java.lang.Long">
+      SELECT
+      g.id AS id,
+      g.`name` AS title,
+      g.stock,
+      g.detail,
+      g.parameter,
+      g.service,
+      GROUP_CONCAT(p.url) as images
+      FROM
+          sys_good g
+      INNER JOIN sys_picture p ON g.id = p.gid
+      WHERE
+          p.isdel = 0
+      AND g.isdel = 0
+      AND g.id = #{id,jdbcType=BIGINT}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

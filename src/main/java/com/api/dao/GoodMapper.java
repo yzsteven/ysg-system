@@ -20,4 +20,8 @@ public interface GoodMapper {
     int updateByPrimaryKey(Good record);
 
     List<HashMap<String,Object>> selectGoodsList(HashMap<String,Object> param);
+
+    HashMap<String,Object> selectGoodInfo(Long id);
+
+    List<HashMap<String,Object>> selectGoodListByCategory(Long id);
 }

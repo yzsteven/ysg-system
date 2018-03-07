@@ -8,5 +8,9 @@ import java.util.List;
  */
 public interface GoodService {
 
-    public List<HashMap<String,Object>> queryGoodsList(String cid, int type);
+    public List<HashMap<String,Object>> queryGoodsList(Long cid, int type);
+
+    public HashMap<String,Object> queryGoodDetail(Long id);
+
+    public List<HashMap<String,Object>> queryGoodListByCategory(Long id);
 }

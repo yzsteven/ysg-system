@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50614
-Source Host           : 127.0.0.1:3306
+Source Server         : demo
+Source Server Version : 50611
+Source Host           : localhost:3306
 Source Database       : ysg
 
 Target Server Type    : MYSQL
-Target Server Version : 50614
+Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2018-02-28 00:31:08
+Date: 2018-03-06 19:30:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `sys_banner` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_by` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_banner
@@ -42,6 +42,7 @@ CREATE TABLE `sys_banner` (
 INSERT INTO `sys_banner` VALUES ('1', 'test1', 'fsdagf', '123ewrq', 'rewqt', '1', '1', '1', '0', '2018-02-27 13:26:51', 'zy', '2018-02-27 13:26:51', null);
 INSERT INTO `sys_banner` VALUES ('2', 'test2', 'fdsag', 'fdsafga', 'fdasgf', '1', '2', '1', '0', '2018-02-27 13:27:50', 'zy', '2018-02-27 13:27:50', null);
 INSERT INTO `sys_banner` VALUES ('3', 'test3', 'fdsage', 'fdsqgq', 'fdswqg', '1', '3', '1', '0', '2018-02-27 13:28:20', 'zy', '2018-02-27 13:28:20', null);
+INSERT INTO `sys_banner` VALUES ('4', 'test4', 'ssssss', 'ssss', 'ssss', '2', '1', '1', '0', '2018-02-28 15:10:26', null, '2018-02-28 15:10:26', null);
 
 -- ----------------------------
 -- Table structure for sys_category
@@ -52,17 +53,22 @@ CREATE TABLE `sys_category` (
   `name` varchar(20) DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
   `parentId` bigint(20) DEFAULT NULL,
+  `banner` varchar(100) DEFAULT NULL,
+  `cid` bigint(25) DEFAULT NULL,
+  `order` int(5) DEFAULT NULL,
   `isdel` int(1) DEFAULT NULL,
   `create_by` varchar(25) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` varchar(25) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_category
 -- ----------------------------
+INSERT INTO `sys_category` VALUES ('1', '粮食', 'liangshi', null, '试试', '1', '1', '0', null, null, null, null);
+INSERT INTO `sys_category` VALUES ('2', '玩具', 'wanju', null, '试试2', '1', '2', '0', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for sys_company
@@ -138,13 +144,93 @@ CREATE TABLE `sys_good` (
   `update_by` varchar(50) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_good
 -- ----------------------------
-INSERT INTO `sys_good` VALUES ('1', '大米', null, null, null, null, null, null, null, '1', null, null, '0', '1', null, null, null, null);
-INSERT INTO `sys_good` VALUES ('2', '油', null, null, null, null, null, null, null, '1', null, null, '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('1', '大米', null, '1,2,3', null, null, null, null, '1', '1', '1', '1', '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('2', '油', null, null, null, null, null, null, '1', '1', '1', '1', '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('3', '玉米', null, null, null, null, null, null, '1', '1', '1', '1', '0', '1', null, null, null, null);
+INSERT INTO `sys_good` VALUES ('4', '汽车', null, '1,2,3', null, null, null, null, '2', '1', '1', '1', '0', '1', null, null, null, null);
+
+-- ----------------------------
+-- Table structure for sys_order
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_order`;
+CREATE TABLE `sys_order` (
+  `id` bigint(25) NOT NULL,
+  `orderNo` varchar(50) DEFAULT NULL,
+  `goodsInfo` varchar(50) DEFAULT NULL,
+  `cid` bigint(25) DEFAULT NULL,
+  `totalPrice` decimal(10,2) DEFAULT NULL,
+  `payPrice` decimal(10,2) DEFAULT NULL,
+  `payNo` varchar(50) DEFAULT NULL,
+  `paytime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `paytype` int(1) DEFAULT NULL,
+  `expressFee` decimal(10,0) DEFAULT NULL,
+  `contactName` varchar(50) DEFAULT NULL,
+  `contactPhone` varchar(11) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `isdel` int(1) DEFAULT NULL,
+  `create_by` varchar(50) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_by` varchar(50) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_order
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_order_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_order_goods`;
+CREATE TABLE `sys_order_goods` (
+  `id` bigint(20) NOT NULL,
+  `orderId` bigint(20) DEFAULT NULL,
+  `gid` bigint(20) DEFAULT NULL,
+  `spec` varchar(20) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `num` int(5) DEFAULT NULL,
+  `isdel` int(1) DEFAULT NULL,
+  `create_by` varchar(25) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_by` varchar(25) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_order_goods
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sys_picture
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_picture`;
+CREATE TABLE `sys_picture` (
+  `id` bigint(25) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `gid` bigint(25) DEFAULT NULL,
+  `isdel` varchar(1) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` varchar(25) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_by` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_picture
+-- ----------------------------
+INSERT INTO `sys_picture` VALUES ('1', 'test1', 'test1', 'faga1', '1', '0', '2018-03-01 14:25:05', null, '2018-03-01 14:25:05', null);
+INSERT INTO `sys_picture` VALUES ('2', 'test2', 'test2', 'faga2', '1', '0', '2018-03-01 14:25:02', null, '2018-03-01 14:25:02', null);
+INSERT INTO `sys_picture` VALUES ('3', 'test3', 'test3', 'faga3', '1', '0', '2018-03-01 14:25:03', null, '2018-03-01 14:25:03', null);
 
 -- ----------------------------
 -- Table structure for sys_position
@@ -236,7 +322,7 @@ CREATE TABLE `sys_spec` (
   `update_by` varchar(25) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_spec
@@ -245,6 +331,8 @@ INSERT INTO `sys_spec` VALUES ('1', '小', '1', '1', '10.00', '0', null, null, n
 INSERT INTO `sys_spec` VALUES ('2', '大', '2', '1', '20.00', '0', null, null, null, null);
 INSERT INTO `sys_spec` VALUES ('3', '100', '1', '2', '10.00', '0', '', '2018-02-28 00:26:59', '', '2018-02-28 00:27:04');
 INSERT INTO `sys_spec` VALUES ('4', '200', '2', '2', '20.00', '0', '', '2018-02-28 00:27:01', '', '2018-02-28 00:27:06');
+INSERT INTO `sys_spec` VALUES ('5', '365', '1', '3', '15.00', '0', null, null, null, null);
+INSERT INTO `sys_spec` VALUES ('6', '500', '2', '3', '25.00', '0', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for sys_user

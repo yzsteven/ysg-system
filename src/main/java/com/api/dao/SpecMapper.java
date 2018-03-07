@@ -3,6 +3,9 @@ package com.api.dao;
 
 import com.api.model.Spec;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface SpecMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -15,4 +18,6 @@ public interface SpecMapper {
     int updateByPrimaryKeySelective(Spec record);
 
     int updateByPrimaryKey(Spec record);
+
+    List<HashMap<String,Object>> selectPriceByGid(Long id);
 }
