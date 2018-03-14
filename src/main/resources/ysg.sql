@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : demo
-Source Server Version : 50611
-Source Host           : localhost:3306
+Source Server         : localhost
+Source Server Version : 50614
+Source Host           : 127.0.0.1:3306
 Source Database       : ysg
 
 Target Server Type    : MYSQL
-Target Server Version : 50611
+Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2018-03-06 19:30:55
+Date: 2018-03-14 23:43:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -140,9 +140,9 @@ CREATE TABLE `sys_good` (
   `isdel` int(1) DEFAULT NULL,
   `cid` bigint(20) DEFAULT NULL COMMENT '商铺编号',
   `create_by` varchar(50) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_by` varchar(50) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -159,7 +159,7 @@ INSERT INTO `sys_good` VALUES ('4', '汽车', null, '1,2,3', null, null, null, n
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_order`;
 CREATE TABLE `sys_order` (
-  `id` bigint(25) NOT NULL,
+  `id` bigint(25) NOT NULL AUTO_INCREMENT,
   `orderNo` varchar(50) DEFAULT NULL,
   `goodsInfo` varchar(50) DEFAULT NULL,
   `cid` bigint(25) DEFAULT NULL,
@@ -172,40 +172,48 @@ CREATE TABLE `sys_order` (
   `contactName` varchar(50) DEFAULT NULL,
   `contactPhone` varchar(11) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
-  `isdel` int(1) DEFAULT NULL,
+  `isdel` int(1) DEFAULT '0',
   `create_by` varchar(50) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_by` varchar(50) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_order
 -- ----------------------------
+INSERT INTO `sys_order` VALUES ('1', '53f97653-7dc6-4f25-97d8-029897f1bef4', null, '1', '100.00', null, null, '2018-03-08 01:31:28', null, '0', '1', '12', '11', '0', 'api', '2018-03-08 01:30:45', null, '2018-03-08 01:30:45');
+INSERT INTO `sys_order` VALUES ('2', 'c0fc1c53-e270-40ce-b09b-d760a1385d59', null, '1', '100.00', null, null, null, null, '0', '1', '12', '11', '0', 'api', '2018-03-08 01:32:03', null, '2018-03-08 01:32:03');
+INSERT INTO `sys_order` VALUES ('3', '29506437-8300-454a-ba42-2c0c06e87ae0', null, '1', '100.00', null, null, null, null, '0', '1', '12', '11', '0', 'api', '2018-03-08 01:34:09', null, '2018-03-08 01:34:09');
+INSERT INTO `sys_order` VALUES ('4', '18030801490001', null, '1', '100.00', null, null, null, null, '0', '1', '12', '11', '0', 'api', '2018-03-08 01:49:29', null, '2018-03-08 01:49:29');
 
 -- ----------------------------
 -- Table structure for sys_order_goods
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_order_goods`;
 CREATE TABLE `sys_order_goods` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `orderId` bigint(20) DEFAULT NULL,
   `gid` bigint(20) DEFAULT NULL,
   `spec` varchar(20) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `num` int(5) DEFAULT NULL,
-  `isdel` int(1) DEFAULT NULL,
+  `isdel` int(1) DEFAULT '0',
   `create_by` varchar(25) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_by` varchar(25) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_order_goods
 -- ----------------------------
+INSERT INTO `sys_order_goods` VALUES ('1', '1', '1', '大', '100.00', '1', '0', null, '2018-03-08 01:30:45', null, '2018-03-08 01:30:45');
+INSERT INTO `sys_order_goods` VALUES ('2', '2', '1', '大', '100.00', '1', '0', null, '2018-03-08 01:32:35', null, '2018-03-08 01:32:35');
+INSERT INTO `sys_order_goods` VALUES ('3', '3', '1', '大', '100.00', '1', '0', 'api', '2018-03-08 01:34:09', null, '2018-03-08 01:34:09');
+INSERT INTO `sys_order_goods` VALUES ('4', '4', '1', '大', '100.00', '1', '0', 'api', '2018-03-08 01:49:29', null, '2018-03-08 01:49:29');
 
 -- ----------------------------
 -- Table structure for sys_picture
