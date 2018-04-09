@@ -15,6 +15,7 @@
     <result column="contactName" property="contactname" jdbcType="VARCHAR" />
     <result column="contactPhone" property="contactphone" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="orderstatus" property="orderstatus" jdbcType="INTEGER" />
     <result column="isdel" property="isdel" jdbcType="INTEGER" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -23,7 +24,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, orderNo, goodsInfo, cid, totalPrice, payPrice, payNo, paytime, paytype, expressFee, 
-    contactName, contactPhone, address, isdel, create_by, create_time, update_by, update_time
+    contactName, contactPhone, address, orderstatus,isdel, create_by, create_time, update_by, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -31,6 +32,37 @@
     from sys_order
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectOrderListByCID" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    SELECT
+        id,
+        orderNo,
+        totalPrice,
+        payNo,
+        payPrice,
+        paytype,
+        orderstatus,
+        create_time
+    FROM
+        sys_order
+    WHERE
+        isdel = 0
+    AND cid = #{cid,jdbcType=BIGINT}
+    <if test="orderstatus != null" >
+      AND  orderstatus = #{orderstatus,jdbcType=INTEGER}
+    </if>
+    <if test="startTime != null and endTime != null" >
+      AND  create_time = #{create_time,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+  
+  <select id="selectOrderListByUid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from sys_order
+    WHERE  isDel = 0 AND cid = #{cid,jdbcType=BIGINT} AND create_by = #{createBy,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_order
     where id = #{id,jdbcType=BIGINT}
@@ -93,6 +125,9 @@
       <if test="address != null" >
         address,
       </if>
+      <if test="orderstatus != null" >
+        orderstatus,
+      </if>
       <if test="isdel != null" >
         isdel,
       </if>
@@ -149,6 +184,9 @@
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="orderstatus != null" >
+        #{orderstatus,jdbcType=INTEGER},
+      </if>
       <if test="isdel != null" >
         #{isdel,jdbcType=INTEGER},
       </if>
@@ -204,6 +242,9 @@
       </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        orderstatus = #{orderstatus,jdbcType=INTEGER},
       </if>
       <if test="isdel != null" >
         isdel = #{isdel,jdbcType=INTEGER},

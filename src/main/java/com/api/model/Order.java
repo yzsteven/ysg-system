@@ -33,6 +33,8 @@ public class Order {
 
     private String address;
 
+    private Integer orderstatus;
+
     private Integer isdel;
 
     private String createBy;
@@ -153,6 +155,14 @@ public class Order {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public Integer getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(Integer orderstatus) {
+        this.orderstatus = orderstatus;
     }
 
     public Integer getIsdel() {
