@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         int pageSize = pageHelper.getPageSize();
         int pageNumber = pageHelper.getPageNumber();
         int start = (pageNumber - 1) * pageSize;
-        int end = pageNumber * pageSize;
+        int end = pageSize;
 
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("start", start);

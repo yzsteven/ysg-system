@@ -2,6 +2,7 @@ package com.api.serviceImpl;
 
 import com.api.dao.CategoryMapper;
 import com.api.service.CategoryService;
+import com.api.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,20 @@ public class CategoryServiceImpl implements CategoryService{
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private GoodService goodService;
+
     public List<HashMap<String, Object>> queryCategoryList(Long cid) {
-        return categoryMapper.selectCategoryList(cid);
+        List<HashMap<String,Object>> categoryList = categoryMapper.selectCategoryList(cid);
+        if(categoryList != null && categoryList.size() >0){
+            for(HashMap<String,Object> map : categoryList){
+                Long categoryid = (Long) map.get("id");
+                List<HashMap<String,Object>> goods = goodService.queryGoodListByCategory(categoryid);
+                map.put("goods",goods);
+            }
+        }
+
+        return categoryList;
     }
 
 }

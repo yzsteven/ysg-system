@@ -45,6 +45,8 @@ public class Order {
 
     private Date updateTime;
 
+    private PageHelper pageHelper;
+
     public Long getId() {
         return id;
     }
@@ -203,5 +205,13 @@ public class Order {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public PageHelper getPageHelper() {
+        return pageHelper;
+    }
+
+    public void setPageHelper(PageHelper pageHelper) {
+        this.pageHelper = pageHelper;
     }
 }

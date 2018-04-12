@@ -55,4 +55,22 @@ public class AppController {
     public Response createOrder(@RequestBody Order order){
         return orderService.createOrder(order);
     }
+
+    @RequestMapping("/queryOrderListByCID")
+    @ResponseBody
+    public Response queryOrderListByCID(@RequestBody Order order){
+        return orderService.queryOrderListByCID(order);
+    }
+
+    @RequestMapping("/queryOrderListByUID")
+    @ResponseBody
+    public Response queryOrderListByUID(@RequestBody Order order){
+        return orderService.queryOrderListByUID(order);
+    }
+
+    @RequestMapping("/modifyOrderInfo")
+    @ResponseBody
+    public Response modifyOrderInfo(@RequestBody Order order){
+        return orderService.modifyOrderInfo(order);
+    }
 }

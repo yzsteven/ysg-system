@@ -24,4 +24,5 @@ public interface GoodMapper {
     HashMap<String,Object> selectGoodInfo(Long id);
 
     List<HashMap<String,Object>> selectGoodListByCategory(Long id);
+
 }

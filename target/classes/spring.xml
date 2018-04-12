@@ -58,6 +58,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
                 /fonts/**= anon
                 /plugins/**= anon
                 /500.html= anon
+                /upload.jsp = anon
                 /dologin/**= anon
                 /**=authc
             </value>

@@ -2,6 +2,9 @@ package com.api.dao;
 
 import com.api.model.Order;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +17,9 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<HashMap<String,Object>> selectOrderListByCID(HashMap<String,Object> param);
+
+    List<HashMap<String,Object>> selectOrderListByUid(HashMap<String,Object> param);
+
 }

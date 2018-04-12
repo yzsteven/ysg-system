@@ -48,9 +48,10 @@ public class IndexServiceImpl implements IndexService{
         //处理数据
         this.addBannerData(bannerList,banner);
         this.addGoodData(goodList,good);
-
+        List<HashMap<String,Object>> newGoods = goodService.queryGoodsList(cid,1);
         result.put("banner",banner);
         result.put("newlist",good);
+        result.put("newGoods",newGoods);
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
     }
 

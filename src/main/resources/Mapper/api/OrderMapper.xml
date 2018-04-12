@@ -35,14 +35,14 @@
 
   <select id="selectOrderListByCID" parameterType="java.util.HashMap" resultType="java.util.HashMap">
     SELECT
-        id,
-        orderNo,
-        totalPrice,
-        payNo,
-        payPrice,
-        paytype,
-        orderstatus,
-        create_time
+      id,
+      orderNo,
+      totalPrice,
+      IFNULL(payNo,"") as payNo,
+      payPrice,
+      paytype,
+      orderstatus,
+      IFNULL(DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%S"),"") as createTime
     FROM
         sys_order
     WHERE
@@ -54,13 +54,28 @@
     <if test="startTime != null and endTime != null" >
       AND  create_time = #{create_time,jdbcType=TIMESTAMP}
     </if>
+    <if test="start != null and num != null" >
+      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
+    </if>
   </select>
   
-  <select id="selectOrderListByUid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectOrderListByUid" parameterType="java.util.HashMap" resultType="java.util.HashMap">
     SELECT
-    <include refid="Base_Column_List" />
+    id,
+    orderNo,
+    totalPrice,
+    orderstatus,
+    IFNULL(DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%S"),"") as createTime
     from sys_order
-    WHERE  isDel = 0 AND cid = #{cid,jdbcType=BIGINT} AND create_by = #{createBy,jdbcType=VARCHAR}
+    WHERE  isDel = 0
+    AND cid = #{cid,jdbcType=BIGINT}
+    AND create_by = #{createBy,jdbcType=VARCHAR}
+    <if test="orderstatus != null" >
+      AND  orderstatus = #{orderstatus,jdbcType=INTEGER}
+    </if>
+    <if test="start != null and num != null" >
+      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
+    </if>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
