@@ -48,10 +48,8 @@ public class IndexServiceImpl implements IndexService{
         //处理数据
         this.addBannerData(bannerList,banner);
         this.addGoodData(goodList,good);
-        List<HashMap<String,Object>> newGoods = goodService.queryGoodsList(cid,1);
         result.put("banner",banner);
         result.put("newlist",good);
-        result.put("newGoods",newGoods);
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
     }
 
@@ -113,9 +111,9 @@ public class IndexServiceImpl implements IndexService{
         for(HashMap<String,Object> item : categoryList){
             HashMap<String,Object> map = new HashMap<String,Object>();
             HashMap<String,Object> map2 = new HashMap<String,Object>();
-            map.put("id",item.get("id"));
+            map.put("id",item.get("description"));
             map.put("name",item.get("name"));
-            map2.put("id",item.get("id"));
+            map2.put("id",item.get("description"));
             map2.put("banner",item.get("banner"));
             map2.put("cate",item.get("description"));
             List<HashMap<String,Object>>  goodList = goodService.queryGoodListByCategory((Long) item.get("id"));

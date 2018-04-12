@@ -27,7 +27,7 @@
   
   <select id="selectCategoryList" resultType="java.util.HashMap" parameterType="java.lang.Long">
       SELECT
-      id,name,IFNULL(banner,"") AS banner,description
+      id,description,name,IFNULL(banner,"") AS banner,description
       FROM
           sys_category
       WHERE

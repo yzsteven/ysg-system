@@ -25,14 +25,6 @@ public class CategoryServiceImpl implements CategoryService{
 
     public List<HashMap<String, Object>> queryCategoryList(Long cid) {
         List<HashMap<String,Object>> categoryList = categoryMapper.selectCategoryList(cid);
-        if(categoryList != null && categoryList.size() >0){
-            for(HashMap<String,Object> map : categoryList){
-                Long categoryid = (Long) map.get("id");
-                List<HashMap<String,Object>> goods = goodService.queryGoodListByCategory(categoryid);
-                map.put("goods",goods);
-            }
-        }
-
         return categoryList;
     }
 
