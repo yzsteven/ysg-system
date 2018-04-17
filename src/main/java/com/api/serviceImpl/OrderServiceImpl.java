@@ -2,16 +2,15 @@ package com.api.serviceImpl;
 
 import com.api.dao.OrderGoodsMapper;
 import com.api.dao.OrderMapper;
-import com.api.model.Order;
-import com.api.model.OrderGoods;
-import com.api.model.Response;
-import com.api.model.ResultCode;
+import com.api.model.*;
 import com.api.service.OrderService;
 import com.system.util.CommonUtils;
+import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -36,22 +35,25 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     public Response createOrder(Order order) {
+        HashMap<String,Object> resultMap = new HashMap<String, Object>();
         String result = "success";
         String createBy = "api";
         String orderNo = CommonUtils.getOrderNo();
         order.setOrderno(orderNo);
-        order.setCreateBy(createBy);
+        order.setIsdel(0);
+        order.setCreateTime(new Date());
         int countOrder = orderMapper.insertSelective(order);
         if(countOrder <= 0 ){
             result = "fail";
+            resultMap.put("result",result);
+            return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),resultMap);
         }
         for(OrderGoods o : order.getOrderGoods()){
             o.setOrderid(order.getId());
             o.setCreateBy(createBy);
             int countOrderGoods = orderGoodsMapper.insertSelective(o);
             if(countOrderGoods <= 0 ){
-                result = "fail";
-                break;
+                throw new IUFailException();
             }
         }
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
@@ -65,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
      */
     public Response modifyOrderInfo(Order order) {
         String result = "success";
+        order.setUpdateBy("api");
+        order.setUpdateTime(new Date());
         int countOrder = orderMapper.updateByPrimaryKeySelective(order);
         if(countOrder <= 0 ){
             result = "fail";

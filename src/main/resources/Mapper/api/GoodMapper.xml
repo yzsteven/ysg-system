@@ -34,6 +34,7 @@
 
   <select id="selectGoodListByCategory" resultType="java.util.HashMap" parameterType="java.lang.Long">
     SELECT
+    id AS gid,
 	`name`,
 	IFNULL(coverImg,"") AS thumb
     FROM
@@ -62,9 +63,9 @@
       g.id AS id,
       g.`name` AS title,
       g.stock,
-      g.detail,
-      g.parameter,
-      g.service,
+      IFNULL(g.detail,"") AS detail,
+      IFNULL(g.parameter,"") AS  parameter,
+      IFNULL(g.service,"") AS service ,
       GROUP_CONCAT(p.url) as images
       FROM
           sys_good g

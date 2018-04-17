@@ -1,9 +1,6 @@
 package com.system.serviceImpl;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.system.util.CommonUtils;
 import com.system.util.PasswordHelper;
@@ -120,6 +117,8 @@ public class UserServiceImpl implements UserService {
         User record = new User();
         record.setUsername(username);
         record.setLocked(1);
+        record.setUpdateBy("");
+        record.setUpdateTime(new Date());
         int count = userMapper.updateByUsernameSelective(record);
         String result = "fail";
         if (count > 0) {
@@ -139,6 +138,7 @@ public class UserServiceImpl implements UserService {
         User currentUser = (User) SecurityUtils.getSubject().getSession()
                 .getAttribute("user");
         user.setCreateBy(currentUser.getUsername());
+        user.setCreateTime(new Date());
         //根据配置的初始密码进行加密
         String oriPassword = CommonUtils.getProperties("origin_password");
         user.setPassword(oriPassword);
@@ -164,6 +164,7 @@ public class UserServiceImpl implements UserService {
         User currentUser = (User) SecurityUtils.getSubject().getSession()
                 .getAttribute("user");
         user.setUpdateBy(currentUser.getUsername());
+        user.setUpdateTime(new Date());
         if (!StringUtil.isBlank(user.getPassword())) {//修改的密码不为空
             user.setPassword(user.getPassword());
             PasswordHelper passwordHelper = new PasswordHelper();

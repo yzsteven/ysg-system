@@ -1,23 +1,22 @@
 package com.api.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class Category {
+public class ShoppingCart {
     private Long id;
 
-    private String name;
+    private Long gid;
 
-    private String description;
+    private Integer num;
 
-    private Long parentid;
+    private String spec;
 
-    private String banner;
-
-    private int order;
-
-    private Integer isdel;
+    private BigDecimal price;
 
     private Long cid;
+
+    private Integer isdel;
 
     private String createBy;
 
@@ -27,7 +26,7 @@ public class Category {
 
     private Date updateTime;
 
-    private PageHelper pageHelper;
+    private Integer version;
 
     public Long getId() {
         return id;
@@ -37,52 +36,36 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getGid() {
+        return gid;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setGid(Long gid) {
+        this.gid = gid;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
-    public Long getParentid() {
-        return parentid;
+    public String getSpec() {
+        return spec;
     }
 
-    public void setParentid(Long parentid) {
-        this.parentid = parentid;
+    public void setSpec(String spec) {
+        this.spec = spec == null ? null : spec.trim();
     }
 
-    public String getBanner() {
-        return banner;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setBanner(String banner) {
-        this.banner = banner;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public Integer getIsdel() {
-        return isdel;
-    }
-
-    public void setIsdel(Integer isdel) {
-        this.isdel = isdel;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Long getCid() {
@@ -91,6 +74,14 @@ public class Category {
 
     public void setCid(Long cid) {
         this.cid = cid;
+    }
+
+    public Integer getIsdel() {
+        return isdel;
+    }
+
+    public void setIsdel(Integer isdel) {
+        this.isdel = isdel;
     }
 
     public String getCreateBy() {
@@ -125,11 +116,11 @@ public class Category {
         this.updateTime = updateTime;
     }
 
-    public PageHelper getPageHelper() {
-        return pageHelper;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setPageHelper(PageHelper pageHelper) {
-        this.pageHelper = pageHelper;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

@@ -2,6 +2,7 @@ package com.system.util;
 
 import org.nutz.ioc.impl.PropertiesProxy;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,4 +39,5 @@ public class CommonUtils {
         orderNo += orderNum;;
         return orderNo+"";
     }
+
 }

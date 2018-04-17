@@ -20,4 +20,6 @@ public interface CategoryMapper {
     int updateByPrimaryKey(Category record);
 
     List<HashMap<String,Object>> selectCategoryList(Long cid);
+
+    List<HashMap<String,Object>> selectCategory(HashMap<String,Object> param);
 }

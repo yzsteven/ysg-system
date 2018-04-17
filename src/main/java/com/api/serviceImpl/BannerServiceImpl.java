@@ -14,7 +14,6 @@ import java.util.List;
  * Created by zhou_yanga on 2018/2/27.
  */
 @Service
-@Transactional
 public class BannerServiceImpl implements BannerService {
 
     @Autowired

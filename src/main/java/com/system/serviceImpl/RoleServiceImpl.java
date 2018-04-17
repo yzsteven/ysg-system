@@ -1,5 +1,6 @@
 package com.system.serviceImpl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	public String addRole(Role role) {
 		String result = "fail";
+		role.setAvailable(0);
+		role.setCreateTime(new Date());
 		int count = roleMapper.insertSelective(role);
 		if(count > 0){
 			result = "success";
@@ -76,6 +79,8 @@ public class RoleServiceImpl implements RoleService {
 	 */
 	public String editRole(Role role) {
 		String result = "fail";
+		role.setUpdateBy("");
+		role.setUpdateTime(new Date());
 		int count = roleMapper.updateByPrimaryKey(role);
 		if(count > 0){
 			result = "success";
@@ -105,6 +110,7 @@ public class RoleServiceImpl implements RoleService {
 		Role record = new Role();
 		record.setId(id);
 		record.setAvailable(1);
+		record.setUpdateTime(new Date());
 		int count = roleMapper.updateByPrimaryKeySelective(record);
 		String result = "fail";
 		if(count > 0){
