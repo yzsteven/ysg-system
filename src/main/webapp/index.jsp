@@ -118,6 +118,27 @@
 					</ul>
 				</li>
 				</shiro:hasPermission>
+
+
+
+				<li>
+					<a href="index.html#">
+						<i class="fa fa-globe"></i>
+						<span class="nav-label">分类管理</span>
+						<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<shiro:hasPermission name="role:create">
+							<li>
+								<a class="J_menuItem" href="${contextPath}/shop/toAddCategory" data-index="0">新增分类</a>
+							</li>
+						</shiro:hasPermission>
+						<li>
+							<a class="J_menuItem" href="${contextPath}/role/tosearch" data-index="0">分类查询</a>
+						</li>
+					</ul>
+				</li>
+
 				<%--<li>
 					<a href="index.html#">
 						<i class="fa fa-gear"></i>

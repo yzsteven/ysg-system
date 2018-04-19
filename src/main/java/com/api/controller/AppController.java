@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by zhou_yanga on 2018/2/27.
@@ -120,6 +121,11 @@ public class AppController {
     @ResponseBody
     public Response queryCategoryList(@RequestBody Category category){
         return categoryService.queryCategory(category);
+    }
+
+    @RequestMapping("/toAddCategory")
+    public ModelAndView toAddCategory(){
+        return new ModelAndView("category_add");
     }
 
     /**
