@@ -1,5 +1,7 @@
 package com.system.controller;
 
+import com.api.model.Response;
+import com.api.model.ResultCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +19,7 @@ public class FileUploadController {
 
     @RequestMapping("upload")
     @ResponseBody
-    public String uploadimg(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+    public Response uploadimg(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
         String host =  request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
         String oriFlieName = file.getOriginalFilename();
         OutputStream os = null;
@@ -42,6 +44,6 @@ public class FileUploadController {
             os.close();
             is.close();
         }
-        return host + path;
+        return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),host + path);
     }
 }

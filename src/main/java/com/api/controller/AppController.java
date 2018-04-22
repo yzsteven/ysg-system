@@ -9,10 +9,7 @@ import org.jsoup.helper.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -135,7 +132,7 @@ public class AppController {
      */
     @RequestMapping("/addCategory")
     @ResponseBody
-    public Response addCategory(@RequestBody Category category){
+    public Response addCategory(@ModelAttribute Category category){
         return categoryService.addCategory(category);
     }
 

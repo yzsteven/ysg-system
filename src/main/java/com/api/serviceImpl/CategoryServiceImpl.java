@@ -51,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService{
         if(count <= 0){
             result = "fail";
         }
-        resultMap.put("result",resultMap);
+        resultMap.put("result",result);
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),resultMap);
     }
 

@@ -66,8 +66,6 @@
 
                         <div class="hr-line-dashed"></div>
 
-                       
-                        <div class="hr-line-dashed"></div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所属公司</label>
@@ -76,6 +74,36 @@
                                 <select name="company" id="company" class="form-control m-b">
                                     <option value=""></option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="ibox-content">
+                                    <div class="page-container">
+                                        <p>添加分类图片（最多添加一张）</p>
+                                        <div id="uploader" class="wu-example">
+                                            <div class="queueList">
+                                                <div id="dndArea" class="placeholder">
+                                                    <div id="filePicker"></div>
+                                                    <p>或将照片拖到这里，单次最多可选300张</p>
+                                                </div>
+                                            </div>
+                                            <div class="statusBar" style="display:none;">
+                                                <div class="progress">
+                                                    <span class="text">0%</span>
+                                                    <span class="percentage"></span>
+                                                </div>
+                                                <div class="info"></div>
+                                                <div class="btns">
+                                                    <div id="filePicker2"></div>
+                                                    <div class="uploadBtn">开始上传</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -134,13 +162,16 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" value="" id="url" />
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.4.0"></script>
 <!-- 自定义js -->
 <script src="${contextPath}/js/content.min.js?v=1.0.0"></script>
 <script src="${contextPath}/js/ysg/bootstrap-multiselect.js"></script>
+<script type="text/javascript">
+    var BASE_URL = 'js/plugins/webuploader/.indexhtml';
+</script>
 <script src="${contextPath}/js/plugins/webuploader/webuploader.min.js"></script>
 <script src="${contextPath}/js/demo/webuploader-demo.min.js"></script>
 <script id="ucompany" type="text/html">
@@ -151,8 +182,9 @@
 
 <script>
     $(document).ready(function () {
-        reflush();
+         reflush();
     });
+
 
 
     function reflush() {
@@ -172,24 +204,25 @@
 
 
     function save() {
-        var role = $("#role").val();
+        var name = $("#name").val();
         var description = $("#description").val();
         var company = $("#company").val();
-
+        var banner = $("#url").val();
         $.ajax({
-            url: "${contextPath}/role/doAddRole",
+            url: "${contextPath}/shop/addCategory",
             data: {
-                company: company,
-                role: role,
-                company: company,
+                "name":name,
+                "description":description,
+                "company":company,
+                "banner":banner
             },
             type: "POST",
             success: function (data) {
-                if (data == "success") {
-                    alert("新增用户成功!");
+                if (data.retValue == "success") {
+                    alert("保存成功!");
                     window.location.reload();
                 } else {
-                    alert("新增用户失败!");
+                    alert("保存失败!");
                 }
                 return;
             },
