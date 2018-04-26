@@ -49,7 +49,7 @@
                             <label class="col-sm-2 control-label">分类名称</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="name" name="name"
+                                <input type="text" id="name" name="name" value="${category.name}"
                                        class="form-control">
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             <label class="col-sm-2 control-label">分类拼音</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="description" name="description"
+                                <input type="text" id="description" name="description" value="${category.description}"
                                        class="form-control">
                             </div>
                         </div>
@@ -147,6 +147,7 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
+<input type="hidden" value="${category.id}" id="id"/>
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.4.0"></script>
@@ -187,21 +188,23 @@
 
 
     function save() {
+        var id = $("#id").val();
         var name = $("#name").val();
         var description = $("#description").val();
         var banner = $("#url").val();
         $.ajax({
-            url: "${contextPath}/shop/addCategory",
+            url: "${contextPath}/shop/modifyCategory",
             data: {
+                "id": id,
                 "name": name,
                 "description": description,
                 "banner": banner
             },
             type: "POST",
             success: function (data) {
-                if (data.retValue == "success") {
+                if (data.retValue.result == "success") {
                     alert("保存成功!");
-                    window.location.reload();
+                    window.location.href = "${contextPath}/shop/toSearchCategory";
                 } else {
                     alert("保存失败!");
                 }

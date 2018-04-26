@@ -1,10 +1,7 @@
 package com.api.serviceImpl;
 
 import com.api.dao.CategoryMapper;
-import com.api.model.Banner;
-import com.api.model.Good;
-import com.api.model.Response;
-import com.api.model.ResultCode;
+import com.api.model.*;
 import com.api.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,13 +29,16 @@ public class IndexServiceImpl implements IndexService{
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private  PictureService pictureService;
+
 
     /**
      * 获取首页数据接口
      * @param cid
      * @return
      */
-    public Response index(Long cid) {
+    public Response index(String cid) {
         HashMap<String,Object> result = new HashMap<String, Object>();
         List<Banner> bannerList = bannerService.queryBannerList(cid,1);
         List<HashMap<String,Object>> goodList = goodService.queryGoodsList(cid,1);
@@ -59,7 +59,7 @@ public class IndexServiceImpl implements IndexService{
      * @param type
      * @return 1 isnew 2 isrecommend 3isselected
      */
-    public Response queryAdvertisement(Long cid, int type) {
+    public Response queryAdvertisement(String cid, int type) {
         HashMap<String,Object> result = new HashMap<String, Object>();
         int bannerType = 2;
         if(type == 1){//列表类型 isnew
@@ -92,8 +92,11 @@ public class IndexServiceImpl implements IndexService{
         HashMap<String,Object> goodDetail = goodService.queryGoodDetail(id);
         List<String> images = new ArrayList<String>();
         String pictures = (String) goodDetail.get("images");
-        for(String url : pictures.split(",")){
-            images.add(url);
+        if(pictures != null && pictures != ""){
+            for(String pid : pictures.split(",")){
+                Picture picture = pictureService.queryPictureInfo(Long.valueOf(pid));
+                images.add(picture.getUrl());
+            }
         }
         goodDetail.put("images",images);
         List<HashMap<String,Object>> priceList = specService.querySpecList(id);
@@ -102,7 +105,7 @@ public class IndexServiceImpl implements IndexService{
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
     }
 
-    public Response queryCategory(Long cid) {
+    public Response queryCategory(String cid) {
         HashMap<String,Object> result = new HashMap<String, Object>();
         List<HashMap<String,Object>> categoryList = categoryService.queryCategoryList(cid);
         List<HashMap<String,Object>> category = new ArrayList<HashMap<String, Object>>();
@@ -148,6 +151,12 @@ public class IndexServiceImpl implements IndexService{
                 map.put("price", g.get("price"));
                 good.add(map);
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        for(String pid : "".split(",")){
+            System.out.println(pid);
         }
     }
 

@@ -85,7 +85,7 @@
 								<div class="col-sm-2">
 									<select name="company" id="company" class="form-control m-b">
 										<c:forEach items="${companyList}" var="company">
-											<option value="${company.id}">${company.name}</option>
+											<option value="${company.registerNum}">${company.name}</option>
 										</c:forEach>
 									</select>
 								</div>

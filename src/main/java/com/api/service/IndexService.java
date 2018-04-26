@@ -7,11 +7,11 @@ import com.api.model.Response;
  */
 public interface IndexService {
 
-    public Response index(Long cid);
+    public Response index(String cid);
 
-    public Response queryAdvertisement(Long cid,int type);
+    public Response queryAdvertisement(String cid,int type);
 
     public Response queryGoodDetail(Long id);
 
-    public Response queryCategory(Long cid);
+    public Response queryCategory(String cid);
 }

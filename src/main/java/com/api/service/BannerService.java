@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface BannerService {
 
-    public List<Banner> queryBannerList(Long cid,int type);
+    public List<Banner> queryBannerList(String cid,int type);
 
 }

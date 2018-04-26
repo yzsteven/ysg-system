@@ -7,7 +7,7 @@
         <result column="num" property="num" jdbcType="INTEGER"/>
         <result column="spec" property="spec" jdbcType="VARCHAR"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
-        <result column="cid" property="cid" jdbcType="BIGINT"/>
+        <result column="cid" property="cid" jdbcType="VARCHAR"/>
         <result column="isdel" property="isdel" jdbcType="INTEGER"/>
         <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -32,7 +32,7 @@
     WHERE
         gid = #{gid,jdbcType=BIGINT}
     AND isdel = 0
-    AND cid = #{cid,jdbcType=BIGINT}
+    AND cid = #{cid,jdbcType=VARCHAR}
     AND create_by = #{createBy,jdbcType=VARCHAR}
   </select>
 
@@ -52,7 +52,7 @@
         where
         gid = #{gid,jdbcType=BIGINT}
         AND isdel = 0
-        AND cid = #{cid,jdbcType=BIGINT}
+        AND cid = #{cid,jdbcType=VARCHAR}
         AND create_by = #{createBy,jdbcType=VARCHAR}
         AND num = ${version}
     </update>
@@ -72,7 +72,7 @@
     INNER JOIN sys_good g ON c.gid = g.id
     WHERE
         c.create_by = #{createBy,jdbcType=VARCHAR}
-    AND c.cid = #{cid,jdbcType=BIGINT}
+    AND c.cid = #{cid,jdbcType=VARCHAR}
     AND c.isdel = 0
     AND com.isdel = 0
     AND g.isdel = 0
@@ -90,7 +90,7 @@
       create_time, update_by, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{gid,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}, #{spec,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{cid,jdbcType=BIGINT}, #{isdel,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{cid,jdbcType=VARCHAR}, #{isdel,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -148,7 +148,7 @@
                 #{price,jdbcType=DECIMAL},
             </if>
             <if test="cid != null">
-                #{cid,jdbcType=BIGINT},
+                #{cid,jdbcType=VARCHAR},
             </if>
             <if test="isdel != null">
                 #{isdel,jdbcType=INTEGER},
@@ -183,7 +183,7 @@
                 price = #{price,jdbcType=DECIMAL},
             </if>
             <if test="cid != null">
-                cid = #{cid,jdbcType=BIGINT},
+                cid = #{cid,jdbcType=VARCHAR},
             </if>
             <if test="isdel != null">
                 isdel = #{isdel,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
       num = #{num,jdbcType=INTEGER},
       spec = #{spec,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
-      cid = #{cid,jdbcType=BIGINT},
+      cid = #{cid,jdbcType=VARCHAR},
       isdel = #{isdel,jdbcType=INTEGER},
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},

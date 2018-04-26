@@ -152,7 +152,7 @@
 
 	<script id="ucompany" type="text/html">
 		{{each companyList as value i}}
-		<option value="{{value.id}}">{{value.name}}</option>
+		<option value="{{value.registerNum}}">{{value.name}}</option>
 		{{/each}}
 	</script>
 	<script id="uresourceIds" type="text/html">

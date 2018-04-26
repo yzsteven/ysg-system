@@ -22,4 +22,6 @@ public interface OrderMapper {
 
     List<HashMap<String,Object>> selectOrderListByUid(HashMap<String,Object> param);
 
+    int selectCountOrderList(HashMap<String,Object> param);
+
 }

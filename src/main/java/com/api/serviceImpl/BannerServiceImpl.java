@@ -25,7 +25,7 @@ public class BannerServiceImpl implements BannerService {
      * @param type
      * @return
      */
-    public List<Banner> queryBannerList(Long cid, int type) {
+    public List<Banner> queryBannerList(String cid, int type) {
         HashMap<String,Object> param = new HashMap<String, Object>();
         param.put("cid",cid);
         param.put("type",type);

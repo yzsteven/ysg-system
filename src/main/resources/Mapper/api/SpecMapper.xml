@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.api.model.Spec" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="VARCHAR" />
+    <result column="order" property="order" jdbcType="BIGINT" />
     <result column="gid" property="gid" jdbcType="BIGINT" />
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="isdel" property="isdel" jdbcType="INTEGER" />
@@ -14,7 +14,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, order, gid, price, isdel, create_by, create_time, update_by, update_time
+    id, name, `order`, gid, price, isdel, create_by, create_time, update_by, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -33,11 +33,11 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.api.model.Spec" >
-    insert into sys_spec (id, name, order, 
+    insert into sys_spec (id, name, `order`,
       gid, price, isdel, create_by, 
       create_time, update_by, update_time
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{order,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{order,jdbcType=BIGINT},
       #{gid,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{isdel,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -52,7 +52,7 @@
         name,
       </if>
       <if test="order != null" >
-        order,
+        `order`,
       </if>
       <if test="gid != null" >
         gid,
@@ -84,7 +84,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        #{order,jdbcType=VARCHAR},
+        #{order,jdbcType=BIGINT},
       </if>
       <if test="gid != null" >
         #{gid,jdbcType=BIGINT},
@@ -116,7 +116,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="order != null" >
-        order = #{order,jdbcType=VARCHAR},
+        `order` = #{order,jdbcType=BIGINT},
       </if>
       <if test="gid != null" >
         gid = #{gid,jdbcType=BIGINT},
@@ -142,10 +142,27 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <update id="updateByGid" parameterType="com.api.model.Spec" >
+    update sys_spec
+    <set >
+      <if test="isdel != null" >
+        isdel = 1,
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.api.model.Spec" >
     update sys_spec
     set name = #{name,jdbcType=VARCHAR},
-      order = #{order,jdbcType=VARCHAR},
+      `order` = #{order,jdbcType=BIGINT},
       gid = #{gid,jdbcType=BIGINT},
       price = #{price,jdbcType=DECIMAL},
       isdel = #{isdel,jdbcType=INTEGER},

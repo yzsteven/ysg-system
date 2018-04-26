@@ -17,4 +17,8 @@ public interface OrderService {
     public Response queryOrderListByUID(Order order);
 
     public Response modifyOrderInfo(Order order);
+
+    public Response modifyOrderInfoByAdmin(Order order);
+
+    public int countOrderListAll(Order order);
 }

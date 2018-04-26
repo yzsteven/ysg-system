@@ -1,11 +1,16 @@
 package com.api.model;
 
+import com.system.model.PageHelper;
+
 import java.util.Date;
+import java.util.List;
 
 public class Good {
     private Long id;
 
     private String name;
+
+    private String goodno;
 
     private String coverimg;
 
@@ -29,7 +34,7 @@ public class Good {
 
     private Integer isdel;
 
-    private Long cid;
+    private String cid;
 
     private String createBy;
 
@@ -38,6 +43,10 @@ public class Good {
     private String updateBy;
 
     private Date updateTime;
+
+    private PageHelper pageHelper;
+
+    private List<Spec> spec;
 
     public Long getId() {
         return id;
@@ -53,6 +62,14 @@ public class Good {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getGoodno() {
+        return goodno;
+    }
+
+    public void setGoodno(String goodno) {
+        this.goodno = goodno;
     }
 
     public String getCoverimg() {
@@ -143,11 +160,11 @@ public class Good {
         this.isdel = isdel;
     }
 
-    public Long getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Long cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 
@@ -181,5 +198,21 @@ public class Good {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public PageHelper getPageHelper() {
+        return pageHelper;
+    }
+
+    public void setPageHelper(PageHelper pageHelper) {
+        this.pageHelper = pageHelper;
+    }
+
+    public List<Spec> getSpec() {
+        return spec;
+    }
+
+    public void setSpec(List<Spec> spec) {
+        this.spec = spec;
     }
 }

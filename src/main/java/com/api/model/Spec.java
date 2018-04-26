@@ -8,7 +8,7 @@ public class Spec {
 
     private String name;
 
-    private String order;
+    private long order;
 
     private Long gid;
 
@@ -40,12 +40,12 @@ public class Spec {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getOrder() {
+    public long getOrder() {
         return order;
     }
 
-    public void setOrder(String order) {
-        this.order = order == null ? null : order.trim();
+    public void setOrder(long order) {
+        this.order = order;
     }
 
     public Long getGid() {

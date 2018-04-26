@@ -20,4 +20,6 @@ public interface SpecMapper {
     int updateByPrimaryKey(Spec record);
 
     List<HashMap<String,Object>> selectPriceByGid(Long id);
+
+    int updateByGid(long gid);
 }

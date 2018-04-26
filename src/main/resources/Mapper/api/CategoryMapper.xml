@@ -9,20 +9,33 @@
     <result column="banner" property="banner" jdbcType="VARCHAR" />
     <result column="order" property="order" jdbcType="INTEGER" />
     <result column="isdel" property="isdel" jdbcType="INTEGER" />
-    <result column="cid" property="cid" jdbcType="BIGINT" />
+    <result column="cid" property="cid" jdbcType="VARCHAR" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, description, parentId, banner,order,isdel,cid, create_by, create_time, update_by, update_time
+    id, name, description, parentId, banner,`order`,isdel,cid, create_by, create_time, update_by, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from sys_category
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectCategoryInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT
+        c.id AS  id,
+        c. NAME,
+        c.description,
+        c.banner,
+        com.`name` AS company
+    FROM
+        sys_category c
+    INNER JOIN sys_company com ON c.cid = com.register_num
+    WHERE c.id = #{id,jdbcType=BIGINT}
   </select>
   
   <select id="selectCategoryList" resultType="java.util.HashMap" parameterType="java.lang.Long">
@@ -32,9 +45,24 @@
           sys_category
       WHERE
           isdel = 0
-          AND cid = #{cid,jdbcType=BIGINT}
+          AND cid = #{cid,jdbcType=VARCHAR}
       ORDER BY
           `order` DESC
+  </select>
+
+
+  <select id="selectCountCategoryAll" resultType="java.lang.Integer"
+          parameterType="java.util.HashMap">
+    select
+    count(1)
+    from sys_category
+    <where>
+      isdel = 0
+      AND cid = #{cid,jdbcType=VARCHAR}
+      <if test="search!=null and search != ''">
+        AND name like CONCAT(CONCAT('%', #{search}), '%')
+      </if>
+    </where>
   </select>
 
   <select id="selectCategory" resultType="java.util.HashMap" parameterType="java.util.HashMap">
@@ -44,12 +72,14 @@
     sys_category
     WHERE
     isdel = 0
-    AND cid = #{cid,jdbcType=BIGINT}
+    AND cid = #{cid,jdbcType=VARCHAR}
+    <if test="search!=null and search != ''">
+      AND name like CONCAT(CONCAT('%', #{search}), '%')
+    </if>
+    ORDER BY `order` DESC
     <if test="start != null and num != null" >
       limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
     </if>
-    ORDER BY
-    `order` DESC
   </select>
 
 

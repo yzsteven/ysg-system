@@ -1,55 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.api.dao.BannerMapper" >
-  <resultMap id="BaseResultMap" type="com.api.model.Banner" >
+<mapper namespace="com.api.dao.PictureMapper" >
+  <resultMap id="BaseResultMap" type="com.api.model.Picture" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="imgurl" property="imgurl" jdbcType="VARCHAR" />
-    <result column="linkurl" property="linkurl" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="INTEGER" />
-    <result column="cid" property="cid" jdbcType="VARCHAR" />
-    <result column="isdel" property="isdel" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="isdel" property="isdel" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, description, imgurl, linkurl, type, `order`, cid ,isdel, create_time, create_by, update_time,
-    update_by
+    id, name, description, url, isdel, create_time, create_by, update_time, update_by
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from sys_banner
+    from sys_picture
     where id = #{id,jdbcType=BIGINT}
   </select>
-
-  <select id="selectBannerList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
-  select
-  <include refid="Base_Column_List" />
-  FROM sys_banner
-  where cid = #{cid,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} and isdel = 0 ORDER BY `order` ASC
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from sys_banner
+    delete from sys_picture
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.api.model.Banner" >
-    insert into sys_banner (id, name, description, 
-      imgurl, linkurl, type, 
-      isdel, create_time, create_by, 
-      update_time, update_by)
+  <insert id="insert" parameterType="com.api.model.Picture" >
+    insert into sys_picture (id, name, description, 
+      url, isdel, create_time,
+      create_by, update_time, update_by
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{imgurl,jdbcType=VARCHAR}, #{linkurl,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{isdel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR})
+      #{url,jdbcType=VARCHAR}, #{isdel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.api.model.Banner" >
-    insert into sys_banner
+  <insert id="insertSelective" parameterType="com.api.model.Picture" >
+    insert into sys_picture
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -60,14 +47,8 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="imgurl != null" >
-        imgurl,
-      </if>
-      <if test="linkurl != null" >
-        linkurl,
-      </if>
-      <if test="type != null" >
-        type,
+      <if test="url != null" >
+        url,
       </if>
       <if test="isdel != null" >
         isdel,
@@ -95,17 +76,11 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="imgurl != null" >
-        #{imgurl,jdbcType=VARCHAR},
-      </if>
-      <if test="linkurl != null" >
-        #{linkurl,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="isdel != null" >
-        #{isdel,jdbcType=INTEGER},
+        #{isdel,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -121,8 +96,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Banner" >
-    update sys_banner
+  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Picture" >
+    update sys_picture
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -130,17 +105,11 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="imgurl != null" >
-        imgurl = #{imgurl,jdbcType=VARCHAR},
-      </if>
-      <if test="linkurl != null" >
-        linkurl = #{linkurl,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="isdel != null" >
-        isdel = #{isdel,jdbcType=INTEGER},
+        isdel = #{isdel,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -157,14 +126,12 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.api.model.Banner" >
-    update sys_banner
+  <update id="updateByPrimaryKey" parameterType="com.api.model.Picture" >
+    update sys_picture
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      imgurl = #{imgurl,jdbcType=VARCHAR},
-      linkurl = #{linkurl,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      isdel = #{isdel,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      isdel = #{isdel,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_by = #{createBy,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

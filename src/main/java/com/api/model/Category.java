@@ -1,5 +1,7 @@
 package com.api.model;
 
+import com.system.model.PageHelper;
+
 import java.util.Date;
 
 public class Category {
@@ -17,7 +19,7 @@ public class Category {
 
     private Integer isdel;
 
-    private Long cid;
+    private String cid;
 
     private String createBy;
 
@@ -85,11 +87,11 @@ public class Category {
         this.isdel = isdel;
     }
 
-    public Long getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Long cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 

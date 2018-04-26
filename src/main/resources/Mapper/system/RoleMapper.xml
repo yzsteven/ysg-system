@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="role" property="role" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="company" property="company" jdbcType="BIGINT" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
     <result column="resource_ids" property="resourceIds" jdbcType="VARCHAR" />
     <result column="available" property="available" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -27,7 +27,7 @@
     select 
     <include refid="Base_Column_List" />
     from sys_role
-    where  available = 0 and company = #{companyId,jdbcType=BIGINT}
+    where  available = 0 and company = #{companyId,jdbcType=VARCHAR}
   </select>
   
    <select id="selectUserRolesAll" resultType="java.lang.String" parameterType="java.lang.String" >
@@ -41,14 +41,12 @@
     select
     r.id as id ,role,description,resource_ids,c.`name` as company
     from sys_role r
-    inner join sys_company c on r.company = c.id
+    inner join sys_company c on r.company = c.register_num
     <where>
       r.available = 0
+      AND  c.isdel = 0
       <if test="search!=null and search != ''">
-        AND r.realname like CONCAT(CONCAT('%', #{search}), '%')
-      </if>
-      <if test="company!=null and company != ''">
-        AND r.company = #{company}
+        AND c.name like CONCAT(CONCAT('%', #{search}), '%')
       </if>
     </where>
     limit #{start},#{end}
@@ -58,11 +56,13 @@
           parameterType="java.util.HashMap">
     select
     count(1)
-    from sys_role
+    from sys_role r
+    inner join sys_company c on r.company = c.register_num
     <where>
       available = 0
+      AND  c.isdel = 0
       <if test="search!=null and search != ''">
-        AND company like CONCAT(CONCAT('%', #{search}), '%')
+        AND c.name like CONCAT(CONCAT('%', #{search}), '%')
       </if>
     </where>
   </select>

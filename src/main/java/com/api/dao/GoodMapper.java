@@ -25,4 +25,8 @@ public interface GoodMapper {
 
     List<HashMap<String,Object>> selectGoodListByCategory(Long id);
 
+    List<HashMap<String,Object>> selectGoodListByCID(HashMap<String,Object> param);
+
+    int selectCountGoodList(HashMap<String,Object> param);
+
 }

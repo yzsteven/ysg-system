@@ -15,11 +15,15 @@ public interface CategoryMapper {
 
     Category selectByPrimaryKey(Long id);
 
+    Category selectCategoryInfoById(Long id);
+
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
 
-    List<HashMap<String,Object>> selectCategoryList(Long cid);
+    List<HashMap<String,Object>> selectCategoryList(String cid);
 
     List<HashMap<String,Object>> selectCategory(HashMap<String,Object> param);
+
+    int selectCountCategoryAll(HashMap<String,Object> param);
 }

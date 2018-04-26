@@ -109,4 +109,8 @@ public class RoleController {
     public String delUser(@RequestParam long id){
         return roleService.delRole(id);
     }
+
+    public static void main(String[] args) {
+        System.out.println(4/3);
+    }
 }

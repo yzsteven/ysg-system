@@ -1,5 +1,7 @@
 package com.api.model;
 
+import com.system.model.PageHelper;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Order {
 
     private List<OrderGoods> orderGoods;
 
-    private Long cid;
+    private String cid;
 
     private BigDecimal totalprice;
 
@@ -44,6 +46,10 @@ public class Order {
     private String updateBy;
 
     private Date updateTime;
+
+    private String startTime;
+
+    private String endTime;
 
     private PageHelper pageHelper;
 
@@ -79,11 +85,11 @@ public class Order {
         this.orderGoods = orderGoods;
     }
 
-    public Long getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Long cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 
@@ -205,6 +211,22 @@ public class Order {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public PageHelper getPageHelper() {

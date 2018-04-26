@@ -120,7 +120,7 @@
 				</shiro:hasPermission>
 
 
-
+				<shiro:hasPermission name="category:view">
 				<li>
 					<a href="index.html#">
 						<i class="fa fa-globe"></i>
@@ -128,17 +128,48 @@
 						<span class="fa arrow"></span>
 					</a>
 					<ul class="nav nav-second-level">
-						<shiro:hasPermission name="role:create">
+						<shiro:hasPermission name="category:create">
 							<li>
 								<a class="J_menuItem" href="${contextPath}/shop/toAddCategory" data-index="0">新增分类</a>
 							</li>
 						</shiro:hasPermission>
 						<li>
-							<a class="J_menuItem" href="${contextPath}/role/tosearch" data-index="0">分类查询</a>
+							<a class="J_menuItem" href="${contextPath}/shop/toSearchCategory" data-index="0">分类查询</a>
 						</li>
 					</ul>
 				</li>
+				</shiro:hasPermission>
 
+				<shiro:hasPermission name="order:view">
+				<li>
+					<a href="index.html#">
+						<i class="fa fa-globe"></i>
+						<span class="nav-label">订单管理</span>
+						<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a class="J_menuItem" href="${contextPath}/shop/toOrderSearch" data-index="0">订单查询</a>
+						</li>
+					</ul>
+				</li>
+				</shiro:hasPermission>
+
+				<li>
+					<a href="index.html#">
+						<i class="fa fa-globe"></i>
+						<span class="nav-label">商品管理</span>
+						<span class="fa arrow"></span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a class="J_menuItem" href="${contextPath}/shop/toAddGoods" data-index="0">新增商品</a>
+						</li>
+						<li>
+							<a class="J_menuItem" href="${contextPath}/shop/toGoodSearch" data-index="0">商品查询</a>
+						</li>
+					</ul>
+				</li>
 				<%--<li>
 					<a href="index.html#">
 						<i class="fa fa-gear"></i>
