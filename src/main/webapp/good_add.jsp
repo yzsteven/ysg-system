@@ -269,7 +269,32 @@
 <script>
     $(document).ready(function () {
         reflush();
+        $('#summernote').summernote({
+            height: "500px",
+            callbacks: {
+                onImageUpload: function(files) { //the onImageUpload API
+                    img = sendFile(files[0]);
+                }
+            }
+        });
     });
+
+    function sendFile(file) {
+        data = new FormData();
+        data.append("file", file);
+        console.log(data);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/upload",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                $("#summernote").summernote(url); // the insertImage API
+            }
+        });
+    }
 
 
     function reflush() {
