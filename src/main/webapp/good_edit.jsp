@@ -52,7 +52,7 @@
 
                             <div class="col-sm-2">
                                 <input type="text" id="name" name="name"
-                                       class="form-control">
+                                       class="form-control" value="${goodInfo.good.title}">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -62,7 +62,7 @@
 
                             <div class="col-sm-2">
                                 <input type="text" id="goodno" name="goodno"
-                                       class="form-control">
+                                       class="form-control" value="${goodInfo.good.goodno}">
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
 
                             <div class="col-sm-2">
                                 <select name="category" id="category" class="form-control m-b">
-                                    <option value=""></option>
+                                    <option value="${goodInfo.good.categoryId}">${goodInfo.good.cname}</option>
                                 </select>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
 
                             <div class="col-sm-2">
                                 <input type="text" id="specname" name="specname"
-                                       class="form-control">
+                                       class="form-control" value="${goodInfo.good.price[0].spec}">
                             </div>
                         </div>
 
@@ -96,7 +96,7 @@
 
                             <div class="col-sm-2">
                                 <input type="text" id="price" name="price"
-                                       class="form-control">
+                                       class="form-control" value="${goodInfo.good.price[0].price}">
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@
                                     <div class="ibox-content no-padding">
 
                                         <div class="summernote" id="detail">
-
+                                            ${goodInfo.good.detail}
                                         </div>
 
                                     </div>
@@ -125,7 +125,7 @@
                                     <div class="ibox-content no-padding">
 
                                         <div class="summernote" id="parameter">
-
+                                            ${goodInfo.good.parameter}
                                         </div>
 
                                     </div>
@@ -141,7 +141,7 @@
                                     <div class="ibox-content no-padding">
 
                                         <div class="summernote" id="service" >
-
+                                            ${goodInfo.good.service}
                                         </div>
 
                                     </div>
@@ -155,11 +155,11 @@
 
                             <div class="col-sm-10">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="isNew">新品</label>
+                                    <input type="checkbox" id="isNew" checked="${goodInfo.good.isNew == 1 ? true : false}">新品</label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="isRecommend">推荐</label>
+                                    <input type="checkbox" id="isRecommend" checked="${goodInfo.good.isRecommend == 1 ? true : false}">推荐</label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="isSelected">精选</label>
+                                    <input type="checkbox" id="isSelected" checked="${goodInfo.good.isSelected == 1 ? true : false}">精选</label>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -244,6 +244,7 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
+<input type="hidden" value="${goodInfo.good.id}" id="id" />
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery.min.js?v=2.1.4"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
@@ -269,7 +270,32 @@
 <script>
     $(document).ready(function () {
         reflush();
+        $('.summernote').summernote({
+            height: "500px",
+            callbacks: {
+                onImageUpload: function(files) { //the onImageUpload API
+                    img = sendFile(files[0]);
+                }
+            }
+        });
     });
+
+    function sendFile(file) {
+        data = new FormData();
+        data.append("file", file);
+        console.log(data);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/upload",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+                $("#summernote").summernote(url); // the insertImage API
+            }
+        });
+    }
 
 
     function reflush() {
@@ -301,7 +327,9 @@
         var isRecommend = $("#isRecommend").is(":checked") ? 1 : 0;
         var isSelected = $("#isSelected").is(":checked") ? 1 : 0;
         var banner = $("#url").val();
+        var id= $("#id").val();
         var param = {
+            "id":id,
             "name": name,
             "goodno": goodno,
             "spec":[{
@@ -318,7 +346,7 @@
             "images": banner
         };
         $.ajax({
-            url: "${contextPath}/shop/doAddGoods",
+            url: "${contextPath}/shop/doEditGoods",
             data: JSON.stringify(param),
             type: "POST",
             contentType: "application/json",

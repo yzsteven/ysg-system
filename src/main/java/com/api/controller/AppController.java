@@ -283,6 +283,7 @@ public class AppController {
      */
     @RequestMapping("/queryGoodsListByCID")
     @ResponseBody
+    @RequiresPermissions("good:view")
     public HashMap<String, Object> queryGoodsListByCID(@RequestBody Good good) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Subject subject = SecurityUtils.getSubject();
@@ -298,28 +299,33 @@ public class AppController {
     }
 
     @RequestMapping("/toGoodSearch")
+    @RequiresPermissions("good:view")
     public ModelAndView toGoodSearch() {
         return new ModelAndView("good_search");
     }
 
     @RequestMapping("/deleGoodById")
     @ResponseBody
+    @RequiresPermissions("good:delete")
     public Response deleGoodById(@RequestParam long id) {
         return goodService.deleGoodById(id);
     }
 
     @RequestMapping("/toAddGoods")
+    @RequiresPermissions("good:create")
     public ModelAndView toAddGoods() {
         return new ModelAndView("good_add");
     }
 
     @RequestMapping("/doAddGoods")
     @ResponseBody
+    @RequiresPermissions("good:create")
     public Response doAddGoods(@RequestBody Good good) {
         return goodService.doAddGoods(good);
     }
 
     @RequestMapping("/toModifyGoods")
+    @RequiresPermissions("good:update")
     public ModelAndView toModifyGoods(@RequestParam long id) {
         HashMap<String,Object> result = goodService.queryGoodDetailForAdmin(id);
         return new ModelAndView("good_edit").addObject("goodInfo",result);
@@ -327,6 +333,7 @@ public class AppController {
 
     @RequestMapping("/doEditGoods")
     @ResponseBody
+    @RequiresPermissions("good:update")
     public Response doEditGoods(@RequestBody Good good) {
         return goodService.editGoodsInfo(good);
     }

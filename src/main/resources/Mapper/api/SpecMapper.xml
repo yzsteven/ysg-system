@@ -144,11 +144,11 @@
   </update>
 
 
-  <update id="updateByGid" parameterType="com.api.model.Spec" >
+  <update id="updateByGid" parameterType="java.util.HashMap" >
     update sys_spec
     <set >
       <if test="isdel != null" >
-        isdel = 1,
+        isdel = #{isdel,jdbcType=INTEGER},
       </if>
       <if test="updateBy != null" >
         update_by = #{updateBy,jdbcType=VARCHAR},

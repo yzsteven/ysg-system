@@ -61,17 +61,25 @@
 
   <select id="selectGoodInfo" resultType="java.util.HashMap" parameterType="java.lang.Long">
      SELECT
-      g.id AS id,
-      g.`name` AS title,
-      g.stock,
-      IFNULL(g.detail,"") AS detail,
-      IFNULL(g.parameter,"") AS  parameter,
-      IFNULL(g.service,"") AS service,
-	  IFNULL(g.images,"") AS images
+          g.id AS id,
+          g.`name` AS title,
+          IFNULL(g.goodno, "") AS goodno,
+          g.stock,
+          IFNULL(g.detail, "") AS detail,
+          IFNULL(g.parameter, "") AS parameter,
+          IFNULL(g.service, "") AS service,
+          IFNULL(g.images, "") AS images,
+          g.isNew,
+          g.isRecommend,
+          g.isSelected,
+          c. NAME as cname,
+          c.id as categoryId
       FROM
           sys_good g
+      INNER JOIN sys_category c ON g.categoryId = c.id
       WHERE
-			g.isdel = 0
+          c.isdel = 0
+      AND g.isdel = 0
       AND g.id = #{id,jdbcType=BIGINT}
   </select>
 

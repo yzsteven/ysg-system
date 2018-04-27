@@ -21,5 +21,5 @@ public interface SpecMapper {
 
     List<HashMap<String,Object>> selectPriceByGid(Long id);
 
-    int updateByGid(long gid);
+    int updateByGid(HashMap<String,Object> param);
 }

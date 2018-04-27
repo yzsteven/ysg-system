@@ -269,7 +269,7 @@
 <script>
     $(document).ready(function () {
         reflush();
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             height: "500px",
             callbacks: {
                 onImageUpload: function(files) { //the onImageUpload API

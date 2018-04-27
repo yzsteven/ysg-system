@@ -221,12 +221,13 @@ public class GoodServiceImpl implements GoodService{
             param.put("gid",good.getId());
             param.put("updateBy",user.getUsername());
             param.put("updateTime",new Date());
-            int count3 = specMapper.updateByGid(good.getId());
+            param.put("isdel",1);
+            int count3 = specMapper.updateByGid(param);
             if(count3 <= 0){
                 result = "fail";
                 throw new IUFailException();
             }
-           String specResult = addSpec(specList,user,good);
+            String specResult = addSpec(specList,user,good);
             if(specResult != "success"){
                 result = "fail";
             }

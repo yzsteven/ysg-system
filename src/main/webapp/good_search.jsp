@@ -155,18 +155,18 @@
 
 			return oInit;
 		};
-		
+
 		function operateFormatter(value, row, index) {
 		      return [
-		        '<shiro:hasPermission name="role:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
-		        '<shiro:hasPermission name="role:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
+		        '<shiro:hasPermission name="good:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
+		        '<shiro:hasPermission name="good:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
 		      ].join('');
 		}
 		      
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/shop/toModifyCategory?id="+row.id;
+                          window.location.href = "${contextPath}/shop/toModifyGoods?id="+row.id;
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({
@@ -187,7 +187,7 @@
 		    	        	})
 		    	      }
 		    	   };
-		      
+
 	</script>
 </body>
 
