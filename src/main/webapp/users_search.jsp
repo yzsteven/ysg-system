@@ -175,7 +175,8 @@
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/user/toModify?username="+row.username;
+                          parent.addMenuTab("${contextPath}/user/toModify?username="+row.username,0,"编辑用户");
+		    	    	 // window.location.href = "${contextPath}/user/toModify?username="+row.username;
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({

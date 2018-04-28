@@ -158,7 +158,8 @@
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/role/toedit?id="+row.id;
+                          parent.addMenuTab("${contextPath}/role/toedit?id="+row.id,0,"编辑角色");
+		    	    	  //window.location.href = "${contextPath}/role/toedit?id="+row.id;
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({

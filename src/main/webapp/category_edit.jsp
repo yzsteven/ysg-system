@@ -38,7 +38,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>
-                        新增分类
+                        编辑分类
                         <small></small>
                     </h5>
                 </div>
@@ -204,7 +204,6 @@
             success: function (data) {
                 if (data.retValue.result == "success") {
                     alert("保存成功!");
-                    window.location.href = "${contextPath}/shop/toSearchCategory";
                 } else {
                     alert("保存失败!");
                 }

@@ -40,7 +40,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>
-                        新增商品
+                        编辑商品
                         <small></small>
                     </h5>
                 </div>
@@ -353,7 +353,6 @@
             success: function (data) {
                 if (data.retValue == "success") {
                     alert("保存成功!");
-                    window.location.reload();
                 } else {
                     alert("保存失败!");
                 }

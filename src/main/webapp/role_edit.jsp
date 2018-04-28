@@ -36,7 +36,7 @@
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
 						<h5>
-							新增角色 <small></small>
+							编辑角色 <small></small>
 						</h5>
 					</div>
 					<div class="ibox-content">

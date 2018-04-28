@@ -157,7 +157,7 @@
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/shop/toModifyCategory?id="+row.id;
+                          parent.addMenuTab("${contextPath}/shop/toModifyCategory?id="+row.id,0,"编辑分类");
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({

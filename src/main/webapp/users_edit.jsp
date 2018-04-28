@@ -374,7 +374,6 @@
 				success : function(data) {
 					if(data == "success"){
 						alert("修改用户成功!");
-						window.location.href = "${contextPath}/user/search";
 					}else{
 						alert("修改用户失败!");
 					}

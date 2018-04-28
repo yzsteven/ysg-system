@@ -166,7 +166,8 @@
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-                          window.location.href = "${contextPath}/shop/toModifyGoods?id="+row.id;
+                          parent.addMenuTab("${contextPath}/shop/toModifyGoods?id="+row.id,0,"编辑商品");
+                          //window.location.href = "${contextPath}/shop/toModifyGoods?id="+row.id;
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({
