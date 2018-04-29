@@ -45,8 +45,8 @@
                                    src="${contextPath}/img/profile_small.jpg"/></span> <a
                             data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
 							<span class="clear"> <span class="block m-t-xs"><strong
-                                    class="font-bold">${user.username}</strong></span> <span
-                                    class="text-muted text-xs block">${user.position}<b class="caret"></b></span>
+                                    class="font-bold">${user.username}</strong></span> <%--<span
+                                    class="text-muted text-xs block">${user.position}<b class="caret"></b></span>--%>
 						</span>
                     </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -101,7 +101,7 @@
                 <shiro:hasPermission name="role:view">
                     <li>
                         <a href="index.html#">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa fa-users"></i>
                             <span class="nav-label">角色管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -122,7 +122,7 @@
                 <shiro:hasPermission name="category:view">
                     <li>
                         <a href="index.html#">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa fa-list-ol"></i>
                             <span class="nav-label">分类管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -144,7 +144,7 @@
                 <shiro:hasPermission name="order:view">
                     <li>
                         <a href="index.html#">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa fa-book"></i>
                             <span class="nav-label">订单管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -159,7 +159,7 @@
                 <shiro:hasPermission name="good:view">
                     <li>
                         <a href="index.html#">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa fa-shopping-cart"></i>
                             <span class="nav-label">商品管理</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -482,7 +482,7 @@
     <!--左侧导航结束-->
     <!--右侧部分开始-->
     <div id="page-wrapper" class="gray-bg dashbard-1">
-        <div class="row border-bottom">
+       <%-- <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="index.html#"><i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
@@ -492,7 +492,7 @@
                     </form>
                 </div>
             </nav>
-        </div>
+        </div>--%>
         <div class="row content-tabs">
             <button class="roll-nav roll-left J_tabLeft">
                 <i class="fa fa-backward"></i>

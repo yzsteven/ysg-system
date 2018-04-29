@@ -181,7 +181,7 @@
 		function operateFormatter(value, row, index) {
 			var msg = "取消订单";
 			var arr = [
-		        '<shiro:hasPermission name="order:view"><button id="searchDetail" type="button" class="btn btn-primary btn-xs">查看订单</button></shiro:hasPermission>&nbsp;&nbsp;'
+		       // '<shiro:hasPermission name="order:view"><button id="searchDetail" type="button" class="btn btn-primary btn-xs">查看订单</button></shiro:hasPermission>&nbsp;&nbsp;'
 			]
 
 		    switch (row.orderstatus){
