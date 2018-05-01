@@ -25,6 +25,8 @@ public class Company {
 
     private String updateBy;
 
+    private  PageHelper pageHelper;
+
     public Long getId() {
         return id;
     }
@@ -111,5 +113,13 @@ public class Company {
 
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy == null ? null : updateBy.trim();
+    }
+
+    public PageHelper getPageHelper() {
+        return pageHelper;
+    }
+
+    public void setPageHelper(PageHelper pageHelper) {
+        this.pageHelper = pageHelper;
     }
 }

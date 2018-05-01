@@ -19,4 +19,8 @@ public interface BannerMapper {
     int updateByPrimaryKey(Banner record);
 
     List<Banner> selectBannerList(HashMap<String,Object> param);
+
+    List<HashMap<String,Object>> selectBanner(HashMap<String,Object> param);
+
+    int selectCountBannerAll(HashMap<String,Object> param);
 }

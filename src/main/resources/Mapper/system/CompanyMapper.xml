@@ -31,7 +31,35 @@
     from sys_company 
     where isdel = 0
   </select>
-  
+
+  <select id="selectCountCompanyAll" resultType="java.lang.Integer"
+          parameterType="java.util.HashMap">
+    select
+    count(1)
+    from sys_company
+    <where>
+      isdel = 0
+      <if test="search!=null and search != ''">
+        AND name like CONCAT(CONCAT('%', #{search}), '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectCompany" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    SELECT
+    id,IFNULL(corporation_name,"") AS corporation_name,name,IFNULL(corporation_id,"") AS corporation_id,IFNULL(register_num,"") AS register_num,type
+    FROM
+    sys_company
+    WHERE
+    isdel = 0
+    <if test="search!=null and search != ''">
+      AND name like CONCAT(CONCAT('%', #{search}), '%')
+    </if>
+    <if test="start != null and num != null" >
+      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_company
     where id = #{id,jdbcType=BIGINT}

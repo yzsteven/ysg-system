@@ -34,7 +34,7 @@
 	<!-- Panel Other -->
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
-			<h5>用户查询</h5>
+			<h5>商品分类列表</h5>
 		</div>
 		<div class="ibox-content">
 			<div class="row row-lg">
@@ -42,7 +42,7 @@
 					<!-- Example Pagination -->
 					<div class="example-wrap">
 						<div class="example">
-							<table id="tb_departments"></table>
+							<table id="roletable"></table>
 						</div>
 					</div>
 					<!-- End Example Pagination -->
@@ -75,10 +75,11 @@
 			var oTableInit = new Object();
 			//初始化Table
 			oTableInit.Init = function() {
-				$('#tb_departments').bootstrapTable({
-					url : '${contextPath}/user/searchUsers', //请求后台的URL（*）
-					method : 'get', //请求方式（*）
-					toolbar : '#toolbar', //工具按钮用哪个容器
+				$('#roletable').bootstrapTable({
+					url : '${contextPath}/queryCompanyList', //请求后台的URL（*）
+					method : 'POST', //请求方式（*）
+                    contentType:"application/x-www-form-urlencoded;charset=UTF-8",
+                    toolbar : '#toolbar', //工具按钮用哪个容器
 					striped : true, //是否显示行间隔色
 					cache : false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 					pagination : true, //是否显示分页（*）
@@ -101,33 +102,34 @@
 					showToggle : false, //是否显示详细视图和列表视图的切换按钮
 					cardView : false, //是否显示详细视图
 					detailView : false, //是否显示父子表
-					columns : [/*  {
-						checkbox : true
-					},  */{
-						field : 'realname',
-						title : '姓名'
+					columns : [{
+						field : 'id',
+                        title : '编号',
+                        visible : false
 					},{
-						field : 'username',
-						title : '账号'
+						field : 'name',
+						title : '公司名称'
 					}, {
-						field : 'age',
-						title : '年龄'
-					}, {
-						field : 'cardid',
-						title : '身份证号'
-					}, {
-						field : 'phone',
-						title : '手机号'
-					}, {
-						field : 'roleIds',
-						title : '用户角色'
-					}, {
-						field : 'contactname',
-						title : '紧急联系人'
-					}, {
-						field : 'contactphone',
-						title : '紧急联系人号码'
-					}, {
+					    field: 'corporation_name',
+						title: '法人姓名'
+                    }, {
+                        field: 'corporation_id',
+                        title: '法人身份证号'
+                    }, {
+                        field: 'register_num',
+                        title: '微信appid'
+                    }, {
+                        field: 'type',
+                        title: '类型',
+                        formatter:function(value,row,index){
+                            var s = "待支付"
+                            switch (row.type){
+                                case 1 : s="个体"; break;
+                                case 2 : s="企业"; break;
+                            }
+                            return s;
+                        },
+                    }, {
 						field : 'Button',
 						title : '操作',
 						events : operateEvents,
@@ -141,7 +143,7 @@
 				var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 					pageSize : params.pageSize, //页面大小
 					pageNumber : params.pageNumber, //页码
-					searchParam : params.searchText
+                    searchParam :　params.searchText
 				};
 				return temp;
 			};
@@ -150,7 +152,6 @@
 
 		var ButtonInit = function() {
 			var oInit = new Object();
-			var postdata = {};
 
 			oInit.Init = function() {
 				//初始化页面上面的按钮事件
@@ -161,30 +162,29 @@
 		
 		function operateFormatter(value, row, index) {
 		      return [
-		        '<shiro:hasPermission name="user:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
-		        '<shiro:hasPermission name="user:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
+		        '<shiro:hasPermission name="company:update"><button id="edit" type="button" class="btn btn-primary btn-xs">编辑</button></shiro:hasPermission>&nbsp;&nbsp;',
+		        '<shiro:hasPermission name="company:delete"><button id="del" type="button" class="btn btn-primary btn-xs">删除</button></shiro:hasPermission>'
 		      ].join('');
 		}
 		      
 		      
 		      window.operateEvents = {
 		    	      'click #edit': function (e, value, row, index) {
-                          parent.addMenuTab("${contextPath}/user/toModify?username="+row.username,0,"编辑用户");
-		    	    	 // window.location.href = "${contextPath}/user/toModify?username="+row.username;
+                          parent.addMenuTab("${contextPath}/toEditCompany?id="+row.id,0,"编辑公司");
 		    	      },
 		    	      'click #del': function (e, value, row, index) {
 		    	        	$.ajax({
-		    	        		url:"${contextPath}/user/delUser",
+		    	        		url:"${contextPath}/deleCompany",
 		    	        		data:{
-		    	        			username:row.username
+		    	        			id:row.id
 		    	        		},
 		    	        		type:"POST",
 		    	        		success:function(data){
-		    	        			if(data != 'success'){
+		    	        			if(data.retValue != 'success'){
 		    	        				alert("删除失败!");
 		    	        			}else{
 		    	        				alert("删除成功!");
-		    	        				$("#tb_departments").bootstrapTable('refresh',{url:"${contextPath}/user/searchUsers"});
+		    	        				$("#roletable").bootstrapTable('refresh',{url:"${contextPath}/queryCompanyList"});
 		    	        			}
 		    	        			
 		    	        		}

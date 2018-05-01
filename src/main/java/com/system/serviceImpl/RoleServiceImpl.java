@@ -24,8 +24,8 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private CompanyService companyService;
 	
-	public List<Role> selectRolesAll(Long companyId) {
-		return roleMapper.selectRolesAll(companyId);
+	public List<Role> selectRolesAll() {
+		return roleMapper.selectRolesAll();
 	}
 
 	public List<Role> searchRoles(PageHelper pageHelper) {

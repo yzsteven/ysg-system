@@ -38,7 +38,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>
-                        编辑分类
+                        新增轮播图
                         <small></small>
                     </h5>
                 </div>
@@ -46,48 +46,59 @@
                     <form method="get" class="form-horizontal">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类名称</label>
+                            <label class="col-sm-2 control-label">公司名称</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="name" name="name" value="${category.name}"
+                                <input type="text" id="name" name="name" value="${company.name}"
                                        class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类拼音</label>
+                            <label class="col-sm-2 control-label">公司类型</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="description" name="description" value="${category.description}"
-                                       class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="hr-line-dashed"></div>
-
-                        <label class="col-sm-2 control-label">分类图片</label>
-                        <div class="form-group">
-                            <div class="col-sm-8">
-                                <div id="uploader" class="wu-example">
-                                    <div class="queueList">
-                                        <div id="dndArea" class="placeholder">
-                                            <div id="filePicker"></div>
-                                            <p>或将照片拖到这里，单次最多可选300张</p>
-                                        </div>
-                                    </div>
-                                    <div class="statusBar" style="display:none;">
-                                        <div class="progress">
-                                            <span class="text">0%</span>
-                                            <span class="percentage"></span>
-                                        </div>
-                                        <div class="info"></div>
-                                        <div class="btns">
-                                            <div id="filePicker2"></div>
-                                            <div class="uploadBtn">开始上传</div>
-                                        </div>
-                                    </div>
+                                <div class="radio">
+                                    <label> <input name="type" ${company.type == 1 ? "checked" : ""} type="radio"
+                                                   value="1">个体
+                                    </label>
                                 </div>
+                                <div class="radio">
+                                    <label> <input name="type" type="radio" ${company.type == 2 ? "checked" : ""} value="2">企业
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">法人姓名</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" id="corporation_name" name="corporation_name" value="${company.corporationName}"
+                                       class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">法人身份证</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" id="corporation_id" name="corporation_id" value="${company.corporationId}"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">微信注册号</label>
+
+                            <div class="col-sm-2">
+                                <input type="text" id="register_num" name="register_num" value="${company.registerNum}"
+                                       class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -146,8 +157,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="" id="url"/>
-<input type="hidden" value="${category.id}" id="id"/>
+<input type="hidden" value="${company.id}" id="id"/>
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.4.0"></script>
@@ -155,55 +165,35 @@
 <script src="${contextPath}/js/content.min.js?v=1.0.0"></script>
 <script src="${contextPath}/js/ysg/bootstrap-multiselect.js"></script>
 <script type="text/javascript">
-    var BASE_URL = 'js/plugins/webuploader/.indexhtml';
+    var BASE_URL = '${contextPath}/js/plugins/webuploader/.indexhtml';
 </script>
 <script src="${contextPath}/js/plugins/webuploader/webuploader.min.js"></script>
 <script src="${contextPath}/js/demo/webuploader-demo.min.js"></script>
-<script id="ucompany" type="text/html">
-    {{each companyList as value i}}
-    <option value="{{value.registerNum}}">{{value.name}}</option>
-    {{/each}}
-</script>
 
 <script>
-    $(document).ready(function () {
-        reflush();
-    });
-
-
-    function reflush() {
-        $.ajax({
-            url: "${contextPath}/shop/initPage",
-            type: "GET",
-            success: function (data) {
-                var html = template('ucompany', data);
-                $("#company").html(html);
-                return;
-            },
-            error: function () {
-                alert("系统错误");
-            }
-        })
-    }
-
 
     function save() {
         var id = $("#id").val();
         var name = $("#name").val();
-        var description = $("#description").val();
-        var banner = $("#url").val();
+        var corporationName = $("#corporation_name").val();
+        var corporationId = $("#corporation_id").val();
+        var registerNum = $("#register_num").val();
+        var type = $("input[name='type']:checked").val();
         $.ajax({
-            url: "${contextPath}/shop/doEditBanner",
+            url: "${contextPath}/doEditCompany",
             data: {
-                "id": id,
+                "id":id,
                 "name": name,
-                "description": description,
-                "banner": banner
+                "corporationName": corporationName,
+                "corporationId": corporationId,
+                "registerNum": registerNum,
+                "type": type
             },
             type: "POST",
             success: function (data) {
-                if (data.retValue.result == "success") {
+                if (data.retValue == "success") {
                     alert("保存成功!");
+                    window.location.reload();
                 } else {
                     alert("保存失败!");
                 }

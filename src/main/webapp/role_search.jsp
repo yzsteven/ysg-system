@@ -112,9 +112,6 @@
 						field : 'description',
 						title : '角色描述'
 					}, {
-						field : 'company',
-						title : '所属公司'
-					}, {
 						field : 'resourceIds',
 						title : '权限'
 					}, {

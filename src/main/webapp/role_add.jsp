@@ -53,18 +53,6 @@
 							<div class="hr-line-dashed"></div>
 
 							<div class="form-group">
-								<label class="col-sm-2 control-label">所属公司</label>
-
-								<div class="col-sm-2">
-									<select name="company" id="company" class="form-control m-b">
-											<option value=""></option>
-									</select>
-								</div>
-							</div>
-
-							<div class="hr-line-dashed"></div>
-
-							<div class="form-group">
 								<label class="col-sm-2 control-label">角色描述</label>
 
 								<div class="col-sm-2">
@@ -150,11 +138,6 @@
 	<!-- iCheck -->
 	<script src="${contextPath}/js/plugins/iCheck/icheck.min.js"></script>
 
-	<script id="ucompany" type="text/html">
-		{{each companyList as value i}}
-		<option value="{{value.registerNum}}">{{value.name}}</option>
-		{{/each}}
-	</script>
 	<script id="uresourceIds" type="text/html">
 		{{each resourceList as value i}}
 		<option value="{{value.id}}">{{value.name}}</option>
@@ -184,9 +167,7 @@
                 url : "${contextPath}/role/initPage",
                 type : "GET",
                 success : function(data) {
-                    var html = template('ucompany', data);
                     var html2 = template('uresourceIds', data);
-                    $("#company").html(html);
                     $("#resourceIds").html(html2);
                     $("#resourceIds").multiselect("destroy").multiselect({
                         nonSelectedText : "请选择用户权限",
@@ -206,23 +187,20 @@
 			var role = $("#role").val();
 			var description = $("#description").val();
 			var resourceIds = $("#resourceIds").val();
-			var company = $("#company").val();
-
 			$.ajax({
 				url : "${contextPath}/role/doAddRole",
 				data : {
-					company : company,
+                    description : description,
                     role : role,
                     resourceIds : resourceIds.toString(),
-                    company : company,
 				},
 				type : "POST",
 				success : function(data) {
 					if(data == "success"){
-						alert("新增用户成功!");
+						alert("新增角色成功!");
 						window.location.reload();
 					}else{
-						alert("新增用户失败!");
+						alert("新增角色失败!");
 					}
 					return;
 				},

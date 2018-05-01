@@ -103,30 +103,6 @@
 							<div class="hr-line-dashed"></div>
 
 							<div class="form-group">
-								<label class="col-sm-2 control-label">所属部门</label>
-
-								<div class="col-sm-2">
-									<select name="department" id="department"
-										class="form-control m-b">
-										<option value=""></option>
-									</select>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-
-
-							<div class="form-group">
-								<label class="col-sm-2 control-label">职位</label>
-
-								<div class="col-sm-2">
-									<select name="position" id="position" class="form-control m-b">
-										<option value=""></option>
-									</select>
-								</div>
-							</div>
-							<div class="hr-line-dashed"></div>
-
-							<div class="form-group">
 								<label class="col-sm-2 control-label">手机号码</label>
 
 								<div class="col-sm-2">
@@ -258,16 +234,6 @@
 				<option value="{{value.id}}">{{value.description}}</option>
 			{{/each}}
 	</script>
-	<script id="udepartment" type="text/html">
-			{{each departmentList as value i}}
-				<option value="{{value.id}}">{{value.name}}</option>
-			{{/each}}
-	</script>
-	<script id="uposition" type="text/html">
-			{{each positionList as value i}}
-				<option value="{{value.id}}">{{value.name}}</option>
-			{{/each}}
-	</script>
 	<script>
 		$(document).ready(function() {
 			$('.i-checks').iCheck({
@@ -289,26 +255,14 @@
 
 		});
 
-		$("#company").change(function() {//选中公司
-			reflush();
-		})
-		
-		
 		function reflush(){
-			var companyId = $("#company").val();
 			$.ajax({
-				url : "${contextPath}/user/searchInfoByCompanyId",
-				data : {
-					companyId : companyId
-				},
+				url : "${contextPath}/user/searchRoles",
 				type : "GET",
+                async : false,
 				success : function(data) {
 					var html = template('urole', data);
-					var html2 = template('udepartment', data);
-					var html3 = template('uposition', data);
 					$("#role").html(html);
-					$("#department").html(html2);
-					$("#position").html(html3);
 					$("#role").multiselect("destroy").multiselect({
 						nonSelectedText : "请选择用户权限",
 						allSelectedText : "全部",
@@ -327,8 +281,6 @@
 			var roleIds = $("#role").val();
 			var realname = $("#realname").val();
 			var cardid = $("#cardid").val();
-			var position = $("#position").val();
-			var department = $("#department").val();
 			var company = $("#company").val();
 			var address = $("#address").val();
 			var age = $("#age").val();
@@ -344,8 +296,6 @@
 					roleIds : roleIds.toString(),
 					realname : realname,
 					cardid : cardid,
-					position : position,
-					department : department,
 					company : company,
 					address : address,
 					age : age,

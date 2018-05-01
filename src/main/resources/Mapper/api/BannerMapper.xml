@@ -27,11 +27,41 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
+  <select id="selectCountBannerAll" resultType="java.lang.Integer"
+          parameterType="java.util.HashMap">
+    select
+    count(1)
+    from sys_banner
+    <where>
+      isdel = 0
+      AND cid = #{cid,jdbcType=VARCHAR}
+      <if test="search!=null and search != ''">
+        AND name like CONCAT(CONCAT('%', #{search}), '%')
+      </if>
+    </where>
+  </select>
+
+  <select id="selectBanner" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    SELECT
+    id,IFNULL(description,"") AS description,name,IFNULL(imgurl,"") AS banner,description
+    FROM
+    sys_banner
+    WHERE
+    isdel = 0
+    AND cid = #{cid,jdbcType=VARCHAR}
+    <if test="search!=null and search != ''">
+      AND name like CONCAT(CONCAT('%', #{search}), '%')
+    </if>
+    <if test="start != null and num != null" >
+      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
+    </if>
+  </select>
+
   <select id="selectBannerList" resultMap="BaseResultMap" parameterType="java.util.HashMap">
   select
   <include refid="Base_Column_List" />
   FROM sys_banner
-  where cid = #{cid,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} and isdel = 0 ORDER BY `order` ASC
+  where cid = #{cid,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR} and isdel = 0
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -69,6 +99,9 @@
       <if test="type != null" >
         type,
       </if>
+      <if test="cid != null" >
+        cid,
+      </if>
       <if test="isdel != null" >
         isdel,
       </if>
@@ -103,6 +136,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
       </if>
       <if test="isdel != null" >
         #{isdel,jdbcType=INTEGER},

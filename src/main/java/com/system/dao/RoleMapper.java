@@ -21,7 +21,7 @@ public interface RoleMapper {
     
     Set<String> selectUserRolesAll(String ids);
     
-    List<Role> selectRolesAll(Long companyId);
+    List<Role> selectRolesAll();
 
     List<Role> selectRoles(HashMap<String, Object> param);//角色查询
 

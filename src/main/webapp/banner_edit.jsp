@@ -46,27 +46,27 @@
                     <form method="get" class="form-horizontal">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类名称</label>
+                            <label class="col-sm-2 control-label">图片名称</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="name" name="name" value="${category.name}"
+                                <input type="text" id="name" name="name" value="${banner.name}"
                                        class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类拼音</label>
+                            <label class="col-sm-2 control-label">图片描述</label>
 
                             <div class="col-sm-2">
-                                <input type="text" id="description" name="description" value="${category.description}"
+                                <input type="text" id="description" name="description" value="${banner.description}"
                                        class="form-control">
                             </div>
                         </div>
 
                         <div class="hr-line-dashed"></div>
 
-                        <label class="col-sm-2 control-label">分类图片</label>
+                        <label class="col-sm-2 control-label">轮播图片</label>
                         <div class="form-group">
                             <div class="col-sm-8">
                                 <div id="uploader" class="wu-example">
@@ -147,7 +147,7 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
-<input type="hidden" value="${category.id}" id="id"/>
+<input type="hidden" value="${banner.id}" id="id"/>
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.4.0"></script>
@@ -159,32 +159,8 @@
 </script>
 <script src="${contextPath}/js/plugins/webuploader/webuploader.min.js"></script>
 <script src="${contextPath}/js/demo/webuploader-demo.min.js"></script>
-<script id="ucompany" type="text/html">
-    {{each companyList as value i}}
-    <option value="{{value.registerNum}}">{{value.name}}</option>
-    {{/each}}
-</script>
 
 <script>
-    $(document).ready(function () {
-        reflush();
-    });
-
-
-    function reflush() {
-        $.ajax({
-            url: "${contextPath}/shop/initPage",
-            type: "GET",
-            success: function (data) {
-                var html = template('ucompany', data);
-                $("#company").html(html);
-                return;
-            },
-            error: function () {
-                alert("系统错误");
-            }
-        })
-    }
 
 
     function save() {
@@ -198,7 +174,7 @@
                 "id": id,
                 "name": name,
                 "description": description,
-                "banner": banner
+                "imgurl": banner
             },
             type: "POST",
             success: function (data) {

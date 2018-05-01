@@ -57,9 +57,6 @@
 			<if test="search!=null and search != ''">
 				AND realname like CONCAT(CONCAT('%', #{search}), '%')
 			</if>
-			<if test="company!=null and company != ''">
-				AND company = #{company}
-			</if>
 		</where>
 		limit #{start},#{end}
 	</select>
@@ -75,9 +72,6 @@
 			locked = 0
 			<if test="search!=null and search != ''">
 				AND realname like CONCAT(CONCAT('%', #{search}), '%')
-			</if>
-			<if test="company!=null and company != ''">
-				AND company = #{company}
 			</if>
 		</where>
 	</select>

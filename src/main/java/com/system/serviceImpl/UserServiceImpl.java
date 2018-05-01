@@ -51,9 +51,6 @@ public class UserServiceImpl implements UserService {
         param.put("end", end);
         param.put("search", pageHelper.getSearchParam());
 
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getSession().getAttribute("user");
-        param.put("company", user.getCompany());
         List<User> userList = userMapper.selectUsersAll(param);
         if (userList != null && userList.size() > 0) {
             for (User u : userList) {
@@ -104,9 +101,6 @@ public class UserServiceImpl implements UserService {
     public int countUserAll(PageHelper pageHelper) {
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("search", pageHelper.getSearchParam());
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getSession().getAttribute("user");
-        param.put("company", user.getCompany());
         return userMapper.selectCountUserAll(param);
     }
 

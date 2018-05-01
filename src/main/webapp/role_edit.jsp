@@ -240,10 +240,10 @@
 				type : "POST",
 				success : function(data) {
 					if(data == "success"){
-						alert("修改用户成功!");
+						alert("修改角色成功!");
 						window.location.reload();
 					}else{
-						alert("新增用户失败!");
+						alert("新增角色失败!");
 					}
 					return;
 				},

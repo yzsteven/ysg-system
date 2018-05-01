@@ -1,5 +1,7 @@
 package com.api.model;
 
+import com.system.model.PageHelper;
+
 import java.util.Date;
 
 public class Banner {
@@ -17,7 +19,7 @@ public class Banner {
 
     private int order;
 
-    private Long cid;
+    private String cid;
 
     private Integer isdel;
 
@@ -28,6 +30,8 @@ public class Banner {
     private Date updateTime;
 
     private String updateBy;
+
+    private PageHelper pageHelper;
 
     public Long getId() {
         return id;
@@ -85,11 +89,11 @@ public class Banner {
         this.order = order;
     }
 
-    public Long getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Long cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 
@@ -131,5 +135,13 @@ public class Banner {
 
     public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy == null ? null : updateBy.trim();
+    }
+
+    public PageHelper getPageHelper() {
+        return pageHelper;
+    }
+
+    public void setPageHelper(PageHelper pageHelper) {
+        this.pageHelper = pageHelper;
     }
 }

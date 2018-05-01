@@ -1,8 +1,10 @@
 package com.system.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.system.model.Company;
+import org.apache.shiro.crypto.hash.Hash;
 
 public interface CompanyMapper {
     int deleteByPrimaryKey(Long id);
@@ -18,4 +20,8 @@ public interface CompanyMapper {
     int updateByPrimaryKey(Company record);
     
     List<Company> selectCompanyList();
+
+    List<HashMap<String,Object>> selectCompany(HashMap<String,Object> param);
+
+    int selectCountCompanyAll(HashMap<String,Object> param);
 }

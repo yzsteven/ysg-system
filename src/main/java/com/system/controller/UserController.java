@@ -67,16 +67,12 @@ public class UserController {
 	 * 下午8:30:03
 	 * TODO
 	 */
-	@RequestMapping(value="/searchInfoByCompanyId",method=RequestMethod.GET)
+	@RequestMapping(value="/searchRoles",method=RequestMethod.GET)
 	@ResponseBody
-	public HashMap<String, Object> searchroles(@RequestParam Long companyId){
+	public HashMap<String, Object> searchroles(){
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		List<Role> roleList = roleService.selectRolesAll(companyId);
-		List<Department> departmentList = departmentService.getDepartmentList(companyId);
-		List<Position> positionList = positionService.getPositionList(companyId);
+		List<Role> roleList = roleService.selectRolesAll();
 		result.put("roleList", roleList);
-		result.put("departmentList", departmentList);
-		result.put("positionList", positionList);
 		return result;
 	}
 	

@@ -47,6 +47,9 @@ public class AppController {
     @Autowired
     private GoodService goodService;
 
+    @Autowired
+    private BannerService bannerService;
+
     @RequestMapping("/index")
     @ResponseBody
     public Response index(@RequestParam String cid) {
@@ -336,6 +339,76 @@ public class AppController {
     @RequiresPermissions("good:update")
     public Response doEditGoods(@RequestBody Good good) {
         return goodService.editGoodsInfo(good);
+    }
+
+    @RequestMapping("/toAddBanner")
+    @RequiresPermissions("banner:create")
+    public ModelAndView toAddBanner() {
+        return new ModelAndView("banner_add");
+    }
+
+    @RequestMapping("/doAddBanner")
+    @ResponseBody
+    @RequiresPermissions("banner:create")
+    public Response doAddBanner(@ModelAttribute Banner banner){
+        return bannerService.doAddBanner(banner);
+    }
+
+    @RequestMapping("/toEditBanner")
+    @RequiresPermissions("banner:update")
+    public ModelAndView toEditBanner(@RequestParam long id) {
+        Banner banner = bannerService.queryBannerById(id);
+        return new ModelAndView("banner_edit").addObject("banner",banner);
+    }
+
+    @RequestMapping("/doEditBanner")
+    @ResponseBody
+    @RequiresPermissions("banner:update")
+    public Response doEditBanner(@ModelAttribute Banner banner){
+        return bannerService.doEditBanner(banner);
+    }
+
+    @RequestMapping("deleBanner")
+    @ResponseBody
+    @RequiresPermissions("banner:delete")
+    public Response deleBanner(@RequestParam long id){
+        return bannerService.deleBanner(id);
+    }
+
+
+    /**
+     * 后台获取轮播图列表
+     *
+     * @param pageHelper
+     * @return
+     */
+    @RequestMapping("/queryBannerListByCID")
+    @ResponseBody
+    @RequiresPermissions("banner:view")
+    public HashMap<String, Object> queryBannerListByCID(@ModelAttribute PageHelper pageHelper) {
+        Banner banner = new Banner();
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getSession().getAttribute("user");
+        banner.setCid(user.getCompany());
+        banner.setPageHelper(pageHelper);
+        Response resp = bannerService.queryBannerListByCID(banner);
+        int count = bannerService.countBannerListAll(banner);
+        int page = (count + pageHelper.getPageSize() - 1) / pageHelper.getPageSize();
+        result.put("total", count);
+        result.put("page", page);
+        result.put("rows", resp.getRetValue());
+        return result;
+    }
+
+    /**
+     * 获取轮播图列表
+     * @return
+     */
+    @RequestMapping("/toSearchBanner")
+    @RequiresPermissions("banner:view")
+    public ModelAndView toSearchBanner() {
+        return new ModelAndView("banner_search");
     }
 
 

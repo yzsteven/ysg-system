@@ -6,7 +6,7 @@ import com.system.model.PageHelper;
 import com.system.model.Role;
 
 public interface RoleService {
-	List<Role> selectRolesAll(Long companyId);
+	List<Role> selectRolesAll();
 
 	List<Role> searchRoles(PageHelper pageHelper);
 

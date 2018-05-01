@@ -23,11 +23,11 @@
     where id = #{id,jdbcType=BIGINT} AND available = 0
   </select>
   
-  <select id="selectRolesAll" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+  <select id="selectRolesAll" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from sys_role
-    where  available = 0 and company = #{companyId,jdbcType=VARCHAR}
+    where  available = 0
   </select>
   
    <select id="selectUserRolesAll" resultType="java.lang.String" parameterType="java.lang.String" >
@@ -39,15 +39,10 @@
 
   <select id="selectRoles" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
     select
-    r.id as id ,role,description,resource_ids,c.`name` as company
+    r.id as id ,role,description,resource_ids
     from sys_role r
-    inner join sys_company c on r.company = c.register_num
     <where>
       r.available = 0
-      AND  c.isdel = 0
-      <if test="search!=null and search != ''">
-        AND c.name like CONCAT(CONCAT('%', #{search}), '%')
-      </if>
     </where>
     limit #{start},#{end}
   </select>
@@ -56,14 +51,9 @@
           parameterType="java.util.HashMap">
     select
     count(1)
-    from sys_role r
-    inner join sys_company c on r.company = c.register_num
+    from sys_role
     <where>
       available = 0
-      AND  c.isdel = 0
-      <if test="search!=null and search != ''">
-        AND c.name like CONCAT(CONCAT('%', #{search}), '%')
-      </if>
     </where>
   </select>
 

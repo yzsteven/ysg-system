@@ -82,21 +82,25 @@
                     </li>
                 </shiro:hasPermission>
 
-                <!-- <li>
+                <shiro:hasPermission name="company:view">
+                 <li>
                     <a href="index.html#">
                         <i class="fa fa-group"></i>
                         <span class="nav-label">公司管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
+                        <shiro:hasPermission name="company:create">
+                            <li>
+                            <a class="J_menuItem" href="${contextPath}/toAddCompany" data-index="0">公司新增</a>
+                            </li>
+                        </shiro:hasPermission>
                         <li>
-                        <a class="J_menuItem" href="employee.jsp" data-index="0">公司新增</a>
-                        </li>
-                        <li>
-                        <a class="J_menuItem" href="employee.jsp" data-index="0">查询查询</a>
+                        <a class="J_menuItem" href="${contextPath}/toSearchCompany" data-index="0">公司查询</a>
                         </li>
                     </ul>
-                </li> -->
+                </li>
+                </shiro:hasPermission>
 
                 <shiro:hasPermission name="role:view">
                     <li>
@@ -118,6 +122,28 @@
                     </li>
                 </shiro:hasPermission>
 
+
+                <shiro:hasPermission name="banner:view">
+                    <li>
+                        <a href="index.html#">
+                            <i class="fa fa-file-image-o"></i>
+                            <span class="nav-label">轮播图管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <shiro:hasPermission name="banner:create">
+                                <li>
+                                    <a class="J_menuItem" href="${contextPath}/shop/toAddBanner"
+                                       data-index="0">新增轮播图</a>
+                                </li>
+                            </shiro:hasPermission>
+                            <li>
+                                <a class="J_menuItem" href="${contextPath}/shop/toSearchBanner"
+                                   data-index="0">轮播图查询</a>
+                            </li>
+                        </ul>
+                    </li>
+                </shiro:hasPermission>
 
                 <shiro:hasPermission name="category:view">
                     <li>
