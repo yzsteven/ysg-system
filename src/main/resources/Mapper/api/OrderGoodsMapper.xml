@@ -27,11 +27,11 @@
   
   <select id="selectGoodsListByOrderId" parameterType="java.lang.Long" resultType="java.util.HashMap">
     SELECT
-        o.num,
+        o.num  AS count,
         IFNULL(o.spec,"") as spec,
         o.price,
         IFNULL(g.name,"") as name,
-        IFNULL(g.coverImg,"") as coverImg
+        IFNULL(g.coverImg,"") as thumb
     FROM
         sys_order_goods o
     INNER JOIN sys_good g ON o.gid = g.id

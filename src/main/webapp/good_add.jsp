@@ -351,6 +351,7 @@
                 if (data.retValue == "success") {
                     alert("保存成功!");
                     window.location.reload();
+                    parent.RefreshCloudHomePageTab();
                 } else {
                     alert("保存失败!");
                 }

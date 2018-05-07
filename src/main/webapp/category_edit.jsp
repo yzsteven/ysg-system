@@ -204,6 +204,7 @@
             success: function (data) {
                 if (data.retValue.result == "success") {
                     alert("保存成功!");
+                    parent.RefreshCloudHomePageTab();
                 } else {
                     alert("保存失败!");
                 }

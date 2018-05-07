@@ -65,6 +65,10 @@
 			var oTable = new TableInit();
 			oTable.Init();
 
+            window.top["Refresh_CloudHomePage_Content"] = function () {
+                window.location.reload();
+            }
+
 			//2.初始化Button的点击事件
 			var oButtonInit = new ButtonInit();
 			oButtonInit.Init();
@@ -181,7 +185,7 @@
 		function operateFormatter(value, row, index) {
 			var msg = "取消订单";
 			var arr = [
-		       // '<shiro:hasPermission name="order:view"><button id="searchDetail" type="button" class="btn btn-primary btn-xs">查看订单</button></shiro:hasPermission>&nbsp;&nbsp;'
+		        '<shiro:hasPermission name="order:view"><button id="searchDetail" type="button" class="btn btn-primary btn-xs">查看订单</button></shiro:hasPermission>&nbsp;&nbsp;'
 			]
 
 		    switch (row.orderstatus){
@@ -196,7 +200,7 @@
 		      
 		      window.operateEvents = {
 		    	      'click #searchDetail': function (e, value, row, index) {
-		    	    	  window.location.href = "${contextPath}/shop/toModifyCategory?id="+row.id;
+                          parent.addMenuTab("${contextPath}/shop/queryOrderInfo?id="+row.id,0,"订单详情");
 		    	      },
 		    	      'click #edit': function (e, value, row, index) {
 		    	        	$.ajax({

@@ -324,6 +324,7 @@
 				success : function(data) {
 					if(data == "success"){
 						alert("修改用户成功!");
+                        parent.RefreshCloudHomePageTab();
 					}else{
 						alert("修改用户失败!");
 					}

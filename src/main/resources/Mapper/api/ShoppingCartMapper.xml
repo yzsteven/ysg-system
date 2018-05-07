@@ -61,7 +61,7 @@
     SELECT
         c.id AS id,
         g.id AS gid,
-        IFNULL(g.coverImg,"") AS coverImg,
+        IFNULL(g.coverImg,"") AS image,
         g.`name` AS gname,
         c.num AS num,
         c.price AS price,
@@ -202,6 +202,22 @@
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="deleShoppingCart" parameterType="com.api.model.ShoppingCart">
+        update sys_shopping_cart
+        <set>
+            <if test="isdel != null">
+                isdel = 1,
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where cid = #{cid,jdbcType=BIGINT} AND  gid = #{gid,jdbcType=BIGINT}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.api.model.ShoppingCart">

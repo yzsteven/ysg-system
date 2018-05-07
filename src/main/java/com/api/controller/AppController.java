@@ -10,6 +10,7 @@ import com.system.service.CompanyService;
 import com.system.service.ResourceService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -105,6 +106,13 @@ public class AppController {
     @RequiresPermissions("order:update")
     public Response modifyOrderInfo(@RequestBody Order order) {
         return orderService.modifyOrderInfo(order);
+    }
+
+    @RequestMapping("/queryOrderInfo")
+    @RequiresPermissions("order:view")
+    public ModelAndView modifyOrderInfo(@RequestParam Long id) {
+        HashMap<String,Object> orderInfo =  orderService.queryOrderInfoById(id);
+        return new ModelAndView("order_detail").addObject("order",orderInfo);
     }
 
     @RequestMapping("/modifyOrderInfoByAdmin")

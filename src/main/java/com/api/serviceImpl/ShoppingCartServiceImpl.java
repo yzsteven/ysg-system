@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +88,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     public Response queryShoppingCart(ShoppingCart record) {
         HashMap<String,Object> resultMap = new HashMap<String, Object>();
         List<HashMap<String,Object>> glist = shoppingCartMapper.selectShoppinCart(record);
+        BigDecimal totalPrice = new BigDecimal(0);
+        for(HashMap<String,Object> cart : glist){
+            String gname = (String) cart.get("gname");
+            String spec = (String) cart.get("spec");
+            Integer num = (Integer) cart.get("num");
+            BigDecimal price = (BigDecimal) cart.get("price");
+            totalPrice = totalPrice.add(new BigDecimal(num).multiply(price));
+            cart.put("title",gname + " " + spec);
+            cart.put("selected",true);
+        }
         resultMap.put("glist",glist);
+        resultMap.put("totalPrice",totalPrice);
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),resultMap);
     }
 

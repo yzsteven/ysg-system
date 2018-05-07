@@ -353,6 +353,7 @@
             success: function (data) {
                 if (data.retValue == "success") {
                     alert("保存成功!");
+                    parent.RefreshCloudHomePageTab();
                 } else {
                     alert("保存失败!");
                 }

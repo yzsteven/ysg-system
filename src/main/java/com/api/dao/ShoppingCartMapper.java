@@ -24,4 +24,6 @@ public interface ShoppingCartMapper {
     int updateByPrimaryKey(ShoppingCart record);
 
     List<HashMap<String,Object>> selectShoppinCart(ShoppingCart record);
+
+    int deleShoppingCart(ShoppingCart record);
 }

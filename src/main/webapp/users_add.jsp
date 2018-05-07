@@ -310,6 +310,7 @@
 					if(data == "success"){
 						alert("新增用户成功!");
 						window.location.reload();
+                        parent.RefreshCloudHomePageTab();
 					}else{
 						alert("新增用户失败!");
 					}

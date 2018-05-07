@@ -14,7 +14,7 @@ public class ShoppingCart {
 
     private BigDecimal price;
 
-    private Long cid;
+    private String cid;
 
     private Integer isdel;
 
@@ -68,11 +68,11 @@ public class ShoppingCart {
         this.price = price;
     }
 
-    public Long getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Long cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 

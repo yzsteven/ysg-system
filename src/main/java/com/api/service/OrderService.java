@@ -21,4 +21,6 @@ public interface OrderService {
     public Response modifyOrderInfoByAdmin(Order order);
 
     public int countOrderListAll(Order order);
+
+    public HashMap<String,Object> queryOrderInfoById(Long id);
 }

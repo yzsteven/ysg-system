@@ -241,7 +241,7 @@
 				success : function(data) {
 					if(data == "success"){
 						alert("修改角色成功!");
-						window.location.reload();
+                        parent.RefreshCloudHomePageTab();
 					}else{
 						alert("新增角色失败!");
 					}

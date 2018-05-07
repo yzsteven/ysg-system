@@ -65,6 +65,10 @@
 			var oTable = new TableInit();
 			oTable.Init();
 
+            window.top["Refresh_CloudHomePage_Content"] = function () {
+                window.location.reload();
+            }
+
 			//2.初始化Button的点击事件
 			var oButtonInit = new ButtonInit();
 			oButtonInit.Init();

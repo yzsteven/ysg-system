@@ -8,7 +8,6 @@ function addMenuTab(dataUrl,dataIndex,menuName) {
         if ($(this).data('id') == dataUrl) {
             if (!$(this).hasClass('active')) {
                 $(this).addClass('active').siblings('.J_menuTab').removeClass('active');
-                scrollToTab(this);
                 // 显示tab对应的内容区
                 $('.J_mainContent .J_iframe').each(function () {
                     if ($(this).data('id') == dataUrl) {
@@ -33,7 +32,12 @@ function addMenuTab(dataUrl,dataIndex,menuName) {
 
         // 添加选项卡
         $('.J_menuTabs .page-tabs-content').append(str);
-        scrollToTab($('.J_menuTab.active'));
     }
     return false;
+}
+
+function RefreshCloudHomePageTab() {
+    $('.J_menuTab').each(function () {
+       window.top.Refresh_CloudHomePage_Content.call();
+    });
 }

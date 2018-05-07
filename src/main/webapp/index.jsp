@@ -85,7 +85,7 @@
                 <shiro:hasPermission name="company:view">
                  <li>
                     <a href="index.html#">
-                        <i class="fa fa-group"></i>
+                        <i class="fa fa-institution"></i>
                         <span class="nav-label">公司管理</span>
                         <span class="fa arrow"></span>
                     </a>
@@ -554,7 +554,7 @@
         </div>
         <div class="footer">
             <div class="pull-right">
-                &copy; 2017-2018
+                &copy; v1.0
             </div>
         </div>
     </div>

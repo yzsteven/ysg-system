@@ -2,6 +2,7 @@ package com.api.serviceImpl;
 
 import com.api.dao.OrderGoodsMapper;
 import com.api.dao.OrderMapper;
+import com.api.dao.ShoppingCartMapper;
 import com.api.model.*;
 import com.api.service.OrderService;
 import com.system.model.User;
@@ -14,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by zy on 2018/3/8.
@@ -31,6 +31,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderGoodsMapper orderGoodsMapper;
+
+    @Autowired
+    private ShoppingCartMapper shoppingCartMapper;
 
 
     /**
@@ -58,6 +61,18 @@ public class OrderServiceImpl implements OrderService {
             int countOrderGoods = orderGoodsMapper.insertSelective(o);
             if(countOrderGoods <= 0 ){
                 throw new IUFailException();
+            }
+
+            //清空购物车中已经下单的商品
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setIsdel(1);
+            shoppingCart.setCid(order.getCid());
+            shoppingCart.setGid(o.getGid());
+            shoppingCart.setUpdateBy(order.getCreateBy());
+            shoppingCart.setUpdateTime(new Date());
+            int countSC = shoppingCartMapper.deleShoppingCart(shoppingCart);
+            if(countSC < 0){
+                throw  new IUFailException();
             }
         }
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
@@ -136,6 +151,36 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * 获取订单详情
+     * @param id
+     * @return
+     */
+    public HashMap<String,Object> queryOrderInfoById(Long id) {
+
+        Order order = orderMapper.selectByPrimaryKey(id);
+        HashMap<String,Object> orderInfo = new HashMap<String, Object>();
+        orderInfo.put("id",order.getId());
+        orderInfo.put("orderno",order.getOrderno());
+        orderInfo.put("orderstatus",order.getOrderstatus());
+        orderInfo.put("contactname",order.getContactname());
+        orderInfo.put("contactphone",order.getContactphone());
+        orderInfo.put("address",order.getAddress());
+        orderInfo.put("expressfee",order.getExpressfee());
+        orderInfo.put("payno",order.getPayno());
+        SimpleDateFormat myFmt2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(order.getPaytime() != null){
+            orderInfo.put("paytime",myFmt2.format(order.getPaytime()));
+        }
+        orderInfo.put("totalprice",order.getTotalprice());
+        orderInfo.put("payprice",order.getPayprice());
+        orderInfo.put("paytype",order.getPaytype());
+        List<HashMap<String,Object>> orderGoods = orderGoodsMapper.selectGoodsListByOrderId(order.getId());
+        orderInfo.put("goodsinfo",orderGoods);
+
+        return orderInfo;
+    }
+
+    /**
      * 根据cid获取订单列表
      * @param order
      * @return
@@ -180,6 +225,7 @@ public class OrderServiceImpl implements OrderService {
      */
     public Response queryOrderListByUID(Order order) {
 
+
         HashMap<String,Object> param = new HashMap<String, Object>();
         HashMap<String,Object> result = new HashMap<String, Object>();
 
@@ -195,11 +241,11 @@ public class OrderServiceImpl implements OrderService {
             for(HashMap<String,Object> orderMap : orderList){
                 Long orderId = (Long) orderMap.get("id");
                 List<HashMap<String,Object>> goodsList = orderGoodsMapper.selectGoodsListByOrderId(orderId);
-                orderMap.put("goodsList",goodsList);
+                orderMap.put("gInfo",goodsList);
             }
         }
 
-        result.put("orderList",orderList);
+        result.put("orders",orderList);
 
         return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
     }
