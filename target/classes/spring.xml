@@ -51,6 +51,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd
         <property name="unauthorizedUrl" value="/500.html"></property>
         <property name="filterChainDefinitions">
             <value>
+                /wx/** = anon
                 /shop/**= anon
                 /css/**= anon
                 /img/**= anon

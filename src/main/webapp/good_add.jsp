@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/demo/webuploader-demo.min.css">
     <link href="${contextPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="${contextPath}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="${contextPath}/css/demo/bootstrap-fileinput.css" rel="stylesheet">
     <script src="${contextPath}/js/ysg/template.js"></script>
 </head>
 
@@ -53,6 +54,36 @@
                             <div class="col-sm-2">
                                 <input type="text" id="name" name="name"
                                        class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">商品封面图片</label>
+
+                            <div class="col-sm-5">
+                                    <div class="form-group" id="uploadForm"  enctype='multipart/form-data'>
+                                        <div class="fileinput fileinput-new" data-provides="fileinput"
+                                             id="exampleInputUpload">
+                                            <div class="fileinput-new thumbnail"
+                                                 style="width: 200px;height: auto;max-height:150px;">
+                                                <img id='picImg' style="width: 100%;height: auto;max-height: 140px;"
+                                                     src="${contextPath}/img/noimage.png" alt=""/>
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                                 style="max-width: 200px; max-height: 150px;"></div>
+                                            <div>
+                                            <span class="btn btn-primary btn-file">
+                                                <span class="fileinput-new">选择文件</span>
+                                                <span class="fileinput-exists">换一张</span>
+                                                <input type="file" name="pic1" id="picID" accept="image/gif,image/jpeg,image/x-png">
+                                            </span>
+                                                <a href="javascript:;" class="btn btn-warning fileinput-exists"
+                                                   data-dismiss="fileinput">移除</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="uploadSubmit" class="btn btn-info">提交</button>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -140,7 +171,7 @@
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-content no-padding">
 
-                                        <div class="summernote" id="service" >
+                                        <div class="summernote" id="service">
 
                                         </div>
 
@@ -166,26 +197,26 @@
                         <label class="col-sm-2 control-label">商品图片</label>
                         <div class="form-group">
                             <div class="col-sm-8">
-                                        <div id="uploader" class="wu-example">
-                                            <div class="queueList">
-                                                <div id="dndArea" class="placeholder">
-                                                    <div id="filePicker"></div>
-                                                    <p>或将照片拖到这里，单次最多可选300张</p>
-                                                </div>
-                                            </div>
-                                            <div class="statusBar" style="display:none;">
-                                                <div class="progress">
-                                                    <span class="text">0%</span>
-                                                    <span class="percentage"></span>
-                                                </div>
-                                                <div class="info"></div>
-                                                <div class="btns">
-                                                    <div id="filePicker2"></div>
-                                                    <div class="uploadBtn">开始上传</div>
-                                                </div>
-                                            </div>
+                                <div id="uploader" class="wu-example">
+                                    <div class="queueList">
+                                        <div id="dndArea" class="placeholder">
+                                            <div id="filePicker"></div>
+                                            <p>或将照片拖到这里，单次最多可选300张</p>
                                         </div>
                                     </div>
+                                    <div class="statusBar" style="display:none;">
+                                        <div class="progress">
+                                            <span class="text">0%</span>
+                                            <span class="percentage"></span>
+                                        </div>
+                                        <div class="info"></div>
+                                        <div class="btns">
+                                            <div id="filePicker2"></div>
+                                            <div class="uploadBtn">开始上传</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
 
@@ -244,16 +275,28 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
+<input type="hidden" value="" id="coverImg"/>
 <!-- 全局js -->
-<script src="${contextPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
 <!-- 自定义js -->
 <script src="${contextPath}/js/content.min.js?v=1.0.0"></script>
 <script src="${contextPath}/js/ysg/bootstrap-multiselect.js"></script>
 <script src="${contextPath}/js/plugins/summernote/summernote.min.js"></script>
 <script src="${contextPath}/js/plugins/summernote/summernote-zh-CN.js"></script>
+<script src="${contextPath}/js/demo/bootstrap-fileinput.js"></script>
 <script>
-    $(document).ready(function(){$(".summernote").summernote({lang:"zh-CN"})});var edit=function(){$("#eg").addClass("no-padding");$(".click2edit").summernote({lang:"zh-CN",focus:true})};var save=function(){$("#eg").removeClass("no-padding");var aHTML=$(".click2edit").code();$(".click2edit").destroy()};
+    $(document).ready(function () {
+        $(".summernote").summernote({
+            lang: "zh-CN",
+            callbacks: {
+                onImageUpload: function (files) { //the onImageUpload API
+                    console.log("ssssssss");
+                    sendFile(file);
+                }
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
     var BASE_URL = 'js/plugins/webuploader/.indexhtml';
@@ -269,29 +312,52 @@
 <script>
     $(document).ready(function () {
         reflush();
-        $('.summernote').summernote({
-            height: "500px",
-            callbacks: {
-                onImageUpload: function(files) { //the onImageUpload API
-                    img = sendFile(files[0]);
+        $('#uploadSubmit').click(function () {
+            var formData  = new FormData();
+            formData.append("file",$('#picID')[0].files[0]);
+            $.ajax({
+                url: '${contextPath}/upload',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    if(data.retValue){
+                        console.log('upload success');
+                        $("#coverImg").val(data.retValue);
+                        alert("上传成功！")
+                    }else{
+                        console.log(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.status);
                 }
-            }
+            });
         });
+
     });
 
     function sendFile(file) {
-        data = new FormData();
-        data.append("file", file);
+        console.log(file);
+        var formData = new FormData();
+        formData.append("file",file);
         console.log(data);
         $.ajax({
-            data: data,
+            data: formData,
             type: "POST",
-            url: "/upload",
+            url: "${contextPath}/upload",
             cache: false,
             contentType: false,
             processData: false,
-            success: function(url) {
-                $("#summernote").summernote(url); // the insertImage API
+            success: function (data) {
+                $("#summernote").summernote(data.retValue); // the insertImage API
+            },
+            error:function(){
+                alert("上传失败");
             }
         });
     }
@@ -325,13 +391,13 @@
         var isNew = $("#isNew").is(":checked") ? 1 : 0;
         var isRecommend = $("#isRecommend").is(":checked") ? 1 : 0;
         var isSelected = $("#isSelected").is(":checked") ? 1 : 0;
-        var banner = $("#url").val();
+        var banner = $("#coverImg").val() + "," + $("#url").val();
         var param = {
             "name": name,
             "goodno": goodno,
-            "spec":[{
-                "name":specname,
-                "price":price
+            "spec": [{
+                "name": specname,
+                "price": price
             }],
             "categoryid": category,
             "detail": detail,

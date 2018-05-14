@@ -243,7 +243,12 @@
 			<version>1.b.52</version>
 		</dependency>
 
-		<!-- shiro -->
+		<!--微信开发工具包-->
+		<dependency>
+			<groupId>com.jfinal</groupId>
+			<artifactId>jfinal-weixin</artifactId>
+			<version>1.8</version>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-logging</groupId>

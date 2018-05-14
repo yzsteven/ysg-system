@@ -47,7 +47,7 @@
 
   <select id="selectGoodsList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
     SELECT IFNULL(g.id,"") as id,IFNULL(g.name,"") as name,IFNULL(g.coverImg,"") as coverImg,IFNULL(g.coverImg,"") as coverImg,IFNULL(s.`name`,"") as spec,IFNULL(s.price,"") as price
-    FROM sys_good g LEFT JOIN sys_spec s on g.id = s.gid WHERE g.cid = 1 and g.isdel = 0 and s.isdel = 0 and s.`order` = 1
+    FROM sys_good g LEFT JOIN sys_spec s on g.id = s.gid WHERE g.cid = #{cid,jdbcType=VARCHAR} and g.isdel = 0 and s.isdel = 0 and s.`order` = 1
     <if test="isnew != null" >
       AND isNew = #{isnew,jdbcType=INTEGER}
     </if>

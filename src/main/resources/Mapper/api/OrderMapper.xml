@@ -99,6 +99,7 @@
     <if test="orderstatus != null" >
       AND  orderstatus = #{orderstatus,jdbcType=INTEGER}
     </if>
+    ORDER BY create_time  desc
     <if test="start != null and num != null" >
       limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
     </if>

@@ -2,7 +2,9 @@ package com.system.controller;
 
 import com.api.model.Response;
 import com.api.model.ResultCode;
+import com.system.util.CommonUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,8 +21,8 @@ public class FileUploadController {
 
     @RequestMapping("upload")
     @ResponseBody
-    public Response uploadimg(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
-        String host =  request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+    public Response uploadimg(@RequestParam  MultipartFile file, HttpServletRequest request) throws IOException {
+        String host =  request.getScheme() + "://" + request.getServerName();
         String oriFlieName = file.getOriginalFilename();
         OutputStream os = null;
         InputStream is = null;
@@ -29,12 +31,14 @@ public class FileUploadController {
             is = file.getInputStream();
             byte[] bs = new byte[1024];
             int len;
-            path = "/" + "picture";
-            File outDir = new File(path);
+            path = "/" + "pictures";
+            String savePicUrl = CommonUtils.getProperties("savePicUrl");
+            File outDir = new File(savePicUrl);
             outDir.mkdirs();
             String fileName = System.currentTimeMillis() + oriFlieName.substring(oriFlieName.lastIndexOf("."));
+            savePicUrl += "/" +fileName;
             path += "/" +fileName;
-            os = new FileOutputStream(path);
+            os = new FileOutputStream(savePicUrl);
             while ((len = is.read(bs)) != -1) {
                 os.write(bs, 0, len);
             }

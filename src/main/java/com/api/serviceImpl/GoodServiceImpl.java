@@ -196,14 +196,12 @@ public class GoodServiceImpl implements GoodService{
         String pictureIds = "";
         good.setIsdel(0);
         good.setUpdateTime(new Date());
-        good.setImages("");
         good.setCid(user.getCompany());
         good.setUpdateBy(user.getUsername());
         if(!StringUtil.isBlank(good.getImages())){
             String[] imgs = good.getImages().split(",");
             good.setCoverimg(imgs[0]);
         }
-
         if(!StringUtil.isBlank(good.getImages())){
             String[] imgs = good.getImages().split(",");
             pictureIds = addPicture(imgs,user,1);

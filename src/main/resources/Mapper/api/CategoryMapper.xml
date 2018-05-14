@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.api.dao.CategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.api.model.Category" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="parentId" property="parentid" jdbcType="BIGINT" />
-    <result column="banner" property="banner" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="INTEGER" />
-    <result column="isdel" property="isdel" jdbcType="INTEGER" />
-    <result column="cid" property="cid" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, name, description, parentId, banner,`order`,isdel,cid, create_by, create_time, update_by, update_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_category
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+<mapper namespace="com.api.dao.CategoryMapper">
+    <resultMap id="BaseResultMap" type="com.api.model.Category">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="parentId" property="parentid" jdbcType="BIGINT"/>
+        <result column="banner" property="banner" jdbcType="VARCHAR"/>
+        <result column="order" property="order" jdbcType="INTEGER"/>
+        <result column="isdel" property="isdel" jdbcType="INTEGER"/>
+        <result column="cid" property="cid" jdbcType="VARCHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, description, parentId, banner,`order`,isdel,cid, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_category
+        where id = #{id,jdbcType=BIGINT}
+    </select>
 
-  <select id="selectCategoryInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectCategoryInfoById" resultMap="BaseResultMap" parameterType="java.lang.Long">
     SELECT
         c.id AS  id,
         c. NAME,
@@ -37,8 +37,8 @@
     INNER JOIN sys_company com ON c.cid = com.register_num
     WHERE c.id = #{id,jdbcType=BIGINT}
   </select>
-  
-  <select id="selectCategoryList" resultType="java.util.HashMap" parameterType="java.lang.Long">
+
+    <select id="selectCategoryList" resultType="java.util.HashMap" parameterType="java.lang.Long">
       SELECT
       id,IFNULL(description,"") AS description,name,IFNULL(banner,"") AS banner
       FROM
@@ -51,43 +51,43 @@
   </select>
 
 
-  <select id="selectCountCategoryAll" resultType="java.lang.Integer"
-          parameterType="java.util.HashMap">
-    select
-    count(1)
-    from sys_category
-    <where>
-      isdel = 0
-      AND cid = #{cid,jdbcType=VARCHAR}
-      <if test="search!=null and search != ''">
-        AND name like CONCAT(CONCAT('%', #{search}), '%')
-      </if>
-    </where>
-  </select>
+    <select id="selectCountCategoryAll" resultType="java.lang.Integer"
+            parameterType="java.util.HashMap">
+        select
+        count(1)
+        from sys_category
+        <where>
+            isdel = 0
+            AND cid = #{cid,jdbcType=VARCHAR}
+            <if test="search!=null and search != ''">
+                AND name like CONCAT(CONCAT('%', #{search}), '%')
+            </if>
+        </where>
+    </select>
 
-  <select id="selectCategory" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-    SELECT
-    id,IFNULL(description,"") AS description,name,IFNULL(banner,"") AS banner,description
-    FROM
-    sys_category
-    WHERE
-    isdel = 0
-    AND cid = #{cid,jdbcType=VARCHAR}
-    <if test="search!=null and search != ''">
-      AND name like CONCAT(CONCAT('%', #{search}), '%')
-    </if>
-    ORDER BY `order` DESC
-    <if test="start != null and num != null" >
-      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
-    </if>
-  </select>
+    <select id="selectCategory" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT
+        id,IFNULL(description,"") AS description,name,IFNULL(banner,"") AS banner,description
+        FROM
+        sys_category
+        WHERE
+        isdel = 0
+        AND cid = #{cid,jdbcType=VARCHAR}
+        <if test="search!=null and search != ''">
+            AND name like CONCAT(CONCAT('%', #{search}), '%')
+        </if>
+        ORDER BY `order` DESC
+        <if test="start != null and num != null">
+            limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
+        </if>
+    </select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.api.model.Category" >
+    <insert id="insert" parameterType="com.api.model.Category">
     insert into sys_category (id, name, description, 
       parentId, isdel, create_by, 
       create_time, update_by, update_time
@@ -97,98 +97,110 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.api.model.Category" >
-    insert into sys_category
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="parentid != null" >
-        parentId,
-      </if>
-      <if test="isdel != null" >
-        isdel,
-      </if>
-      <if test="createBy != null" >
-        create_by,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateBy != null" >
-        update_by,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="parentid != null" >
-        #{parentid,jdbcType=BIGINT},
-      </if>
-      <if test="isdel != null" >
-        #{isdel,jdbcType=INTEGER},
-      </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null" >
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Category" >
-    update sys_category
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="parentid != null" >
-        parentId = #{parentid,jdbcType=BIGINT},
-      </if>
-      <if test="isdel != null" >
-        isdel = #{isdel,jdbcType=INTEGER},
-      </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.api.model.Category" >
+    <insert id="insertSelective" parameterType="com.api.model.Category">
+        insert into sys_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="parentid != null">
+                parentId,
+            </if>
+            <if test="cid != null">
+                cid,
+            </if>
+            <if test="banner != null">
+                banner,
+            </if>
+            <if test="isdel != null">
+                isdel,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parentid != null">
+                #{parentid,jdbcType=BIGINT},
+            </if>
+            <if test="cid != null">
+                #{cid,jdbcType=VARCHAR},
+            </if>
+            <if test="banner != null">
+                #{banner,jdbcType=VARCHAR},
+            </if>
+            <if test="isdel != null">
+                #{isdel,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.api.model.Category">
+        update sys_category
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="parentid != null">
+                parentId = #{parentid,jdbcType=BIGINT},
+            </if>
+            <if test="isdel != null">
+                isdel = #{isdel,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.api.model.Category">
     update sys_category
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},

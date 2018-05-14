@@ -199,7 +199,7 @@
             },
             type: "POST",
             success: function (data) {
-                if (data.retValue == "success") {
+                if (data.retValue.result == "success") {
                     alert("保存成功!");
                     window.location.reload();
                     parent.RefreshCloudHomePageTab();
