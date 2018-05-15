@@ -275,7 +275,7 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
-<input type="hidden" value="" id="coverImg"/>
+<input type="hidden" value="" id="coverImgUrl"/>
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
@@ -287,13 +287,24 @@
 <script src="${contextPath}/js/demo/bootstrap-fileinput.js"></script>
 <script>
     $(document).ready(function () {
-        $(".summernote").summernote({
+        $("#detail").summernote({
             lang: "zh-CN",
-            callbacks: {
-                onImageUpload: function (files) { //the onImageUpload API
-                    console.log("ssssssss");
-                    sendFile(file);
-                }
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile(files[0], editor, welEditable);
+            }
+        });
+
+        $("#parameter").summernote({
+            lang: "zh-CN",
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile_parameter(files[0], editor, welEditable);
+            }
+        });
+
+        $("#service").summernote({
+            lang: "zh-CN",
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile_service(files[0], editor, welEditable);
             }
         });
     });
@@ -327,34 +338,73 @@
                     console.log(data);
                     if(data.retValue){
                         console.log('upload success');
-                        $("#coverImg").val(data.retValue);
+                        $("#coverImgUrl").val(data.retValue);
                         alert("上传成功！")
                     }else{
-                        console.log(data.message);
+                        console.log(data.retMsg);
                     }
                 },
                 error: function (data) {
-                    console.log(data.status);
+                    console.log(data.retMsg);
                 }
             });
         });
 
     });
 
-    function sendFile(file) {
-        console.log(file);
+    function sendFile(file, editor, welEditable) {
         var formData = new FormData();
         formData.append("file",file);
-        console.log(data);
         $.ajax({
             data: formData,
             type: "POST",
             url: "${contextPath}/upload",
+            async: false,
             cache: false,
             contentType: false,
             processData: false,
             success: function (data) {
-                $("#summernote").summernote(data.retValue); // the insertImage API
+                console.log(data.retValue);
+                editor.insertImage(welEditable,data.retValue);
+            },
+            error:function(){
+                alert("上传失败");
+            }
+        });
+    }
+    function sendFile_parameter(file, editor, welEditable) {
+        var formData = new FormData();
+        formData.append("file",file);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: "${contextPath}/upload",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                editor.insertImage(welEditable,data.retValue);
+            },
+            error:function(){
+                alert("上传失败");
+            }
+        });
+    }
+
+    function sendFile_service(file, editor, welEditable) {
+        var formData = new FormData();
+        formData.append("file",file);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: "${contextPath}/upload",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                editor.insertImage(welEditable,data.retValue);
             },
             error:function(){
                 alert("上传失败");
@@ -391,9 +441,31 @@
         var isNew = $("#isNew").is(":checked") ? 1 : 0;
         var isRecommend = $("#isRecommend").is(":checked") ? 1 : 0;
         var isSelected = $("#isSelected").is(":checked") ? 1 : 0;
-        var banner = $("#coverImg").val() + "," + $("#url").val();
+        var banner = $("#url").val();
+        var coverImgUrl = $("#coverImgUrl").val();
+        if(name == ""){
+            alert("商品名称不能为空！");
+            return ;
+        }
+        if(specname == ""){
+            alert("商品规格不能为空！");
+            return ;
+        }
+        if(price == ""){
+            alert("商品价格不能为空！");
+            return ;
+        }
+        if(coverImgUrl == ""){
+            alert("请上传商品封面图片！");
+            return ;
+        }
+        if(banner == ""){
+            alert("请上传商品图片！");
+            return ;
+        }
         var param = {
             "name": name,
+            "coverimg":coverImgUrl,
             "goodno": goodno,
             "spec": [{
                 "name": specname,

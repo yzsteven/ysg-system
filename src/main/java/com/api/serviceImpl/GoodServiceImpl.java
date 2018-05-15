@@ -162,10 +162,6 @@ public class GoodServiceImpl implements GoodService{
         good.setCreateBy(user.getUsername());
         if(!StringUtil.isBlank(good.getImages())){
             String[] imgs = good.getImages().split(",");
-            good.setCoverimg(imgs[0]);
-        }
-        if(!StringUtil.isBlank(good.getImages())){
-            String[] imgs = good.getImages().split(",");
             pictureIds = addPicture(imgs,user,0);
         }
         good.setImages(pictureIds);
@@ -198,10 +194,6 @@ public class GoodServiceImpl implements GoodService{
         good.setUpdateTime(new Date());
         good.setCid(user.getCompany());
         good.setUpdateBy(user.getUsername());
-        if(!StringUtil.isBlank(good.getImages())){
-            String[] imgs = good.getImages().split(",");
-            good.setCoverimg(imgs[0]);
-        }
         if(!StringUtil.isBlank(good.getImages())){
             String[] imgs = good.getImages().split(",");
             pictureIds = addPicture(imgs,user,1);
@@ -256,24 +248,24 @@ public class GoodServiceImpl implements GoodService{
      */
     public String addPicture(String[] imgs,User user,int operate){
         String pictureIds = "";
-        if(imgs.length > 1){
-            if(imgs.length > 1){
-                Picture picture = new Picture();
-                picture.setIsdel("0");
-                if(operate == 0) {//新增
-                    picture.setCreateBy(user.getUsername());
-                    picture.setCreateTime(new Date());
-                }else{
-                    picture.setUpdateBy(user.getUsername());
-                    picture.setUpdateTime(new Date());
-                }
-                for(int i = 1;i<imgs.length;i++){
+            if(imgs.length > 0){
+                for(int i = 0;i<imgs.length;i++){
+                    Picture picture = new Picture();
+                    picture.setIsdel("0");
+                    if(operate == 0) {//新增
+                        picture.setCreateBy(user.getUsername());
+                        picture.setCreateTime(new Date());
+                    }else{
+                        picture.setUpdateBy(user.getUsername());
+                        picture.setUpdateTime(new Date());
+                    }
                     picture.setUrl(imgs[i]);
-                    int pid = pictureMapper.insertSelective(picture);
-                    pictureIds += pid;
+                    long count = pictureMapper.insertSelective(picture);
+                    if(count > 0){
+                        pictureIds += picture.getId() + ",";
+                    }
                 }
             }
-        }
         return pictureIds;
     }
 

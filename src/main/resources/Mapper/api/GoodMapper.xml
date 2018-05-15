@@ -64,6 +64,7 @@
           g.id AS id,
           g.`name` AS title,
           IFNULL(g.goodno, "") AS goodno,
+          IFNULL(g.coverImg, "") AS coverImg,
           g.stock,
           IFNULL(g.detail, "") AS detail,
           IFNULL(g.parameter, "") AS parameter,

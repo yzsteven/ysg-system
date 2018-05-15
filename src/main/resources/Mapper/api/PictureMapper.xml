@@ -35,7 +35,7 @@
       #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.api.model.Picture" >
+  <insert id="insertSelective" parameterType="com.api.model.Picture" useGeneratedKeys="true" keyProperty="id">
     insert into sys_picture
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -182,6 +182,9 @@
             <if test="parentid != null">
                 parentId = #{parentid,jdbcType=BIGINT},
             </if>
+            <if test="banner != null">
+                banner = #{banner,jdbcType=VARCHAR},
+            </if>
             <if test="isdel != null">
                 isdel = #{isdel,jdbcType=INTEGER},
             </if>

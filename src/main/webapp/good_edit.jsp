@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/demo/webuploader-demo.min.css">
     <link href="${contextPath}/css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="${contextPath}/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="${contextPath}/css/demo/bootstrap-fileinput.css" rel="stylesheet">
     <script src="${contextPath}/js/ysg/template.js"></script>
 </head>
 
@@ -53,6 +54,36 @@
                             <div class="col-sm-2">
                                 <input type="text" id="name" name="name"
                                        class="form-control" value="${goodInfo.good.title}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">商品封面图片</label>
+
+                            <div class="col-sm-5">
+                                <div class="form-group" id="uploadForm"  enctype='multipart/form-data'>
+                                    <div class="fileinput fileinput-new" data-provides="fileinput"
+                                         id="exampleInputUpload">
+                                        <div class="fileinput-new thumbnail"
+                                             style="width: 200px;height: auto;max-height:150px;">
+                                            <img id='picImg' style="width: 100%;height: auto;max-height: 140px;"
+                                                 src="${goodInfo.good.coverImg}" alt=""/>
+                                        </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"
+                                             style="max-width: 200px; max-height: 150px;"></div>
+                                        <div>
+                                            <span class="btn btn-primary btn-file">
+                                                <span class="fileinput-new">选择文件</span>
+                                                <span class="fileinput-exists">换一张</span>
+                                                <input type="file" name="pic1" id="picID" accept="image/gif,image/jpeg,image/x-png">
+                                            </span>
+                                            <a href="javascript:;" class="btn btn-warning fileinput-exists"
+                                               data-dismiss="fileinput">移除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="uploadSubmit" class="btn btn-info">提交</button>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -244,6 +275,7 @@
     </div>
 </div>
 <input type="hidden" value="" id="url"/>
+<input type="hidden" value="${goodInfo.good.coverImg}" id="coverImgUrl"/>
 <input type="hidden" value="${goodInfo.good.id}" id="id" />
 <!-- 全局js -->
 <script src="${contextPath}/js/jquery.min.js?v=2.1.4"></script>
@@ -261,6 +293,7 @@
 </script>
 <script src="${contextPath}/js/plugins/webuploader/webuploader.min.js"></script>
 <script src="${contextPath}/js/demo/webuploader-demo.min.js"></script>
+<script src="${contextPath}/js/demo/bootstrap-fileinput.js"></script>
 <script id="ucategory" type="text/html">
     {{each categoryList as value i}}
     <option value="{{value.id}}">{{value.name}}</option>
@@ -270,29 +303,112 @@
 <script>
     $(document).ready(function () {
         reflush();
-        $('.summernote').summernote({
-            height: "500px",
-            callbacks: {
-                onImageUpload: function(files) { //the onImageUpload API
-                    img = sendFile(files[0]);
-                }
+        $("#detail").summernote({
+            lang: "zh-CN",
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile(files[0], editor, welEditable);
             }
+        });
+
+        $("#parameter").summernote({
+            lang: "zh-CN",
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile_parameter(files[0], editor, welEditable);
+            }
+        });
+
+        $("#service").summernote({
+            lang: "zh-CN",
+            onImageUpload: function (files, editor, welEditable) { //the onImageUpload API
+                sendFile_service(files[0], editor, welEditable);
+            }
+        });
+
+        $('#uploadSubmit').click(function () {
+            var formData  = new FormData();
+            formData.append("file",$('#picID')[0].files[0]);
+            $.ajax({
+                url: '${contextPath}/upload',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    if(data.retValue){
+                        console.log('upload success');
+                        $("#coverImgUrl").val(data.retValue);
+                        alert("上传成功！")
+                    }else{
+                        console.log(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.status);
+                }
+            });
         });
     });
 
-    function sendFile(file) {
-        data = new FormData();
-        data.append("file", file);
-        console.log(data);
+    function sendFile(file, editor, welEditable) {
+        var formData = new FormData();
+        formData.append("file",file);
         $.ajax({
-            data: data,
+            data: formData,
             type: "POST",
-            url: "/upload",
+            url: "${contextPath}/upload",
+            async: false,
             cache: false,
             contentType: false,
             processData: false,
-            success: function(url) {
-                $("#summernote").summernote(url); // the insertImage API
+            success: function (data) {
+                console.log(data.retValue);
+                editor.insertImage(welEditable,data.retValue);
+            },
+            error:function(){
+                alert("上传失败");
+            }
+        });
+    }
+
+    function sendFile_parameter(file, editor, welEditable) {
+        var formData = new FormData();
+        formData.append("file",file);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: "${contextPath}/upload",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                editor.insertImage(welEditable,data.retValue);
+            },
+            error:function(){
+                alert("上传失败");
+            }
+        });
+    }
+
+    function sendFile_service(file, editor, welEditable) {
+        var formData = new FormData();
+        formData.append("file",file);
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: "${contextPath}/upload",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                editor.insertImage(welEditable,data.retValue);
+            },
+            error:function(){
+                alert("上传失败");
             }
         });
     }
@@ -327,10 +443,36 @@
         var isRecommend = $("#isRecommend").is(":checked") ? 1 : 0;
         var isSelected = $("#isSelected").is(":checked") ? 1 : 0;
         var banner = $("#url").val();
+        var coverImgUrl = $("#coverImgUrl").val();
         var id= $("#id").val();
+        if(id == ""){
+            alert("商品不能为空！");
+            return ;id
+        }
+        if(name == ""){
+            alert("商品名称不能为空！");
+            return ;
+        }
+        if(specname == ""){
+            alert("商品规格不能为空！");
+            return ;
+        }
+        if(price == ""){
+            alert("商品价格不能为空！");
+            return ;
+        }
+        if(coverImgUrl == ""){
+            alert("请上传商品封面图片！");
+            return ;
+        }
+        if(banner == ""){
+            alert("请上传商品图片！");
+            return ;
+        }
         var param = {
             "id":id,
             "name": name,
+            "coverimg":coverImgUrl,
             "goodno": goodno,
             "spec":[{
                 "name":specname,

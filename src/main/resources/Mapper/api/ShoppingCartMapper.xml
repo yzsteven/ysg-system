@@ -68,7 +68,7 @@
         c.spec AS spec
     FROM
         sys_shopping_cart c
-    INNER JOIN sys_company com on c.cid = com.id
+    INNER JOIN sys_company com on c.cid = com.register_num
     INNER JOIN sys_good g ON c.gid = g.id
     WHERE
         c.create_by = #{createBy,jdbcType=VARCHAR}

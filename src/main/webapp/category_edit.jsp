@@ -22,10 +22,8 @@
           rel="stylesheet">
     <link href="${contextPath}/css/animate.min.css" rel="stylesheet">
     <link href="${contextPath}/css/style.min.css?v=3.2.0" rel="stylesheet">
-    <link rel="stylesheet"
-          href="${contextPath}/css/bootstrap-multiselect.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="${contextPath}/css/plugins/webuploader/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="${contextPath}/css/demo/webuploader-demo.min.css">
+    <link rel="stylesheet" href="${contextPath}/css/bootstrap-multiselect.css" type="text/css"/>
+    <link href="${contextPath}/css/demo/bootstrap-fileinput.css" rel="stylesheet">
     <script src="${contextPath}/js/ysg/template.js"></script>
 </head>
 
@@ -66,28 +64,32 @@
 
                         <div class="hr-line-dashed"></div>
 
-                        <label class="col-sm-2 control-label">分类图片</label>
                         <div class="form-group">
-                            <div class="col-sm-8">
-                                <div id="uploader" class="wu-example">
-                                    <div class="queueList">
-                                        <div id="dndArea" class="placeholder">
-                                            <div id="filePicker"></div>
-                                            <p>或将照片拖到这里，单次最多可选300张</p>
+                            <label class="col-sm-2 control-label">分类图片</label>
+
+                            <div class="col-sm-5">
+                                <div class="form-group" id="uploadForm"  enctype='multipart/form-data'>
+                                    <div class="fileinput fileinput-new" data-provides="fileinput"
+                                         id="exampleInputUpload">
+                                        <div class="fileinput-new thumbnail"
+                                             style="width: 200px;height: auto;max-height:150px;">
+                                            <img id='picImg' style="width: 100%;height: auto;max-height: 140px;"
+                                                 src="${category.banner}" alt=""/>
                                         </div>
-                                    </div>
-                                    <div class="statusBar" style="display:none;">
-                                        <div class="progress">
-                                            <span class="text">0%</span>
-                                            <span class="percentage"></span>
-                                        </div>
-                                        <div class="info"></div>
-                                        <div class="btns">
-                                            <div id="filePicker2"></div>
-                                            <div class="uploadBtn">开始上传</div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail"
+                                             style="max-width: 200px; max-height: 150px;"></div>
+                                        <div>
+                                            <span class="btn btn-primary btn-file">
+                                                <span class="fileinput-new">选择文件</span>
+                                                <span class="fileinput-exists">换一张</span>
+                                                <input type="file" name="pic1" id="picID" accept="image/gif,image/jpeg,image/x-png">
+                                            </span>
+                                            <a href="javascript:;" class="btn btn-warning fileinput-exists"
+                                               data-dismiss="fileinput">移除</a>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" id="uploadSubmit" class="btn btn-info">提交</button>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -157,8 +159,7 @@
 <script type="text/javascript">
     var BASE_URL = 'js/plugins/webuploader/.indexhtml';
 </script>
-<script src="${contextPath}/js/plugins/webuploader/webuploader.min.js"></script>
-<script src="${contextPath}/js/demo/webuploader-demo.min.js"></script>
+<script src="${contextPath}/js/demo/bootstrap-fileinput.js"></script>
 <script id="ucompany" type="text/html">
     {{each companyList as value i}}
     <option value="{{value.registerNum}}">{{value.name}}</option>
@@ -168,6 +169,32 @@
 <script>
     $(document).ready(function () {
         reflush();
+        $('#uploadSubmit').click(function () {
+            var formData  = new FormData();
+            formData.append("file",$('#picID')[0].files[0]);
+            $.ajax({
+                url: '${contextPath}/upload',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log(data);
+                    if(data.retValue){
+                        console.log('upload success');
+                        $("#url").val(data.retValue);
+                        alert("上传成功！")
+                    }else{
+                        console.log(data.message);
+                    }
+                },
+                error: function (data) {
+                    console.log(data.status);
+                }
+            });
+        });
     });
 
 
@@ -192,8 +219,20 @@
         var name = $("#name").val();
         var description = $("#description").val();
         var banner = $("#url").val();
+        if(id == ""){
+            alert("分类id不能为空！");
+        }
+        if(name == ""){
+            alert("分类名称不能为空！");
+        }
+        if(description == ""){
+            alert("分类拼音不能为空！");
+        }
+        if(banner == ""){
+            alert("分类图片不能为空！");
+        }
         $.ajax({
-            url: "${contextPath}/shop/doEditBanner",
+            url: "${contextPath}/shop/modifyCategory",
             data: {
                 "id": id,
                 "name": name,
