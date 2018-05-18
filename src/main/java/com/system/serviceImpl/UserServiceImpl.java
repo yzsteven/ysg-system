@@ -160,12 +160,18 @@ public class UserServiceImpl implements UserService {
         user.setUpdateBy(currentUser.getUsername());
         user.setUpdateTime(new Date());
         if (!StringUtil.isBlank(user.getPassword())) {//修改的密码不为空
+            user.setUsername(currentUser.getUsername());
             user.setPassword(user.getPassword());
             PasswordHelper passwordHelper = new PasswordHelper();
             passwordHelper.encryptPassword(user);
         }
         int count = userMapper.updateByUsernameSelective(user);
         if (count > 0) {
+            if (!StringUtil.isBlank(user.getPassword())) {//重置缓存密码
+                currentUser.setPassword(user.getPassword());
+                currentUser.setSalt(user.getSalt());
+                SecurityUtils.getSubject().getSession().setAttribute("user",currentUser);
+            }
             result = "success";
         }
         return result;

@@ -139,7 +139,8 @@ public class UserController {
 		List<Company> companyList = companyService.getCompanyList();
 		return new ModelAndView("/users_edit").addObject("user",user).addObject("companyList", companyList);
 	}
-	
+
+
 	/**
 	 * 修改用户信息
 	 * @author zy
