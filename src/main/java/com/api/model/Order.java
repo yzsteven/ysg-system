@@ -11,6 +11,8 @@ public class Order {
 
     private String orderno;
 
+    private String openId;
+
     private String goodsinfo;//暂时空着备用
 
     private List<OrderGoods> orderGoods;
@@ -67,6 +69,14 @@ public class Order {
 
     public void setOrderno(String orderno) {
         this.orderno = orderno == null ? null : orderno.trim();
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getGoodsinfo() {

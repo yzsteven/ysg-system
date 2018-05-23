@@ -185,7 +185,8 @@ public class UserServiceImpl implements UserService {
         int hashIterations = 2;
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo("zy",
                 "123456", ByteSource.Util.bytes(salt), "MyRealm");
-        SimpleHash hash = new SimpleHash(algorithmName, "123456", ByteSource.Util.bytes("zy" + salt), hashIterations);
+        SimpleHash hash = new SimpleHash(algorithmName, "123456", ByteSource.Util.bytes("admin" + salt), hashIterations);
         String encodedPassword = hash.toHex();
+        System.out.println(encodedPassword);
     }
 }

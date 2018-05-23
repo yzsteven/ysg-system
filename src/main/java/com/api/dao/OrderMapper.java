@@ -24,4 +24,6 @@ public interface OrderMapper {
 
     int selectCountOrderList(HashMap<String,Object> param);
 
+    Order selectByOrderNo(String orderNo);
+
 }

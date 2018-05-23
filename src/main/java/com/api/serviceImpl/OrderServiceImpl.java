@@ -43,16 +43,14 @@ public class OrderServiceImpl implements OrderService {
      */
     public Response createOrder(Order order) {
         HashMap<String,Object> resultMap = new HashMap<String, Object>();
-        String result = "success";
-        String createBy = "api";
+        String createBy = order.getCreateBy();
         String orderNo = CommonUtils.getOrderNo();
         order.setOrderno(orderNo);
         order.setIsdel(0);
         order.setCreateTime(new Date());
         int countOrder = orderMapper.insertSelective(order);
         if(countOrder <= 0 ){
-            result = "fail";
-            resultMap.put("result",result);
+            resultMap.put("result","fail");
             return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),resultMap);
         }
         for(OrderGoods o : order.getOrderGoods()){
@@ -75,7 +73,9 @@ public class OrderServiceImpl implements OrderService {
                 throw  new IUFailException();
             }
         }
-        return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
+        resultMap.put("result","success");
+        resultMap.put("orderId",order.getId());
+        return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),resultMap);
     }
 
 
@@ -86,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
      */
     public Response modifyOrderInfo(Order order) {
         String result = "success";
-        order.setUpdateBy("api");
+        order.setUpdateBy(order.getUpdateBy());
         order.setUpdateTime(new Date());
         int countOrder = orderMapper.updateByPrimaryKeySelective(order);
         if(countOrder <= 0 ){
@@ -148,6 +148,26 @@ public class OrderServiceImpl implements OrderService {
 
         int count = orderMapper.selectCountOrderList(param);
         return count;
+    }
+
+    /**
+     * 获取订单信息
+     * @param id
+     * @return
+     */
+    public Order queryOrderById(Long id) {
+        Order order = orderMapper.selectByPrimaryKey(id);
+        return order;
+    }
+
+    /**
+     * 根据订单号获取订单信息
+     * @param orderNo
+     * @return
+     */
+    public Order queryOrderByOrderNo(String  orderNo) {
+        Order order = orderMapper.selectByOrderNo(orderNo);
+        return order;
     }
 
     /**

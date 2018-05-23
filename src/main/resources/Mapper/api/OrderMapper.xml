@@ -27,10 +27,17 @@
     contactName, contactPhone, address, orderstatus,isdel, create_by, create_time, update_by, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from sys_order
     where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_order
+    where orderNo = #{orderNo,jdbcType=VARCHAR}
   </select>
 
   <select id="selectOrderListByCID" parameterType="java.util.HashMap" resultType="java.util.HashMap">

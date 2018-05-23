@@ -23,4 +23,8 @@ public interface OrderService {
     public int countOrderListAll(Order order);
 
     public HashMap<String,Object> queryOrderInfoById(Long id);
+
+    public Order queryOrderById(Long id);
+
+    public Order queryOrderByOrderNo(String  orderNo);
 }

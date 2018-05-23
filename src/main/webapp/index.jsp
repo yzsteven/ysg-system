@@ -556,7 +556,7 @@
         </div>
     </div>
     <!--右侧部分结束-->
-    <form class="form-horizontal" id="modifypassword">
+    <form class="form-horizontal" id="modifypassword" style="display: none;">
         <div class="form-group col-sm-12">
             <label class="col-sm-3 control-label">新密码：</label>
 
