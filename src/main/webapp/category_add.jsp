@@ -217,9 +217,6 @@
         var name = $("#name").val();
         var description = $("#description").val();
         var banner = $("#url").val();
-        if(id == ""){
-            alert("分类id不能为空！");
-        }
         if(name == ""){
             alert("分类名称不能为空！");
         }

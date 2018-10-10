@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+         pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +10,8 @@
 
     <title>eshop</title>
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="${contextPath}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="${contextPath}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="${contextPath}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
 
     <link href="${contextPath}/css/animate.min.css" rel="stylesheet">
@@ -19,9 +20,9 @@
 </head>
 
 <body class="gray-bg top-navigation">
-
-<div id="wrapper">
-    <div id="page-wrapper" class="gray-bg">
+<h1>更多功能敬请期待！</h1>
+<%--<div id="wrapper">
+  &lt;%&ndash;  <div id="page-wrapper" class="gray-bg">
         <div class="wrapper wrapper-content">
             <div class="container">
                 <div class="row">
@@ -29,7 +30,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <span class="label label-primary pull-right">当前</span>
-                                <h5>总收入</h5>
+                                <h5>总订单</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">&yen;80,800</h1>
@@ -61,12 +62,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h1 class="no-margins">406,420</h1>
-                                        <div class="font-bold text-navy"><small>访问次数（自然月内汇总）</small>
+                                        <div class="font-bold text-navy">
+                                            <small>访问次数（自然月内汇总）</small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h1 class="no-margins">206,120</h1>
-                                        <div class="font-bold text-navy"><small>访问人数（自然月内去重）</small>
+                                        <div class="font-bold text-navy">
+                                            <small>访问人数（自然月内去重）</small>
                                         </div>
                                     </div>
                                 </div>
@@ -78,17 +81,15 @@
                     <div class="col-md-4">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>数据总览</h5>
+                                <h5>总收入</h5>
                                 <div class="ibox-tools">
                                     <span class="label label-primary"></span>
                                 </div>
                             </div>
-                            <div class="ibox-content no-padding">
-                                <div class="flot-chart m-t-lg" style="height: 55px;">
-                                    <div class="flot-chart-content" id="flot-chart1"></div>
-                                </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">&yen;386,200</h1>
+                                <small>总计</small>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -96,18 +97,6 @@
                     <div class="col-lg-8">
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
-                                <div>
-                                        <span class="pull-right text-right">
-                                        <small>在过去的一个月销售的平均值：<strong>山东</strong></small>
-                                            <br/>
-                                            所有销售： 162,862
-                                        </span>
-                                    <h3 class="font-bold no-margins">
-                                        半年收入利润率
-                                    </h3>
-                                    <small>市场部</small>
-                                </div>
-
                                 <div class="m-t-sm">
 
                                     <div class="row">
@@ -120,7 +109,7 @@
                                             <ul class="stat-list m-t-lg">
                                                 <li>
                                                     <h2 class="no-margins">2,346</h2>
-                                                    <small>总订单</small>
+                                                    <small>最近一周订单</small>
                                                     <div class="progress progress-mini">
                                                         <div class="progress-bar" style="width: 48%;"></div>
                                                     </div>
@@ -138,16 +127,6 @@
 
                                 </div>
 
-                                <div class="m-t-md">
-                                    <small class="pull-right">
-                                        <i class="fa fa-clock-o"> </i>
-                                        2015.02.30更新
-                                    </small>
-                                    <small>
-                                        <strong>说明：</strong> 本期销售额比上期增长了23%。
-                                    </small>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -159,16 +138,16 @@
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-xs-4">
-                                        <small class="stats-label">访问页面 / 浏览量</small>
+                                        <small class="stats-label">打开次数（自然周内汇总）</small>
                                         <h4>236 321.80</h4>
                                     </div>
 
                                     <div class="col-xs-4">
-                                        <small class="stats-label">% 新访客</small>
-                                        <h4>46.11%</h4>
+                                        <small class="stats-label">新用户数（自然周内去重）</small>
+                                        <h4>46.11</h4>
                                     </div>
                                     <div class="col-xs-4">
-                                        <small class="stats-label">最后一周</small>
+                                        <small class="stats-label">最后一天</small>
                                         <h4>432.021</h4>
                                     </div>
                                 </div>
@@ -176,34 +155,17 @@
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-xs-4">
-                                        <small class="stats-label">访问页面 / 浏览量</small>
+                                        <small class="stats-label">打开次数（自然周内汇总）</small>
                                         <h4>643 321.10</h4>
                                     </div>
 
                                     <div class="col-xs-4">
-                                        <small class="stats-label">% 新访客</small>
-                                        <h4>92.43%</h4>
+                                        <small class="stats-label">新用户数（自然周内去重）</small>
+                                        <h4>92.43</h4>
                                     </div>
                                     <div class="col-xs-4">
                                         <small class="stats-label">最后一周</small>
                                         <h4>564.554</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <small class="stats-label">访问页面 / 浏览量</small>
-                                        <h4>436 547.20</h4>
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <small class="stats-label">% 新访客</small>
-                                        <h4>150.23%</h4>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <small class="stats-label">最后一周</small>
-                                        <h4>124.990</h4>
                                     </div>
                                 </div>
                             </div>
@@ -217,24 +179,7 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>自定义响应表格</h5>
-                                <div class="ibox-tools">
-                                    <a class="collapse-link">
-                                        <i class="fa fa-chevron-up"></i>
-                                    </a>
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-wrench"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a href="#">设置选项1</a>
-                                        </li>
-                                        <li><a href="#">设置选项2</a>
-                                        </li>
-                                    </ul>
-                                    <a class="close-link">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </div>
+                                <h5>访问页面统计</h5>
                             </div>
                             <div class="ibox-content">
                                 <div class="row">
@@ -242,15 +187,12 @@
                                         <div data-toggle="buttons" class="btn-group">
                                             <label class="btn btn-sm btn-white">
                                                 <input type="radio" id="option1" name="options">天</label>
-                                            <label class="btn btn-sm btn-white active">
-                                                <input type="radio" id="option2" name="options">周</label>
-                                            <label class="btn btn-sm btn-white">
-                                                <input type="radio" id="option3" name="options">月</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="input-group">
-                                            <input type="text" placeholder="搜索" class="input-sm form-control"> <span class="input-group-btn">
+                                            <input type="text" placeholder="搜索" class="input-sm form-control"> <span
+                                                class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-primary">搜索</button> </span>
                                         </div>
                                     </div>
@@ -259,49 +201,26 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>项目</th>
-                                            <th>进度</th>
-                                            <th>任务</th>
-                                            <th>日期</th>
-                                            <th>操作</th>
+                                            <th>页面路径</th>
+                                            <th>访问次数</th>
+                                            <th>访问人数</th>
+                                            <th>次均停留时长</th>
+                                            <th>进入页次数</th>
+                                            <th>退出页次数</th>
+                                            <th>转发次数</th>
+                                            <th>转发人数</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>米莫说｜MiMO Show</td>
-                                            <td><span class="pie">0.52/1.561</span>
-                                            </td>
-                                            <td>20%</td>
-                                            <td>2014.11.11</td>
-                                            <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>商家与购物用户的交互试衣应用</td>
-                                            <td><span class="pie">6,9</span>
-                                            </td>
-                                            <td>40%</td>
-                                            <td>2014.11.11</td>
-                                            <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>天狼---智能硬件项目</td>
-                                            <td><span class="pie">3,1</span>
-                                            </td>
-                                            <td>75%</td>
-                                            <td>2014.11.11</td>
-                                            <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>线下超市+线上商城+物流配送互联系统</td>
-                                            <td><span class="pie">4,9</span>
-                                            </td>
-                                            <td>18%</td>
-                                            <td>2014.11.11</td>
-                                            <td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a>
-                                            </td>
+                                            <td>pages/main/main.html</td>
+                                            <td>213429</td>
+                                            <td>55423</td>
+                                            <td>8.139198</td>
+                                            <td>117922</td>
+                                            <td>61304</td>
+                                            <td>180</td>
+                                            <td>166</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -316,20 +235,51 @@
             </div>
 
         </div>
-    </div>
-</div>
+    </div>&ndash;%&gt;
+</div>--%>
 
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.6"></script>
-<script src="js/content.min.js?v=1.0.0"></script>
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="js/plugins/chartJs/Chart.min.js"></script>
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.min.js"></script>
+<script src="${contextPath}/js/jquery.min.js?v=2.1.4"></script>
+<script src="${contextPath}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="${contextPath}/js/content.min.js?v=1.0.0"></script>
+<script src="${contextPath}/js/plugins/flot/jquery.flot.js"></script>
+<script src="${contextPath}/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="${contextPath}/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="${contextPath}/js/plugins/chartJs/Chart.min.js"></script>
+<script src="${contextPath}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="${contextPath}/js/demo/peity-demo.min.js"></script>
 <script>
-    $(document).ready(function(){var d1=[[1262304000000,6],[1264982400000,3057],[1267401600000,20434],[1270080000000,31982],[1272672000000,26602],[1275350400000,27826],[1277942400000,24302],[1280620800000,24237],[1283299200000,21004],[1285891200000,12144],[1288569600000,10577],[1291161600000,10295]];var d2=[[1262304000000,5],[1264982400000,200],[1267401600000,1605],[1270080000000,6129],[1272672000000,11643],[1275350400000,19055],[1277942400000,30062],[1280620800000,39197],[1283299200000,37000],[1285891200000,27000],[1288569600000,21000],[1291161600000,17000]];var data1=[{label:"数据1",data:d1,color:"#17a084"},{label:"数据2",data:d2,color:"#127e68"}];$.plot($("#flot-chart1"),data1,{xaxis:{tickDecimals:0},series:{lines:{show:true,fill:true,fillColor:{colors:[{opacity:1},{opacity:1}]},},points:{width:0.1,show:false},},grid:{show:false,borderWidth:0},legend:{show:false,}});var lineData={labels:["一月","二月","三月","四月","五月","六月","七月"],datasets:[{label:"示例数据",fillColor:"rgba(220,220,220,0.5)",strokeColor:"rgba(220,220,220,1)",pointColor:"rgba(220,220,220,1)",pointStrokeColor:"#fff",pointHighlightFill:"#fff",pointHighlightStroke:"rgba(220,220,220,1)",data:[65,59,40,51,36,25,40]},{label:"示例数据",fillColor:"rgba(26,179,148,0.5)",strokeColor:"rgba(26,179,148,0.7)",pointColor:"rgba(26,179,148,1)",pointStrokeColor:"#fff",pointHighlightFill:"#fff",pointHighlightStroke:"rgba(26,179,148,1)",data:[48,48,60,39,56,37,30]}]};var lineOptions={scaleShowGridLines:true,scaleGridLineColor:"rgba(0,0,0,.05)",scaleGridLineWidth:1,bezierCurve:true,bezierCurveTension:0.4,pointDot:true,pointDotRadius:4,pointDotStrokeWidth:1,pointHitDetectionRadius:20,datasetStroke:true,datasetStrokeWidth:2,datasetFill:true,responsive:true,};var ctx=document.getElementById("lineChart").getContext("2d");var myNewChart=new Chart(ctx).Line(lineData,lineOptions)});
+    $(document).ready(function () {
+        var lineData = {
+            labels: ["一月", "二月", "三月", "四月", "五月", "六月", "七月"],
+            datasets: [{
+                label: "示例数据",
+                fillColor: "rgba(26,179,148,0.5)",
+                strokeColor: "rgba(26,179,148,0.7)",
+                pointColor: "rgba(26,179,148,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: [100, 300, 500, 800, 1000, 210, 560]
+            }]
+        };
+        var lineOptions = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 2,
+            datasetFill: true,
+            responsive: true,
+        };
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        var myNewChart = new Chart(ctx).Line(lineData, lineOptions)
+    });
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 </body>

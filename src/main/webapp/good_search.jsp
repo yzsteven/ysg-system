@@ -140,7 +140,7 @@
                         pageNumber : params.pageNumber, //页码
                         searchParam :　params.searchText
                     },
-                    categoryid:""
+                    categoryid:"",
                 };
                 return JSON.stringify(temp);
 			};

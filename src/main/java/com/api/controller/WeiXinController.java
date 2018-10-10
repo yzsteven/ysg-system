@@ -2,16 +2,12 @@ package com.api.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.api.model.Order;
-import com.api.model.Response;
-import com.api.model.ResultCode;
-import com.api.model.WXinfo;
+import com.api.model.*;
 import com.api.service.OrderService;
 import com.api.service.WXInfoService;
 import com.jfinal.kit.HttpKit;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.weixin.sdk.api.AccessToken;
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
 import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.cache.IAccessTokenCache;
 import com.jfinal.weixin.sdk.kit.ParaMap;
@@ -25,6 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -80,14 +79,22 @@ public class WeiXinController {
     @RequestMapping("queryAppData")
     @ResponseBody
     public Response queryAppData(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getSession().getAttribute("user");
         WXinfo wXinfo = wXinfoService.queryWXInfoByCid(user.getCompany());
         AccessToken accessToken = getAccessToken(wXinfo.getAppid(),wXinfo.getAppSecret());
-        Map data = ParaMap.create("begin_date","20180521").put("end_date","20180521").getData();
+        Map data_week = ParaMap.create("begin_date","20180521").put("end_date","20180521").getData();
+        //Map data_month = ParaMap.create("begin_date",getMonthFirstAndEnd("first")).put("end_date",getMonthFirstAndEnd("end")).getData();
         Map<String, String> headers = ParaMap.create("content-type","application/json").getData();
-        String json = HttpKit.post("https://api.weixin.qq.com/datacube/getweanalysisappidmonthlyvisittrend?access_token="+accessToken.getAccessToken(), null, JsonKit.toJson(data),headers);
-        return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),json);
+        String json_week = HttpKit.post("https://api.weixin.qq.com/datacube/getweanalysisappidweeklyvisittrend?access_token="+accessToken.getAccessToken(), null, JsonKit.toJson(data_week),headers);
+       // String json_month = HttpKit.post("https://api.weixin.qq.com/datacube/getweanalysisappidmonthlyvisittrend?access_token="+accessToken.getAccessToken(), null, JsonKit.toJson(data_month),headers);
+        WxData weekData = JSON.parseObject(json_week,WxData.class);
+        WxData monthData = JSON.parseObject(json_week,WxData.class);
+        HashMap<String,Object> result = new HashMap<String, Object>();
+        result.put("weekData",weekData);
+        result.put("monthData",monthData);
+        return new Response(ResultCode.SUCCESS.getCode(),ResultCode.SUCCESS.getMsg(),result);
     }
 
     public AccessToken getAccessToken(String appId,String appSecret) {
@@ -111,5 +118,55 @@ public class WeiXinController {
         accessTokenCache.set(appId, result);
     }
 
+    /*private static String getMonthFirstAndEnd(String type){
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String firstday, lastday;
+
+        // 获取前月的第一天
+        Calendar cale = Calendar.getInstance();
+        cale.add(Calendar.MONTH, 0);
+        cale.set(Calendar.DAY_OF_MONTH, 1);
+        firstday = format.format(cale.getTime());
+
+        // 获取前月的最后一天
+        cale = Calendar.getInstance();
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DAY_OF_MONTH, 0);
+        lastday = format.format(cale.getTime());
+
+        if("first".equals(type)){
+            return firstday;
+        }else{
+            return lastday;
+        }
+    }
+
+
+    private static String getWeekFirstAndEnd(String type){
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        String firstday, lastday;
+
+        // 获取本周的第一天
+        Calendar cale = Calendar.getInstance();
+        cale.add(Calendar.WEDNESDAY, 0);
+        cale.set(Calendar.DAY_OF_WEEK, 1);
+        firstday = format.format(cale.getTime());
+
+        // 获取前月的最后一天
+        cale = Calendar.getInstance();
+        cale.add(Calendar.WEDNESDAY, 1);
+        cale.set(Calendar.DAY_OF_WEEK, 0);
+        lastday = format.format(cale.getTime());
+
+        if("first".equals(type)){
+            return firstday;
+        }else{
+            return lastday;
+        }
+    }*/
+
+    public static void main(String[] args) {
+        System.out.println("s");
+    }
 
 }
