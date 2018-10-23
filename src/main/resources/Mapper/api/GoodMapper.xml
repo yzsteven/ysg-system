@@ -348,8 +348,5 @@
     <if test="categoryId != null" >
       AND g.categoryId = #{categoryId,jdbcType=VARCHAR}
     </if>
-    <if test="start != null and num != null" >
-      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
-    </if>
   </select>
 </mapper>

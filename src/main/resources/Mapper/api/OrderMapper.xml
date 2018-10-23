@@ -87,9 +87,6 @@
     <if test="search != null" >
       AND orderNo LIKE CONCAT(CONCAT('%', #{search}), '%')
     </if>
-    <if test="start != null and num != null" >
-      limit #{start,jdbcType=INTEGER},#{num,jdbcType=INTEGER}
-    </if>
   </select>
   
   <select id="selectOrderListByUid" parameterType="java.util.HashMap" resultType="java.util.HashMap">
